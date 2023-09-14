@@ -12,7 +12,7 @@
 	</parent>
 
 	<groupId>udemy</groupId>
-	<artifactId>hexagonal</artifactId>
+	<artifactId>udemy_hexagonal</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>hexagonal</name>
 	<description>Projeto de estudo da arquitetura Hexagonal (Ports and Adapters)</description>
