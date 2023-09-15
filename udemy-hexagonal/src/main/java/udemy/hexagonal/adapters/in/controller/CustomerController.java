@@ -10,6 +10,7 @@ import udemy.hexagonal.adapters.in.controller.request.CustomerRequest;
 import udemy.hexagonal.adapters.in.controller.response.CustomerResponse;
 import udemy.hexagonal.application.ports.in.FindCustomerByIdInputPort;
 import udemy.hexagonal.application.ports.in.InsertCustomerInputPort;
+import udemy.hexagonal.application.ports.in.UpdateCustomerInputPort;
 
 @RestController
 @RequestMapping(path = "/api/v1/customers")
@@ -20,6 +21,9 @@ public class CustomerController {
 
     @Autowired
     private FindCustomerByIdInputPort findCustomerByIdInputPort;
+
+    @Autowired
+    private UpdateCustomerInputPort updateCustomerInputPort;
 
     @Autowired
     private CustomerMapper customerMapper;
@@ -44,6 +48,19 @@ public class CustomerController {
         return ResponseEntity
                 .ok()
                 .body(customerResponse);
+    }
+
+    @PutMapping(path = "/{id}")
+    public ResponseEntity<Void> update(@PathVariable(name = "id") final String id,
+                                       @RequestBody @Valid CustomerRequest customerRequest) {
+
+        var customer = this.customerMapper.toCustomer(customerRequest);
+        customer.setId(id);
+        this.updateCustomerInputPort.update(customer, customerRequest.getZipCode());
+
+        return ResponseEntity
+                .noContent()
+                .build();
     }
 }
 
