@@ -1,9 +1,10 @@
 package udemy.hexagonal.application.core.usecase;
 
 import udemy.hexagonal.application.core.domain.Customer;
+import udemy.hexagonal.application.ports.in.FindCustomerByIdInputPort;
 import udemy.hexagonal.application.ports.out.FindCustomerByIdOutputPort;
 
-public class FindCustomerByIdUseCase {
+public class FindCustomerByIdUseCase implements FindCustomerByIdInputPort {
 
     private final FindCustomerByIdOutputPort findCustomerByIdOutputPort;
 
@@ -11,7 +12,8 @@ public class FindCustomerByIdUseCase {
         this.findCustomerByIdOutputPort = findCustomerByIdOutputPort;
     }
 
-    public Customer find(String id) {
+    @Override
+    public Customer find(final String id) {
         return this.findCustomerByIdOutputPort.find(id)
                 .orElseThrow(() -> new RuntimeException("Customer not found"));
     }
