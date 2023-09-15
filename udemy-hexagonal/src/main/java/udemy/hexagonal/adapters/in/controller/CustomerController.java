@@ -24,6 +24,7 @@ public class CustomerController {
 
     @PostMapping
     public ResponseEntity<Void> insert(@RequestBody @Valid CustomerRequest customerRequest) {
+
         var customer = this.customerMapper.toCustomer(customerRequest);
         this.insertCustomerInputPort.insert(customer, customerRequest.getZipCode());
 
