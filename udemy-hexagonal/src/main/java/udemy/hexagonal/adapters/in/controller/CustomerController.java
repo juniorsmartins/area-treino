@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import udemy.hexagonal.adapters.in.controller.mapper.CustomerMapper;
 import udemy.hexagonal.adapters.in.controller.request.CustomerRequest;
 import udemy.hexagonal.adapters.in.controller.response.CustomerResponse;
+import udemy.hexagonal.application.ports.in.DeleteCustomerByIdInputPort;
 import udemy.hexagonal.application.ports.in.FindCustomerByIdInputPort;
 import udemy.hexagonal.application.ports.in.InsertCustomerInputPort;
 import udemy.hexagonal.application.ports.in.UpdateCustomerInputPort;
@@ -24,6 +25,9 @@ public class CustomerController {
 
     @Autowired
     private UpdateCustomerInputPort updateCustomerInputPort;
+
+    @Autowired
+    private DeleteCustomerByIdInputPort deleteCustomerByIdInputPort;
 
     @Autowired
     private CustomerMapper customerMapper;
@@ -58,6 +62,15 @@ public class CustomerController {
         customer.setId(id);
         this.updateCustomerInputPort.update(customer, customerRequest.getZipCode());
 
+        return ResponseEntity
+                .noContent()
+                .build();
+    }
+
+    @DeleteMapping(path = "/{id}")
+    public ResponseEntity<Void> delete(@PathVariable(name = "id") final String id) {
+
+        this.deleteCustomerByIdInputPort.delete(id);
         return ResponseEntity
                 .noContent()
                 .build();
