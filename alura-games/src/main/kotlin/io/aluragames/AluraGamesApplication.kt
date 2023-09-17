@@ -1,13 +1,10 @@
 package io.aluragames
 
-import com.google.gson.Gson
+import io.aluragames.modelo.Jogo
+import io.aluragames.servicos.ConsumoApi
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
-
-import java.net.URI
-import java.net.http.HttpClient
-import java.net.http.HttpRequest
-import java.net.http.HttpResponse.BodyHandlers
+import java.util.*
 
 @SpringBootApplication
 class AluraGamesApplication
@@ -15,29 +12,40 @@ class AluraGamesApplication
 fun main(args: Array<String>) {
 	runApplication<AluraGamesApplication>(*args)
 
-	val client: HttpClient = HttpClient.newHttpClient()
-	val request = HttpRequest.newBuilder()
-		.uri(URI.create("https://www.cheapshark.com/api/1.0/games?id=146"))
-		.build()
-	val response = client
-		.send(request, BodyHandlers.ofString())
+	val leitura = Scanner(System.`in`)
+	println("Digite o código de jogo para buscar: ")
+	val idJogo = leitura.nextLine()
 
-	val json = response.body()
-	println(json)
+	val buscaApi = ConsumoApi()
+	val infoJogo = buscaApi.buscaJogo(idJogo)
 
-	val meuJogo = Jogo("Batman: Arkham Asylum Game of the Year Edition",
-		"https:\\/\\/cdn.cloudflare.steamstatic.com\\/steam\\/apps\\/35140\\/capsule_sm_120.jpg?t=1681938587")
-	println(meuJogo)
+	var jogo: Jogo? = null
 
-	val novoJogo = Jogo(capa = "https:\\/\\/cdn.cloudflare.steamstatic.com\\/steam\\/apps\\/35140\\/capsule_sm_120.jpg?t=1681938587",
-		titulo = "Batman: Arkham Asylum Game of the Year Edition")
-	println(novoJogo)
+	val resultado = runCatching {
+		jogo = Jogo(infoJogo.info.title, infoJogo.info.thumb)
+	}
 
-	val gson = Gson()
-	val infoJogo = gson.fromJson(json, InfoJogo::class.java)
-	println("\n" + infoJogo)
+	resultado.onFailure {
+		println("Jogo inexistente. Tente outro id.")
+	}
 
-	val jogo = Jogo(infoJogo.info.title, infoJogo.info.thumb)
-	println(jogo)
+	resultado.onSuccess {
+		println("Deseja inserir descrição personalizada? S/N")
+		val opcao = leitura.nextLine()
+		if (opcao.equals("s", true)) {
+			println("Insira a descrição personalizada: ")
+			var descricaoPersonalizada = leitura.nextLine()
+			jogo?.descricao = descricaoPersonalizada;
+		} else {
+			jogo?.descricao = jogo?.titulo
+		}
+
+		leitura.close()
+		println(jogo)
+	}
+
+	resultado.onSuccess {
+		println("Busca finalizada com sucesso!")
+	}
 }
 
