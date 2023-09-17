@@ -1,10 +1,10 @@
-package io.aluragames
+package io.aluragames.modelo
 
 import com.google.gson.annotations.SerializedName
 
 data class Jogo(val titulo:String, val capa:String) {
 
-    val descricao = ""
+    var descricao:String? = ""
 
     override fun toString(): String {
         return "\nJogo (titulo = '$titulo', \ncapa = '$capa', \ndescricao = '$descricao')"
