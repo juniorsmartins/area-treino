@@ -9,8 +9,11 @@ import udemy.hexagonal.application.core.usecase.FindCustomerByIdUseCase;
 public class FindCustomerByIdConfig {
 
     @Bean
-    public FindCustomerByIdUseCase findCustomerByIdUseCase(FindCustomerByIdAdapter findCustomerByIdAdapter) {
+    public FindCustomerByIdUseCase findCustomerByIdUseCase(
+            FindCustomerByIdAdapter findCustomerByIdAdapter
+    ) {
         return new FindCustomerByIdUseCase(findCustomerByIdAdapter);
     }
+
 }
 
