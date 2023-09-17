@@ -17,7 +17,7 @@ fun main(args: Array<String>) {
 	val idJogo = leitura.nextLine()
 
 	val buscaApi = ConsumoApi()
-	var infoJogo = buscaApi.buscaJogo(idJogo)
+	val infoJogo = buscaApi.buscaJogo(idJogo)
 
 	var jogo: Jogo? = null
 
