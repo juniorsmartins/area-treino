@@ -9,10 +9,10 @@ hexagonal:
 spring:
   data:
     mongodb:
-#      uri: mongodb://localhost:27017/udemy_hexagonal
       host: localhost
       port: 27017
       authentication-database: admin
       #      username: root
       #      password: example
       database: hexagonal
+
