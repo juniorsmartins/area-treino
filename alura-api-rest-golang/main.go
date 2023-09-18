@@ -1,23 +1,18 @@
 package main
 
 import (
+	"api-rest-golang/models"
+	"api-rest-golang/routes"
 	"fmt"
-	"log"
-	"net/http"
 )
-
-func Home(w http.ResponseWriter, r *http.Request) {
-
-	fmt.Fprint(w, "Home Page")
-}
-
-func HandleResquest() {
-	http.HandleFunc("/", Home)
-	log.Fatal(http.ListenAndServe(":8000", nil))
-}
 
 func main() {
 
+	models.Personalidades = []models.Personalidade{
+		{Nome: "Sam Newman", Historia: "Autor do livro Microservices"},
+		{Nome: "Martin Fowler", Historia: "Autor do livro Domain Drive Design - DDD"},
+	}
+
 	fmt.Println("Iniciando o servidor Rest com Go")
-	HandleResquest()
+	routes.HandleResquest()
 }
