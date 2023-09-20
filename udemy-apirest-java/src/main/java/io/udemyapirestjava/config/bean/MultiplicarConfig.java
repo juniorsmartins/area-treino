@@ -1,4 +1,4 @@
-package io.udemyapirestjava.config;
+package io.udemyapirestjava.config.bean;
 
 import io.udemyapirestjava.application.core.usecase.MultiplicarUseCase;
 import io.udemyapirestjava.application.core.usecase.UtilUseCase;
