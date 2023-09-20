@@ -1,5 +1,6 @@
 package io.udemyapirestjava.adapters.in.controllers;
 
+import io.udemyapirestjava.application.ports.in.MultiplicarInputPort;
 import io.udemyapirestjava.application.ports.in.SubtrairInputPort;
 import io.udemyapirestjava.config.exceptions.UnsupportedMathOperationException;
 import io.udemyapirestjava.application.ports.in.SomarInputPort;
@@ -18,6 +19,9 @@ public class MathController {
     @Autowired
     private SubtrairInputPort subtrairInputPort;
 
+    @Autowired
+    private MultiplicarInputPort multiplicarInputPort;
+
     @RequestMapping(path = "/sum/{numberOne}/{numberTwo}", method = RequestMethod.GET)
     public Double sum(@PathVariable(name = "numberOne") String numberOne,
                       @PathVariable(name = "numberTwo") String numberTwo) {
@@ -34,13 +38,9 @@ public class MathController {
 
     @RequestMapping(path = "/multiplication/{numberOne}/{numberTwo}", method = RequestMethod.GET)
     public Double multiplication(@PathVariable(name = "numberOne") String numberOne,
-                              @PathVariable(name = "numberTwo") String numberTwo) throws Exception {
+                              @PathVariable(name = "numberTwo") String numberTwo) {
 
-        if (!isNumeric(numberOne) || !isNumeric(numberTwo)) {
-            throw new UnsupportedMathOperationException("Please set a numeric value!");
-        }
-
-        return convertToDouble(numberOne) * convertToDouble(numberTwo);
+        return this.multiplicarInputPort.calcular(numberOne, numberTwo);
     }
 
     @RequestMapping(path = "/division/{numberOne}/{numberTwo}", method = RequestMethod.GET)

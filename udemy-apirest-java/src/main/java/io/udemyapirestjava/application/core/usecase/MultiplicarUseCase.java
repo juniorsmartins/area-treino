@@ -1,14 +1,14 @@
 package io.udemyapirestjava.application.core.usecase;
 
-import io.udemyapirestjava.application.ports.in.SubtrairInputPort;
+import io.udemyapirestjava.application.ports.in.MultiplicarInputPort;
 import io.udemyapirestjava.application.ports.in.UtilInputPort;
 import io.udemyapirestjava.config.exceptions.UnsupportedMathOperationException;
 
-public class SubtrairUseCase implements SubtrairInputPort {
+public class MultiplicarUseCase implements MultiplicarInputPort {
 
     private final UtilInputPort utilInputPort;
 
-    public SubtrairUseCase(UtilInputPort utilInputPort) {
+    public MultiplicarUseCase(UtilInputPort utilInputPort) {
         this.utilInputPort = utilInputPort;
     }
 
@@ -19,6 +19,6 @@ public class SubtrairUseCase implements SubtrairInputPort {
             throw new UnsupportedMathOperationException("Please set a numeric value!");
         }
 
-        return this.utilInputPort.convertToDouble(numberOne) - this.utilInputPort.convertToDouble(numberTwo);
+        return this.utilInputPort.convertToDouble(numberOne) * this.utilInputPort.convertToDouble(numberTwo);
     }
 }
