@@ -1,7 +1,7 @@
-package io.udemyapirestjava.exceptions.handler;
+package io.udemyapirestjava.application.config.exceptions.handler;
 
-import io.udemyapirestjava.exceptions.ExceptionResponse;
-import io.udemyapirestjava.exceptions.UnsupportedMathOperationException;
+import io.udemyapirestjava.application.config.exceptions.UnsupportedMathOperationException;
+import io.udemyapirestjava.application.config.exceptions.ExceptionResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;

@@ -1,6 +1,6 @@
-package io.udemyapirestjava;
+package io.udemyapirestjava.adapters.in.controllers;
 
-import io.udemyapirestjava.exceptions.UnsupportedMathOperationException;
+import io.udemyapirestjava.application.config.exceptions.UnsupportedMathOperationException;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;

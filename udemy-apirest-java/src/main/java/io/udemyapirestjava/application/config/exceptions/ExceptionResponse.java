@@ -1,4 +1,4 @@
-package io.udemyapirestjava.exceptions;
+package io.udemyapirestjava.application.config.exceptions;
 
 import java.io.Serializable;
 import java.util.Date;
