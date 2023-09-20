@@ -1,5 +1,6 @@
-package io.udemyapirestjava;
+package io.udemyapirestjava.adapters.in.controllers;
 
+import io.udemyapirestjava.application.core.domain.Greeting;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.concurrent.atomic.AtomicLong;

@@ -1,4 +1,4 @@
-package io.udemyapirestjava;
+package io.udemyapirestjava.application.core.domain;
 
 public class Greeting {
 
