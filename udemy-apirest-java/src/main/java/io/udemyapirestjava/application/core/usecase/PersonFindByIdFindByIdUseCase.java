@@ -16,6 +16,7 @@ public class PersonFindByIdFindByIdUseCase implements PersonFindByIdInputPort {
     public Person find(Long id) {
 
         logger.info("Finding one person!");
+
         var person = new Person();
         person.setId(counter.incrementAndGet());
         person.setFirstName("Sam");
