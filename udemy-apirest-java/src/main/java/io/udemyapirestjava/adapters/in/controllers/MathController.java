@@ -1,5 +1,6 @@
 package io.udemyapirestjava.adapters.in.controllers;
 
+import io.udemyapirestjava.application.ports.in.DividirInputPort;
 import io.udemyapirestjava.application.ports.in.MultiplicarInputPort;
 import io.udemyapirestjava.application.ports.in.SubtrairInputPort;
 import io.udemyapirestjava.config.exceptions.UnsupportedMathOperationException;
@@ -21,6 +22,9 @@ public class MathController {
 
     @Autowired
     private MultiplicarInputPort multiplicarInputPort;
+
+    @Autowired
+    private DividirInputPort dividirInputPort;
 
     @RequestMapping(path = "/sum/{numberOne}/{numberTwo}", method = RequestMethod.GET)
     public Double sum(@PathVariable(name = "numberOne") String numberOne,
@@ -45,26 +49,9 @@ public class MathController {
 
     @RequestMapping(path = "/division/{numberOne}/{numberTwo}", method = RequestMethod.GET)
     public Double division(@PathVariable(name = "numberOne") String numberOne,
-                              @PathVariable(name = "numberTwo") String numberTwo) throws Exception {
+                           @PathVariable(name = "numberTwo") String numberTwo) {
 
-        if (!isNumeric(numberOne) || !isNumeric(numberTwo)) {
-            throw new UnsupportedMathOperationException("Please set a numeric value!");
-        }
-
-        return convertToDouble(numberOne) / convertToDouble(numberTwo);
-    }
-
-    private Double convertToDouble(String strNumber) {
-        if (strNumber == null) return 0D;
-        String number = strNumber.replaceAll(",", ".");
-        if (isNumeric(number)) return Double.parseDouble(number);
-        return 0D;
-    }
-
-    private boolean isNumeric(String strNumber) {
-        if (strNumber == null) return false;
-        String number = strNumber.replaceAll(",", ".");
-        return number.matches("[-+]?[0-9]*\\.?[0-9]+");
+        return this.dividirInputPort.calcular(numberOne, numberTwo);
     }
 }
 
