@@ -1,5 +1,6 @@
 package io.udemyapirestjava.adapters.in.controllers;
 
+import io.udemyapirestjava.application.ports.in.SubtrairInputPort;
 import io.udemyapirestjava.config.exceptions.UnsupportedMathOperationException;
 import io.udemyapirestjava.application.ports.in.SomarInputPort;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,9 @@ public class MathController {
     @Autowired
     private SomarInputPort somarInputPort;
 
+    @Autowired
+    private SubtrairInputPort subtrairInputPort;
+
     @RequestMapping(path = "/sum/{numberOne}/{numberTwo}", method = RequestMethod.GET)
     public Double sum(@PathVariable(name = "numberOne") String numberOne,
                       @PathVariable(name = "numberTwo") String numberTwo) {
@@ -23,13 +27,9 @@ public class MathController {
 
     @RequestMapping(path = "/subtraction/{numberOne}/{numberTwo}", method = RequestMethod.GET)
     public Double subtraction(@PathVariable(name = "numberOne") String numberOne,
-                      @PathVariable(name = "numberTwo") String numberTwo) throws Exception {
+                              @PathVariable(name = "numberTwo") String numberTwo) {
 
-        if (!isNumeric(numberOne) || !isNumeric(numberTwo)) {
-            throw new UnsupportedMathOperationException("Please set a numeric value!");
-        }
-
-        return convertToDouble(numberOne) - convertToDouble(numberTwo);
+        return this.subtrairInputPort.calcular(numberOne, numberTwo);
     }
 
     @RequestMapping(path = "/multiplication/{numberOne}/{numberTwo}", method = RequestMethod.GET)
