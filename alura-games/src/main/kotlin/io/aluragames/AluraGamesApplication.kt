@@ -47,5 +47,7 @@ fun main(args: Array<String>) {
 	resultado.onSuccess {
 		println("Busca finalizada com sucesso!")
 	}
+
+	TestGamer().testGamer()
 }
 
