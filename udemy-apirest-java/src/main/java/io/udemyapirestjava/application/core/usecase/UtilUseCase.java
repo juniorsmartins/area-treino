@@ -1,21 +1,28 @@
 package io.udemyapirestjava.application.core.usecase;
 
 import io.udemyapirestjava.application.ports.in.UtilInputPort;
+import io.udemyapirestjava.config.exceptions.UnsupportedMathOperationException;
 
 public class UtilUseCase implements UtilInputPort {
 
     @Override
     public Double convertToDouble(String strNumber) {
-        if (strNumber == null) return 0D;
+        this.isNumeric(strNumber);
+
         String number = strNumber.replaceAll(",", ".");
-        if (isNumeric(number)) return Double.parseDouble(number);
-        return 0D;
+        return Double.parseDouble(number);
     }
 
-    @Override
-    public boolean isNumeric(String strNumber) {
-        if (strNumber == null) return false;
+    private void isNumeric(String strNumber) {
+
+        if (strNumber == null) {
+            throw new UnsupportedMathOperationException("Please set a numeric value!");
+        }
+
         String number = strNumber.replaceAll(",", ".");
-        return number.matches("[-+]?[0-9]*\\.?[0-9]+");
+
+        if (!number.matches("[-+]?[0-9]*\\.?[0-9]+")) {
+            throw new UnsupportedMathOperationException("Please set a numeric value!");
+        }
     }
 }

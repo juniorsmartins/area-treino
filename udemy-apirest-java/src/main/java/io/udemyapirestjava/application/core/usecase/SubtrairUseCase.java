@@ -15,10 +15,6 @@ public class SubtrairUseCase implements SubtrairInputPort {
     @Override
     public Double calcular(String numberOne, String numberTwo) {
 
-        if (!this.utilInputPort.isNumeric(numberOne) || !this.utilInputPort.isNumeric(numberTwo)) {
-            throw new UnsupportedMathOperationException("Please set a numeric value!");
-        }
-
         return this.utilInputPort.convertToDouble(numberOne) - this.utilInputPort.convertToDouble(numberTwo);
     }
 }
