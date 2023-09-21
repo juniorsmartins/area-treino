@@ -4,6 +4,7 @@ import com.github.javafaker.Faker;
 import io.udemyapirestjava.application.core.usecase.PersonCreateUseCase;
 import io.udemyapirestjava.application.core.usecase.PersonFindAllUseCase;
 import io.udemyapirestjava.application.core.usecase.PersonFindByIdFindByIdUseCase;
+import io.udemyapirestjava.application.core.usecase.PersonUpdateUseCase;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -21,8 +22,13 @@ public class PersonConfig {
     }
 
     @Bean
-    public PersonCreateUseCase personCreateUseCase(Faker faker) {
-        return new PersonCreateUseCase(faker);
+    public PersonCreateUseCase personCreateUseCase() {
+        return new PersonCreateUseCase();
+    }
+
+    @Bean
+    public PersonUpdateUseCase personUpdateUseCase() {
+        return new PersonUpdateUseCase();
     }
 }
 

@@ -7,6 +7,7 @@ import io.udemyapirestjava.adapters.in.controllers.response.PersonResponse;
 import io.udemyapirestjava.application.ports.in.PersonCreateInputPort;
 import io.udemyapirestjava.application.ports.in.PersonFindAllInputPort;
 import io.udemyapirestjava.application.ports.in.PersonFindByIdInputPort;
+import io.udemyapirestjava.application.ports.in.PersonUpdateInputPort;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -28,6 +29,9 @@ public class PersonController {
 
     @Autowired
     private PersonCreateInputPort personCreateInputPort;
+
+    @Autowired
+    private PersonUpdateInputPort personUpdateInputPort;
 
     @Autowired
     private PersonResponseMapper personResponseMapper;
@@ -59,6 +63,20 @@ public class PersonController {
         return Optional.of(personRequest)
                 .map(this.personRequestMapper::toPerson)
                 .map(this.personCreateInputPort::create)
+                .map(this.personResponseMapper::toPersonResponse)
+                .orElseThrow();
+    }
+
+    @PutMapping(path = "/{id}")
+    public PersonResponse update(@RequestBody @Valid PersonRequest personRequest,
+                       @PathVariable(name = "id") final Long id) {
+
+        return Optional.of(personRequest)
+                .map(this.personRequestMapper::toPerson)
+                .map(person -> {
+                    person.setId(id);
+                    return this.personUpdateInputPort.update(person);
+                })
                 .map(this.personResponseMapper::toPersonResponse)
                 .orElseThrow();
     }
