@@ -3,7 +3,7 @@ package io.rinhabackendjava.application.core.domain;
 import java.util.HashSet;
 import java.util.UUID;
 
-public class Pessoa {
+public class PessoaBusiness {
 
     private UUID id;
 
