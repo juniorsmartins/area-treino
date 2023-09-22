@@ -1,13 +1,8 @@
 package io.udemyapirestjava.application.core.domain;
 
-import java.io.Serial;
-import java.io.Serializable;
 import java.util.Objects;
 
-public final class Person implements Serializable {
-
-    @Serial
-    private static final long serialVersionUID = 1L;
+public final class Person {
 
     private Long id;
 
