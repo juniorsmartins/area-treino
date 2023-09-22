@@ -69,7 +69,7 @@ public class PersonController {
 
     @PutMapping(path = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public PersonResponse update(@RequestBody @Valid PersonRequest personRequest,
-                       @PathVariable(name = "id") final Long id) {
+                                 @PathVariable(name = "id") final Long id) {
 
         return Optional.of(personRequest)
                 .map(this.personRequestMapper::toPerson)

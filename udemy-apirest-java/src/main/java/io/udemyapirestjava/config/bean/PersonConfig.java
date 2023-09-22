@@ -1,9 +1,7 @@
 package io.udemyapirestjava.config.bean;
 
 import com.github.javafaker.Faker;
-import io.udemyapirestjava.adapters.out.PersonCreateAdapter;
-import io.udemyapirestjava.adapters.out.PersonFindAllAdapter;
-import io.udemyapirestjava.adapters.out.PersonFindByIdAdapter;
+import io.udemyapirestjava.adapters.out.*;
 import io.udemyapirestjava.application.core.usecase.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -27,13 +25,15 @@ public class PersonConfig {
     }
 
     @Bean
-    public PersonUpdateUseCase personUpdateUseCase() {
-        return new PersonUpdateUseCase();
+    public PersonUpdateUseCase personUpdateUseCase(PersonFindByIdFindByIdUseCase personFindByIdFindByIdUseCase,
+                                                   PersonUpdateAdapter personUpdateAdapter) {
+        return new PersonUpdateUseCase(personFindByIdFindByIdUseCase, personUpdateAdapter);
     }
 
     @Bean
-    public PersonDeleteUseCase personDeleteUseCase() {
-        return new PersonDeleteUseCase();
+    public PersonDeleteUseCase personDeleteUseCase(PersonFindByIdFindByIdUseCase personFindByIdFindByIdUseCase,
+                                                   PersonDeleteAdapter personDeleteAdapter) {
+        return new PersonDeleteUseCase(personFindByIdFindByIdUseCase, personDeleteAdapter);
     }
 }
 
