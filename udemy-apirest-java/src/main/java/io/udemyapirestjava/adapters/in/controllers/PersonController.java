@@ -4,10 +4,7 @@ import io.udemyapirestjava.adapters.in.controllers.mapper.PersonRequestMapper;
 import io.udemyapirestjava.adapters.in.controllers.mapper.PersonResponseMapper;
 import io.udemyapirestjava.adapters.in.controllers.request.PersonRequest;
 import io.udemyapirestjava.adapters.in.controllers.response.PersonResponse;
-import io.udemyapirestjava.application.ports.in.PersonCreateInputPort;
-import io.udemyapirestjava.application.ports.in.PersonFindAllInputPort;
-import io.udemyapirestjava.application.ports.in.PersonFindByIdInputPort;
-import io.udemyapirestjava.application.ports.in.PersonUpdateInputPort;
+import io.udemyapirestjava.application.ports.in.*;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -34,6 +31,9 @@ public class PersonController {
     private PersonUpdateInputPort personUpdateInputPort;
 
     @Autowired
+    private PersonDeleteInputPort personDeleteInputPort;
+
+    @Autowired
     private PersonResponseMapper personResponseMapper;
 
     @Autowired
@@ -57,7 +57,7 @@ public class PersonController {
                 .toList();
     }
 
-    @PostMapping
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public PersonResponse create(@RequestBody @Valid PersonRequest personRequest) {
 
         return Optional.of(personRequest)
@@ -67,7 +67,7 @@ public class PersonController {
                 .orElseThrow();
     }
 
-    @PutMapping(path = "/{id}")
+    @PutMapping(path = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public PersonResponse update(@RequestBody @Valid PersonRequest personRequest,
                        @PathVariable(name = "id") final Long id) {
 
@@ -79,6 +79,12 @@ public class PersonController {
                 })
                 .map(this.personResponseMapper::toPersonResponse)
                 .orElseThrow();
+    }
+
+    @DeleteMapping(path = "/{id}")
+    public void delete(@PathVariable(name = "id") final Long id) {
+
+        this.personDeleteInputPort.delete(id);
     }
 }
 
