@@ -1,4 +1,4 @@
-package io.udemyapirestjava.config.exceptions;
+package io.udemyapirestjava.config.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

@@ -2,7 +2,6 @@ package io.udemyapirestjava.application.core.usecase;
 
 import io.udemyapirestjava.application.ports.in.SubtrairInputPort;
 import io.udemyapirestjava.application.ports.in.UtilInputPort;
-import io.udemyapirestjava.config.exceptions.UnsupportedMathOperationException;
 
 public class SubtrairUseCase implements SubtrairInputPort {
 

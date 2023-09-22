@@ -1,8 +1,8 @@
-package io.udemyapirestjava.config.exceptions.handler;
+package io.udemyapirestjava.config.exception.handler;
 
-import io.udemyapirestjava.config.exceptions.ResourceNotFoundException;
-import io.udemyapirestjava.config.exceptions.UnsupportedMathOperationException;
-import io.udemyapirestjava.config.exceptions.ExceptionResponse;
+import io.udemyapirestjava.config.exception.ResourceNotFoundException;
+import io.udemyapirestjava.config.exception.UnsupportedMathOperationException;
+import io.udemyapirestjava.config.exception.ExceptionResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;

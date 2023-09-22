@@ -3,7 +3,6 @@ package io.udemyapirestjava.adapters.in.controllers;
 import io.udemyapirestjava.application.ports.in.DividirInputPort;
 import io.udemyapirestjava.application.ports.in.MultiplicarInputPort;
 import io.udemyapirestjava.application.ports.in.SubtrairInputPort;
-import io.udemyapirestjava.config.exceptions.UnsupportedMathOperationException;
 import io.udemyapirestjava.application.ports.in.SomarInputPort;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;

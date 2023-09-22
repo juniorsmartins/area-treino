@@ -1,7 +1,7 @@
 package io.udemyapirestjava.application.core.usecase;
 
 import io.udemyapirestjava.application.ports.in.UtilInputPort;
-import io.udemyapirestjava.config.exceptions.UnsupportedMathOperationException;
+import io.udemyapirestjava.config.exception.UnsupportedMathOperationException;
 
 public class UtilUseCase implements UtilInputPort {
 

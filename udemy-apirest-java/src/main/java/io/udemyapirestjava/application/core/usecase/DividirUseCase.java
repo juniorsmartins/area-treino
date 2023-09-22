@@ -2,7 +2,6 @@ package io.udemyapirestjava.application.core.usecase;
 
 import io.udemyapirestjava.application.ports.in.DividirInputPort;
 import io.udemyapirestjava.application.ports.in.UtilInputPort;
-import io.udemyapirestjava.config.exceptions.UnsupportedMathOperationException;
 
 public class DividirUseCase implements DividirInputPort {
 

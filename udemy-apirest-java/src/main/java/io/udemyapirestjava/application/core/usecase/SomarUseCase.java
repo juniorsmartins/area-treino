@@ -1,6 +1,5 @@
 package io.udemyapirestjava.application.core.usecase;
 
-import io.udemyapirestjava.config.exceptions.UnsupportedMathOperationException;
 import io.udemyapirestjava.application.ports.in.SomarInputPort;
 import io.udemyapirestjava.application.ports.in.UtilInputPort;
 
