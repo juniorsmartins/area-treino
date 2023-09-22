@@ -1,6 +1,7 @@
 package io.udemyapirestjava.config.bean;
 
 import com.github.javafaker.Faker;
+import io.udemyapirestjava.adapters.out.PersonCreateAdapter;
 import io.udemyapirestjava.adapters.out.PersonFindAllAdapter;
 import io.udemyapirestjava.adapters.out.PersonFindByIdAdapter;
 import io.udemyapirestjava.application.core.usecase.*;
@@ -21,8 +22,8 @@ public class PersonConfig {
     }
 
     @Bean
-    public PersonCreateUseCase personCreateUseCase() {
-        return new PersonCreateUseCase();
+    public PersonCreateUseCase personCreateUseCase(PersonCreateAdapter personCreateAdapter) {
+        return new PersonCreateUseCase(personCreateAdapter);
     }
 
     @Bean

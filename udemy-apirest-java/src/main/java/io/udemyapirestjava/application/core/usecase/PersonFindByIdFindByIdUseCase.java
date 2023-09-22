@@ -23,7 +23,7 @@ public class PersonFindByIdFindByIdUseCase implements PersonFindByIdInputPort {
         logger.info("Finding one person!");
 
         return this.personFindByIdOutputPort.find(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Person not found!"));
+                .orElseThrow(() -> new ResourceNotFoundException("No records found for this ID!"));
     }
 }
 
