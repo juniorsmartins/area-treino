@@ -9,7 +9,7 @@ import java.util.logging.Logger;
 
 public class PersonFindByIdFindByIdUseCase implements PersonFindByIdInputPort {
 
-    private Logger logger = Logger.getLogger(PersonFindByIdFindByIdUseCase.class.getName());
+    private final Logger logger = Logger.getLogger(PersonFindByIdFindByIdUseCase.class.getName());
 
     private final PersonFindByIdOutputPort personFindByIdOutputPort;
 
