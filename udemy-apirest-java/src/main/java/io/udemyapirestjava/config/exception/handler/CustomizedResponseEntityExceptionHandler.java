@@ -1,7 +1,8 @@
-package io.udemyapirestjava.config.exceptions.handler;
+package io.udemyapirestjava.config.exception.handler;
 
-import io.udemyapirestjava.config.exceptions.UnsupportedMathOperationException;
-import io.udemyapirestjava.config.exceptions.ExceptionResponse;
+import io.udemyapirestjava.config.exception.ResourceNotFoundException;
+import io.udemyapirestjava.config.exception.UnsupportedMathOperationException;
+import io.udemyapirestjava.config.exception.ExceptionResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -35,6 +36,17 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
                 webRequest.getDescription(false));
 
         return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public final ResponseEntity<ExceptionResponse> handlerResourceNotFoundException(ResourceNotFoundException res, WebRequest webRequest) {
+
+        ExceptionResponse exceptionResponse = new ExceptionResponse(
+                new Date(),
+                res.getMessage(),
+                webRequest.getDescription(false));
+
+        return new ResponseEntity<>(exceptionResponse, HttpStatus.NOT_FOUND);
     }
 }
 

@@ -1,10 +1,8 @@
 package io.udemyapirestjava.config.bean;
 
 import com.github.javafaker.Faker;
-import io.udemyapirestjava.application.core.usecase.PersonCreateUseCase;
-import io.udemyapirestjava.application.core.usecase.PersonFindAllUseCase;
-import io.udemyapirestjava.application.core.usecase.PersonFindByIdFindByIdUseCase;
-import io.udemyapirestjava.application.core.usecase.PersonUpdateUseCase;
+import io.udemyapirestjava.adapters.out.*;
+import io.udemyapirestjava.application.core.usecase.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -12,23 +10,30 @@ import org.springframework.context.annotation.Configuration;
 public class PersonConfig {
 
     @Bean
-    public PersonFindByIdFindByIdUseCase personFindByIdFindByIdUseCase() {
-        return new PersonFindByIdFindByIdUseCase();
+    public PersonFindByIdFindByIdUseCase personFindByIdFindByIdUseCase(PersonFindByIdAdapter personFindByIdAdapter) {
+        return new PersonFindByIdFindByIdUseCase(personFindByIdAdapter);
     }
 
     @Bean
-    public PersonFindAllUseCase personFindAllUseCase(Faker faker) {
-        return new PersonFindAllUseCase(faker);
+    public PersonFindAllUseCase personFindAllUseCase(PersonFindAllAdapter personFindAllAdapter) {
+        return new PersonFindAllUseCase(personFindAllAdapter);
     }
 
     @Bean
-    public PersonCreateUseCase personCreateUseCase() {
-        return new PersonCreateUseCase();
+    public PersonCreateUseCase personCreateUseCase(PersonCreateAdapter personCreateAdapter) {
+        return new PersonCreateUseCase(personCreateAdapter);
     }
 
     @Bean
-    public PersonUpdateUseCase personUpdateUseCase() {
-        return new PersonUpdateUseCase();
+    public PersonUpdateUseCase personUpdateUseCase(PersonFindByIdFindByIdUseCase personFindByIdFindByIdUseCase,
+                                                   PersonUpdateAdapter personUpdateAdapter) {
+        return new PersonUpdateUseCase(personFindByIdFindByIdUseCase, personUpdateAdapter);
+    }
+
+    @Bean
+    public PersonDeleteUseCase personDeleteUseCase(PersonFindByIdFindByIdUseCase personFindByIdFindByIdUseCase,
+                                                   PersonDeleteAdapter personDeleteAdapter) {
+        return new PersonDeleteUseCase(personFindByIdFindByIdUseCase, personDeleteAdapter);
     }
 }
 
