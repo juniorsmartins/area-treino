@@ -1,7 +1,5 @@
 package io.udemyapirestjava.application.core.domain;
 
-import java.io.Serial;
-import java.io.Serializable;
 import java.util.Objects;
 
 public final class Person {

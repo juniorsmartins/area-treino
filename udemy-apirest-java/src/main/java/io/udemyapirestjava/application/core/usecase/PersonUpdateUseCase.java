@@ -5,7 +5,6 @@ import io.udemyapirestjava.application.ports.in.PersonFindByIdInputPort;
 import io.udemyapirestjava.application.ports.in.PersonUpdateInputPort;
 import io.udemyapirestjava.application.ports.out.PersonUpdateOutputPort;
 
-import java.util.concurrent.atomic.AtomicLong;
 import java.util.logging.Logger;
 
 public class PersonUpdateUseCase implements PersonUpdateInputPort {
@@ -25,9 +24,10 @@ public class PersonUpdateUseCase implements PersonUpdateInputPort {
     @Override
     public Person update(Person person) {
 
+        this.personFindByIdInputPort.find(person.getId());
+
         logger.info("Updating one person!");
 
-        this.personFindByIdInputPort.find(person.getId());
         return this.personUpdateOutputPort.update(person);
     }
 }

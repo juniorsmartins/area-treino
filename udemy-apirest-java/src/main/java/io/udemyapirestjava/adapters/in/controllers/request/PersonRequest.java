@@ -1,8 +1,11 @@
 package io.udemyapirestjava.adapters.in.controllers.request;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import jakarta.validation.constraints.NotBlank;
 
+@JsonPropertyOrder({"id", "firstName", "lastName", "gender", "address"})
 public record PersonRequest(
+        Long id,
 
         @NotBlank
         String firstName,
@@ -11,9 +14,9 @@ public record PersonRequest(
         String lastName,
 
         @NotBlank
-        String address,
+        String gender,
 
         @NotBlank
-        String gender
+        String address
 ) { }
 

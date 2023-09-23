@@ -1,5 +1,8 @@
 package io.udemyapirestjava.adapters.in.controllers.response;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public record PersonResponse(
         Long id,
 
@@ -7,8 +10,8 @@ public record PersonResponse(
 
         String lastName,
 
-        String address,
+        String gender,
 
-        String gender
+        String address
 ) { }
 

@@ -8,6 +8,7 @@ import io.udemyapirestjava.application.ports.in.*;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,7 +16,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping(path = "/persons")
+@RequestMapping(path = "/api/persons/v1")
 public class PersonController {
 
     @Autowired
@@ -67,24 +68,24 @@ public class PersonController {
                 .orElseThrow();
     }
 
-    @PutMapping(path = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public PersonResponse update(@RequestBody @Valid PersonRequest personRequest,
-                                 @PathVariable(name = "id") final Long id) {
+    @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public PersonResponse update(@RequestBody @Valid PersonRequest personRequest) {
 
         return Optional.of(personRequest)
                 .map(this.personRequestMapper::toPerson)
-                .map(person -> {
-                    person.setId(id);
-                    return this.personUpdateInputPort.update(person);
-                })
+                .map(this.personUpdateInputPort::update)
                 .map(this.personResponseMapper::toPersonResponse)
                 .orElseThrow();
     }
 
     @DeleteMapping(path = "/{id}")
-    public void delete(@PathVariable(name = "id") final Long id) {
+    public ResponseEntity<Void> delete(@PathVariable(name = "id") final Long id) {
 
         this.personDeleteInputPort.delete(id);
+
+        return ResponseEntity
+                .noContent()
+                .build();
     }
 }
 
