@@ -7,7 +7,7 @@ data class Jogo(val titulo:String, val capa:String) {
     var descricao:String? = ""
 
     override fun toString(): String {
-        return "\nJogo (titulo = '$titulo', \ncapa = '$capa', \ndescricao = '$descricao')"
+        return "\n\nJogo (titulo = '$titulo', \ncapa = '$capa', \ndescricao = '$descricao')"
     }
 }
 
