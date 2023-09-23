@@ -16,7 +16,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping(path = "/persons")
+@RequestMapping(path = "/api/persons/v1")
 public class PersonController {
 
     @Autowired
