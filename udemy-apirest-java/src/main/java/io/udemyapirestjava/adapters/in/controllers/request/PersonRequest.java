@@ -4,6 +4,8 @@ import jakarta.validation.constraints.NotBlank;
 
 public record PersonRequest(
 
+        Long id,
+
         @NotBlank
         String firstName,
 

@@ -23,9 +23,10 @@ public class PersonDeleteUseCase implements PersonDeleteInputPort {
     @Override
     public void delete(final Long id) {
 
+        this.personFindByIdInputPort.find(id);
+
         logger.info("Deleting one person!");
 
-        this.personFindByIdInputPort.find(id);
         this.personDeleteOutputPort.delete(id);
     }
 }
