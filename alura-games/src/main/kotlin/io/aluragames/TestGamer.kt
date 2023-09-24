@@ -5,6 +5,7 @@ import io.aluragames.modelo.Gamer
 class TestGamer {
 
     fun testGamer() {
+
         val gamer1 = Gamer("Martin Fowler", "fowler@email.com")
         println(gamer1)
 
@@ -13,6 +14,13 @@ class TestGamer {
             "19/12/2000",
             "weiss")
         println(gamer2)
+
+        gamer1.let {
+            it.dataNascimento = "18/10/2023"
+            it.usuario = "teste"
+        }.also {
+          println(gamer1)
+        }
     }
 }
 
