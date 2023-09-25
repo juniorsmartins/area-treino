@@ -40,7 +40,8 @@ public class PersonController {
     @Autowired
     private PersonRequestMapper personRequestMapper;
 
-    @GetMapping(path = "/{id}", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
+    @GetMapping(path = "/{id}", produces = {
+            MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE, "application/x-yaml" })
     public PersonResponse findyById(@PathVariable(name = "id") final Long id) {
 
         return Optional.of(id)
@@ -49,7 +50,8 @@ public class PersonController {
                 .orElseThrow();
     }
 
-    @GetMapping(produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
+    @GetMapping(produces = {
+            MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE, "application/x-yaml" })
     public List<PersonResponse> find() {
 
         return this.personFindAllInputPort.find()
@@ -58,8 +60,8 @@ public class PersonController {
                 .toList();
     }
 
-    @PostMapping(consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE },
-                 produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
+    @PostMapping(consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE, "application/x-yaml" },
+                 produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE, "application/x-yaml" })
     public PersonResponse create(@RequestBody @Valid PersonRequest personRequest) {
 
         return Optional.of(personRequest)
@@ -69,8 +71,8 @@ public class PersonController {
                 .orElseThrow();
     }
 
-    @PutMapping(consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE },
-                produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
+    @PutMapping(consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE, "application/x-yaml" },
+                produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE, "application/x-yaml" })
     public PersonResponse update(@RequestBody @Valid PersonRequest personRequest) {
 
         return Optional.of(personRequest)
