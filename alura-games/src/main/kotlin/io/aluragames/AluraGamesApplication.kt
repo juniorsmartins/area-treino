@@ -5,6 +5,7 @@ import io.aluragames.modelo.Jogo
 import io.aluragames.servicos.ConsumoApi
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
+import transformarEmIdade
 import java.util.*
 
 @SpringBootApplication
@@ -17,6 +18,7 @@ fun main(args: Array<String>) {
 	val gamer = Gamer.criarGamer(leitura)
 	println("\nCadastro concluído com sucesso! Dados do Gamer: ")
 	println(gamer)
+	print("Idade do gamer: " + gamer.dataNascimento?.transformarEmIdade())
 
 	do {
 		println("\nDigite o código de jogo para buscar: ")
