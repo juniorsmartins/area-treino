@@ -9,10 +9,11 @@ import (
 func main() {
 
 	models.Personalidades = []models.Personalidade{
-		{Nome: "Sam Newman", Historia: "Autor do livro Microservices"},
-		{Nome: "Martin Fowler", Historia: "Autor do livro Domain Drive Design - DDD"},
+		{Id: 1, Nome: "Sam Newman", Historia: "Autor do livro Microservices"},
+		{Id: 2, Nome: "Martin Fowler", Historia: "Autor do livro Domain Drive Design - DDD"},
 	}
 
 	fmt.Println("Iniciando o servidor Rest com Go")
-	routes.HandleResquest()
+	routes.HandleRequest()
 }
+

@@ -4,10 +4,15 @@ import (
 	"api-rest-golang/controllers"
 	"log"
 	"net/http"
+
+	"github.com/gorilla/mux"
 )
 
-func HandleResquest() {
-	http.HandleFunc("/", controllers.Home)
-	http.HandleFunc("/personalidades", controllers.Personalidades)
-	log.Fatal(http.ListenAndServe(":8000", nil))
+func HandleRequest() {
+    gorilaMux := mux.NewRouter()
+	gorilaMux.HandleFunc("/", controllers.Home)
+	gorilaMux.HandleFunc("/api/personalidades", controllers.Personalidades).Methods("Get")
+	gorilaMux.HandleFunc("/api/personalidades/{id}", controllers.RetornaUmaPersonalidade).Methods("Get")
+	log.Fatal(http.ListenAndServe(":8000", gorilaMux))
 }
+
