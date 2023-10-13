@@ -4,6 +4,7 @@ import io.udemyapirestjava.application.core.domain.Person;
 import io.udemyapirestjava.application.ports.in.PersonFindByIdInputPort;
 import io.udemyapirestjava.application.ports.in.PersonUpdateInputPort;
 import io.udemyapirestjava.application.ports.out.PersonUpdateOutputPort;
+import io.udemyapirestjava.config.exception.RequiredObjectIsNullException;
 
 import java.util.logging.Logger;
 
@@ -23,6 +24,8 @@ public class PersonUpdateUseCase implements PersonUpdateInputPort {
 
     @Override
     public Person update(Person person) {
+
+        if (person == null) throw new RequiredObjectIsNullException();
 
         this.personFindByIdInputPort.find(person.getId());
 

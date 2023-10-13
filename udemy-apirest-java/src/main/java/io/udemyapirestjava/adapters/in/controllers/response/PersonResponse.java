@@ -3,23 +3,35 @@ package io.udemyapirestjava.adapters.in.controllers.response;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.springframework.hateoas.RepresentationModel;
 
-@JsonPropertyOrder({"id", "FirstName", "LastName", "Gender", "Address"}) // Definir ordem de serialização/deserialização
+import java.io.Serial;
+import java.io.Serializable;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@JsonPropertyOrder({"id", "firstName", "lastName", "gender", "address"})
 @JsonInclude(JsonInclude.Include.NON_NULL) // Definir não apresentar campos quando nulo
-public record PersonResponse(
-        @JsonProperty("ID")
-        Long id,
+public class PersonResponse extends RepresentationModel<PersonResponse> implements Serializable {
 
-        @JsonProperty("FirstName")
-        String firstName,
+        @Serial
+        private static final long serialVersionUID = 1L;
 
-        @JsonProperty("LastName")
-        String lastName,
+        @JsonProperty("id")
+        private Long key;
 
-        @JsonProperty("Gender")
-        String gender,
+        private String firstName;
 
-        @JsonProperty("Address")
-        String address
-) { }
+        private String lastName;
+
+        private String gender;
+
+        private String address;
+}
 
