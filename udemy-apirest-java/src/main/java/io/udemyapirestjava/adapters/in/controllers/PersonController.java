@@ -62,12 +62,6 @@ public class PersonController {
                 .toList();
     }
 
-    private PersonResponse gerarHateoasFindById(PersonResponse personResponse, Long id) {
-        personResponse.add(WebMvcLinkBuilder.linkTo(
-                WebMvcLinkBuilder.methodOn(PersonController.class).findyById(id)).withSelfRel());
-        return personResponse;
-    }
-
     @PostMapping(consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE, "application/x-yaml" },
                  produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE, "application/x-yaml" })
     public PersonResponse create(@RequestBody @Valid PersonRequest personRequest) {
@@ -100,6 +94,12 @@ public class PersonController {
         return ResponseEntity
                 .noContent()
                 .build();
+    }
+
+    private PersonResponse gerarHateoasFindById(PersonResponse personResponse, Long id) {
+        personResponse.add(WebMvcLinkBuilder.linkTo(
+                WebMvcLinkBuilder.methodOn(PersonController.class).findyById(id)).withSelfRel());
+        return personResponse;
     }
 }
 
