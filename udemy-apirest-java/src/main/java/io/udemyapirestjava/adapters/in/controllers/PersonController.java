@@ -7,13 +7,13 @@ import io.udemyapirestjava.adapters.in.controllers.response.PersonResponse;
 import io.udemyapirestjava.application.ports.in.*;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(path = "/api/persons/v1")
@@ -47,6 +47,7 @@ public class PersonController {
         return Optional.of(id)
                 .map(this.personFindByIdInputPort::find)
                 .map(this.personResponseMapper::toPersonResponse)
+                .map(dtoResponse -> this.gerarHateoasFindById(dtoResponse, id))
                 .orElseThrow();
     }
 
@@ -57,7 +58,14 @@ public class PersonController {
         return this.personFindAllInputPort.find()
                 .stream()
                 .map(this.personResponseMapper::toPersonResponse)
+                .map(dtoResponse -> this.gerarHateoasFindById(dtoResponse, dtoResponse.getKey()))
                 .toList();
+    }
+
+    private PersonResponse gerarHateoasFindById(PersonResponse personResponse, Long id) {
+        personResponse.add(WebMvcLinkBuilder.linkTo(
+                WebMvcLinkBuilder.methodOn(PersonController.class).findyById(id)).withSelfRel());
+        return personResponse;
     }
 
     @PostMapping(consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE, "application/x-yaml" },
@@ -68,6 +76,7 @@ public class PersonController {
                 .map(this.personRequestMapper::toPerson)
                 .map(this.personCreateInputPort::create)
                 .map(this.personResponseMapper::toPersonResponse)
+                .map(dtoResponse -> this.gerarHateoasFindById(dtoResponse, dtoResponse.getKey()))
                 .orElseThrow();
     }
 
@@ -79,6 +88,7 @@ public class PersonController {
                 .map(this.personRequestMapper::toPerson)
                 .map(this.personUpdateInputPort::update)
                 .map(this.personResponseMapper::toPersonResponse)
+                .map(dtoResponse -> this.gerarHateoasFindById(dtoResponse, dtoResponse.getKey()))
                 .orElseThrow();
     }
 

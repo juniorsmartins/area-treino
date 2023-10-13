@@ -1,6 +1,5 @@
 package io.udemyapirestjava.config.bean;
 
-import com.github.javafaker.Faker;
 import io.udemyapirestjava.adapters.out.*;
 import io.udemyapirestjava.application.core.usecase.*;
 import org.springframework.context.annotation.Bean;
@@ -10,8 +9,8 @@ import org.springframework.context.annotation.Configuration;
 public class PersonConfig {
 
     @Bean
-    public PersonFindByIdFindByIdUseCase personFindByIdFindByIdUseCase(PersonFindByIdAdapter personFindByIdAdapter) {
-        return new PersonFindByIdFindByIdUseCase(personFindByIdAdapter);
+    public PersonFindByIdUseCase personFindByIdUseCase(PersonFindByIdAdapter personFindByIdAdapter) {
+        return new PersonFindByIdUseCase(personFindByIdAdapter);
     }
 
     @Bean
@@ -25,15 +24,15 @@ public class PersonConfig {
     }
 
     @Bean
-    public PersonUpdateUseCase personUpdateUseCase(PersonFindByIdFindByIdUseCase personFindByIdFindByIdUseCase,
+    public PersonUpdateUseCase personUpdateUseCase(PersonFindByIdUseCase personFindByIdUseCase,
                                                    PersonUpdateAdapter personUpdateAdapter) {
-        return new PersonUpdateUseCase(personFindByIdFindByIdUseCase, personUpdateAdapter);
+        return new PersonUpdateUseCase(personFindByIdUseCase, personUpdateAdapter);
     }
 
     @Bean
-    public PersonDeleteUseCase personDeleteUseCase(PersonFindByIdFindByIdUseCase personFindByIdFindByIdUseCase,
+    public PersonDeleteUseCase personDeleteUseCase(PersonFindByIdUseCase personFindByIdUseCase,
                                                    PersonDeleteAdapter personDeleteAdapter) {
-        return new PersonDeleteUseCase(personFindByIdFindByIdUseCase, personDeleteAdapter);
+        return new PersonDeleteUseCase(personFindByIdUseCase, personDeleteAdapter);
     }
 }
 

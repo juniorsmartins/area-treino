@@ -4,7 +4,6 @@ import io.udemyapirestjava.application.core.domain.Person;
 import io.udemyapirestjava.application.ports.in.PersonCreateInputPort;
 import io.udemyapirestjava.application.ports.out.PersonCreateOutputPort;
 
-import java.util.concurrent.atomic.AtomicLong;
 import java.util.logging.Logger;
 
 public class PersonCreateUseCase implements PersonCreateInputPort {

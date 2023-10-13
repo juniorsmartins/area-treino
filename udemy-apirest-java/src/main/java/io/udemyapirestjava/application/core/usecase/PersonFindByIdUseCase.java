@@ -7,13 +7,13 @@ import io.udemyapirestjava.config.exception.ResourceNotFoundException;
 
 import java.util.logging.Logger;
 
-public class PersonFindByIdFindByIdUseCase implements PersonFindByIdInputPort {
+public class PersonFindByIdUseCase implements PersonFindByIdInputPort {
 
-    private final Logger logger = Logger.getLogger(PersonFindByIdFindByIdUseCase.class.getName());
+    private final Logger logger = Logger.getLogger(PersonFindByIdUseCase.class.getName());
 
     private final PersonFindByIdOutputPort personFindByIdOutputPort;
 
-    public PersonFindByIdFindByIdUseCase(PersonFindByIdOutputPort personFindByIdOutputPort) {
+    public PersonFindByIdUseCase(PersonFindByIdOutputPort personFindByIdOutputPort) {
         this.personFindByIdOutputPort = personFindByIdOutputPort;
     }
 
