@@ -3,6 +3,7 @@ package io.udemyapirestjava.application.core.usecase;
 import io.udemyapirestjava.application.core.domain.Person;
 import io.udemyapirestjava.application.ports.in.PersonCreateInputPort;
 import io.udemyapirestjava.application.ports.out.PersonCreateOutputPort;
+import io.udemyapirestjava.config.exception.RequiredObjectIsNullException;
 
 import java.util.logging.Logger;
 
@@ -20,6 +21,8 @@ public class PersonCreateUseCase implements PersonCreateInputPort {
     public Person create(Person person) {
 
         logger.info("Creating one person!");
+
+        if (person == null) throw new RequiredObjectIsNullException();
 
         return this.personCreateOutputPort.create(person);
     }
