@@ -7,10 +7,10 @@ O objetivo será desenvolver um sistema de gerenciamento para estacionamento.O s
 
 1. Requisitos e Configurações:
 > - [ ] README;
-> - [ ] API configurada com Timezone do país de origem;
-> - [ ] API configurada com Locale do país de origem;
+> - [x] API configurada com Timezone do país de origem;
+> - [x] API configurada com Locale do país de origem;
 > - [ ] API com sistema de auditoria;
-> - [ ] Configuração de acesso a base de dados para ambiente de desenvolvimento;
+> - [x] Configuração de acesso a base de dados para ambiente de desenvolvimento;
 > - [ ] O usuário terá email, o qual será usado como username (valor único);
 > - [ ] O usuário terá senha de seis caracteres;
 > - [ ] O usuário deverá ter perfil de administrador ou cliente;
