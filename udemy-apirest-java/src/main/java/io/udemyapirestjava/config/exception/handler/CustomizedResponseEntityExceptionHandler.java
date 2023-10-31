@@ -70,7 +70,7 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
     }
 
     @ExceptionHandler(RequiredObjectIsNullException.class)
-    public final ResponseEntity<ExceptionResponse> handlerFailedToUpdateException(RequiredObjectIsNullException req, WebRequest webRequest) {
+    public final ResponseEntity<ExceptionResponse> handlerObjectNullException(RequiredObjectIsNullException req, WebRequest webRequest) {
 
         ExceptionResponse exceptionResponse = new ExceptionResponse(
                 new Date(),
