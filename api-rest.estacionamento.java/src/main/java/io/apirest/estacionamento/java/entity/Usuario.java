@@ -35,10 +35,10 @@ public final class Usuario implements Serializable {
     @Enumerated(EnumType.STRING)
     private Role role = Role.ROLE_CLIENTE;
 
-    @Column(name = "data_criacao", nullable = false)
+    @Column(name = "data_criacao")
     private LocalDateTime dataCriacao;
 
-    @Column(name = "data_modificacao", nullable = true)
+    @Column(name = "data_modificacao")
     private LocalDateTime dataModificacao;
 
     @Column(name = "criado_por")
