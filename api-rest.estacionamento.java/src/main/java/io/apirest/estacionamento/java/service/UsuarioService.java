@@ -2,8 +2,10 @@ package io.apirest.estacionamento.java.service;
 
 import io.apirest.estacionamento.java.entity.Usuario;
 import io.apirest.estacionamento.java.repository.UsuarioRepository;
+import io.apirest.estacionamento.java.web.exception.ex.UsernameUniqueViolationException;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,7 +22,13 @@ public class UsuarioService {
     public Usuario salvar(Usuario usuario) {
 
         usuario.setDataCriacao(LocalDateTime.now());
-        return this.usuarioRepository.save(usuario);
+
+        try {
+            return this.usuarioRepository.save(usuario);
+        } catch (DataIntegrityViolationException ex) {
+            throw new UsernameUniqueViolationException(String
+                    .format("Username {%s} já cadastrado.", usuario.getUsername()));
+        }
     }
 
     @Transactional(readOnly = true)
