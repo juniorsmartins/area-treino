@@ -4,6 +4,7 @@ import io.apirest.estacionamento.java.entity.Usuario;
 import io.apirest.estacionamento.java.service.UsuarioService;
 import io.apirest.estacionamento.java.web.dto.UsuarioCreateDto;
 import io.apirest.estacionamento.java.web.dto.UsuarioResponseDto;
+import io.apirest.estacionamento.java.web.dto.UsuarioSenhaDto;
 import io.apirest.estacionamento.java.web.dto.mapper.UsuarioMapper;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -31,23 +32,24 @@ public class UsuarioController {
     }
 
     @GetMapping(path = "/{id}")
-    public ResponseEntity<Usuario> findById(@PathVariable(name = "id") final Long id) {
+    public ResponseEntity<UsuarioResponseDto> findById(@PathVariable(name = "id") final Long id) {
 
         var user = this.usuarioService.buscarPorId(id);
 
         return ResponseEntity
             .ok()
-            .body(user);
+            .body(UsuarioMapper.toUsuarioResponseDto(user));
     }
 
     @PatchMapping(path = "/{id}")
-    public ResponseEntity<Usuario> updatePassword(@PathVariable(name = "id") final Long id, @RequestBody Usuario usuario) {
+    public ResponseEntity<UsuarioResponseDto> updatePassword(@PathVariable(name = "id") final Long id, @RequestBody UsuarioSenhaDto senhaDto) {
 
-        var user = this.usuarioService.editarSenha(id, usuario.getPassword());
+        var user = this.usuarioService
+            .editarSenha(id, senhaDto.getSenhaAtual(), senhaDto.getNovaSenha(), senhaDto.getConfirmaSenha());
 
         return ResponseEntity
             .ok()
-            .body(user);
+            .body(UsuarioMapper.toUsuarioResponseDto(user));
     }
 
     @GetMapping

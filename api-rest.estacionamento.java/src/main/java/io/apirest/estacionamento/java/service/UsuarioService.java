@@ -32,11 +32,18 @@ public class UsuarioService {
     }
 
     @Transactional
-    public Usuario editarSenha(final Long id, final String password) {
+    public Usuario editarSenha(final Long id, final String senhaAtual, final String novaSenha, final String confirmaSenha) {
+
+        if (!novaSenha.equals(confirmaSenha))
+            throw new RuntimeException("Nova senha não confere com confirmação de senha.");
 
         Usuario user = this.usuarioRepository.findById(id)
             .orElseThrow(EntityNotFoundException::new);
-        user.setPassword(password);
+
+        if (!user.getPassword().equals(senhaAtual))
+            throw new RuntimeException("Sua senha não confere.");
+
+        user.setPassword(novaSenha);
         return user;
     }
 
