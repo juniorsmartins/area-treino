@@ -41,7 +41,7 @@ public class UsuarioController {
     }
 
     @PatchMapping(path = "/{id}")
-    public ResponseEntity<Void> updatePassword(@PathVariable(name = "id") final Long id, @RequestBody UsuarioSenhaDto senhaDto) {
+    public ResponseEntity<Void> updatePassword(@PathVariable(name = "id") final Long id, @RequestBody @Valid UsuarioSenhaDto senhaDto) {
 
         this.usuarioService
             .editarSenha(id, senhaDto.getSenhaAtual(), senhaDto.getNovaSenha(), senhaDto.getConfirmaSenha());

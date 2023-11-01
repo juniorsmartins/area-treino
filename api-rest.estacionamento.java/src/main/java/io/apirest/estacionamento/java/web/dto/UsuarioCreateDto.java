@@ -10,7 +10,7 @@ import lombok.Setter;
 @Setter
 public class UsuarioCreateDto {
 
-    @Email(regexp = "^[a-z0-9_.]+@[a-z0-9.-]+\\.[a-z]{2,}$")
+    @Email(regexp = "^[a-z0-9_+.]+@[a-z0-9.-]+\\.[a-z]{2,}$")
     @NotBlank
     private String username;
 
