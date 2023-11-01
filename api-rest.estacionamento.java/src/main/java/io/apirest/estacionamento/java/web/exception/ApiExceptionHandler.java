@@ -1,6 +1,7 @@
 package io.apirest.estacionamento.java.web.exception;
 
 import io.apirest.estacionamento.java.web.exception.ex.EntidadeNotFoundException;
+import io.apirest.estacionamento.java.web.exception.ex.PasswordInvalidException;
 import io.apirest.estacionamento.java.web.exception.ex.UsernameUniqueViolationException;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
@@ -55,6 +56,19 @@ public class ApiExceptionHandler {
 
         return ResponseEntity
             .status(HttpStatus.NOT_FOUND)
+            .contentType(MediaType.APPLICATION_JSON)
+            .body(response);
+    }
+
+    @ExceptionHandler(PasswordInvalidException.class)
+    public ResponseEntity<ErrorMessage> passwordInvalid(RuntimeException ex, HttpServletRequest request) {
+
+        log.error("Api Error - ", ex);
+
+        var response = new ErrorMessage(request, HttpStatus.BAD_REQUEST, ex.getMessage());
+
+        return ResponseEntity
+            .status(HttpStatus.BAD_REQUEST)
             .contentType(MediaType.APPLICATION_JSON)
             .body(response);
     }

@@ -3,6 +3,7 @@ package io.apirest.estacionamento.java.service;
 import io.apirest.estacionamento.java.entity.Usuario;
 import io.apirest.estacionamento.java.repository.UsuarioRepository;
 import io.apirest.estacionamento.java.web.exception.ex.EntidadeNotFoundException;
+import io.apirest.estacionamento.java.web.exception.ex.PasswordInvalidException;
 import io.apirest.estacionamento.java.web.exception.ex.UsernameUniqueViolationException;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -44,13 +45,13 @@ public class UsuarioService {
     public void editarSenha(final Long id, final String senhaAtual, final String novaSenha, final String confirmaSenha) {
 
         if (!novaSenha.equals(confirmaSenha))
-            throw new RuntimeException("Nova senha não confere com confirmação de senha.");
+            throw new PasswordInvalidException(String
+                .format("Nova senha = {%s} não confere com confirmação de senha = {%s}.", novaSenha, confirmaSenha));
 
-        Usuario user = this.usuarioRepository.findById(id)
-            .orElseThrow(EntityNotFoundException::new);
+        Usuario user = this.buscarPorId(id);
 
         if (!user.getPassword().equals(senhaAtual))
-            throw new RuntimeException("Sua senha não confere.");
+            throw new PasswordInvalidException(String.format("Sua senha = {%s} não confere.", senhaAtual));
 
         user.setPassword(novaSenha);
     }
