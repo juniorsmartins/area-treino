@@ -4,7 +4,6 @@ import io.apirest.estacionamento.java.entity.Usuario;
 import io.apirest.estacionamento.java.repository.UsuarioRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

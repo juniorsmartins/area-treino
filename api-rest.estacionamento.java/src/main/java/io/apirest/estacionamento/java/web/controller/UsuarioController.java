@@ -1,13 +1,12 @@
 package io.apirest.estacionamento.java.web.controller;
 
-import io.apirest.estacionamento.java.entity.Usuario;
 import io.apirest.estacionamento.java.service.UsuarioService;
 import io.apirest.estacionamento.java.web.dto.UsuarioCreateDto;
 import io.apirest.estacionamento.java.web.dto.UsuarioResponseDto;
 import io.apirest.estacionamento.java.web.dto.UsuarioSenhaDto;
 import io.apirest.estacionamento.java.web.dto.mapper.UsuarioMapper;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +21,7 @@ public class UsuarioController {
     private final UsuarioService usuarioService;
 
     @PostMapping
-    public ResponseEntity<UsuarioResponseDto> create(@RequestBody UsuarioCreateDto createDto) {
+    public ResponseEntity<UsuarioResponseDto> create(@RequestBody @Valid UsuarioCreateDto createDto) {
 
         var user = this.usuarioService.salvar(UsuarioMapper.toUsuario(createDto));
 
