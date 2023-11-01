@@ -7,6 +7,8 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UsuarioMapper {
 
@@ -25,6 +27,12 @@ public class UsuarioMapper {
         ModelMapper mapper = new ModelMapper();
         mapper.addMappings(props);
         return mapper.map(usuario, UsuarioResponseDto.class);
+    }
+
+    public static List<UsuarioResponseDto> toListUsuarioResponseDto(List<Usuario> usuarios) {
+        return usuarios.stream()
+            .map(UsuarioMapper::toUsuarioResponseDto)
+            .toList();
     }
 }
 

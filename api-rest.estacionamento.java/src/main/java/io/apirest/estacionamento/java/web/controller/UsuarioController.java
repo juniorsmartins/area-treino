@@ -53,12 +53,12 @@ public class UsuarioController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Usuario>> getAll() {
+    public ResponseEntity<List<UsuarioResponseDto>> getAll() {
 
         var users = this.usuarioService.buscarTodos();
 
         return ResponseEntity
             .ok()
-            .body(users);
+            .body(UsuarioMapper.toListUsuarioResponseDto(users));
     }
 }
