@@ -7,6 +7,7 @@ import io.apirest.estacionamento.java.web.dto.UsuarioSenhaDto;
 import io.apirest.estacionamento.java.web.dto.mapper.UsuarioMapper;
 import io.apirest.estacionamento.java.web.exception.ErrorMessage;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -69,6 +70,18 @@ public class UsuarioController {
     }
 
     @PatchMapping(path = "/{id}")
+    @Operation(summary = "Atualizar senha.", description = "Recurso para atualizar a senha de um Usuário.",
+        responses = {
+            @ApiResponse(responseCode = "204", description = "Recurso atualizado com sucesso.",
+                content = @Content(mediaType = "application/json", schema = @Schema(implementation =
+                    Void.class))),
+            @ApiResponse(responseCode = "400", description = "Senha não confere.",
+                content = @Content(mediaType = "application/json", schema = @Schema(implementation =
+                    ErrorMessage.class))),
+            @ApiResponse(responseCode = "404", description = "Recurso não encontrado.",
+                content = @Content(mediaType = "application/json", schema = @Schema(implementation =
+                    ErrorMessage.class)))
+        })
     public ResponseEntity<Void> updatePassword(@PathVariable(name = "id") final Long id, @RequestBody @Valid UsuarioSenhaDto senhaDto) {
 
         this.usuarioService
@@ -80,6 +93,12 @@ public class UsuarioController {
     }
 
     @GetMapping
+    @Operation(summary = "Buscar Usuários.", description = "Recurso para buscar todos os Usuários.",
+        responses = {
+            @ApiResponse(responseCode = "200", description = "Recursos buscados com sucesso.",
+                content = @Content(mediaType = "application/json", array =
+                @ArraySchema(schema = @Schema(implementation = UsuarioResponseDto.class))))
+        })
     public ResponseEntity<List<UsuarioResponseDto>> getAll() {
 
         var users = this.usuarioService.buscarTodos();
