@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(path = "/api/v1/usuarios")
 @RequiredArgsConstructor
@@ -42,5 +44,15 @@ public class UsuarioController {
         return ResponseEntity
             .ok()
             .body(user);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Usuario>> getAll() {
+
+        var users = this.usuarioService.buscarTodos();
+
+        return ResponseEntity
+            .ok()
+            .body(users);
     }
 }
