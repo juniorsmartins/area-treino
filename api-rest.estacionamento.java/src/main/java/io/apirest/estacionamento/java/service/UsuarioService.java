@@ -32,7 +32,7 @@ public class UsuarioService {
     }
 
     @Transactional
-    public Usuario editarSenha(final Long id, final String senhaAtual, final String novaSenha, final String confirmaSenha) {
+    public void editarSenha(final Long id, final String senhaAtual, final String novaSenha, final String confirmaSenha) {
 
         if (!novaSenha.equals(confirmaSenha))
             throw new RuntimeException("Nova senha não confere com confirmação de senha.");
@@ -44,7 +44,6 @@ public class UsuarioService {
             throw new RuntimeException("Sua senha não confere.");
 
         user.setPassword(novaSenha);
-        return user;
     }
 
     @Transactional(readOnly = true)

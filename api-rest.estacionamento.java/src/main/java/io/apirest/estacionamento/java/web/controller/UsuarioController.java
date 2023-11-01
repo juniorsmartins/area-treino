@@ -42,14 +42,14 @@ public class UsuarioController {
     }
 
     @PatchMapping(path = "/{id}")
-    public ResponseEntity<UsuarioResponseDto> updatePassword(@PathVariable(name = "id") final Long id, @RequestBody UsuarioSenhaDto senhaDto) {
+    public ResponseEntity<Void> updatePassword(@PathVariable(name = "id") final Long id, @RequestBody UsuarioSenhaDto senhaDto) {
 
-        var user = this.usuarioService
+        this.usuarioService
             .editarSenha(id, senhaDto.getSenhaAtual(), senhaDto.getNovaSenha(), senhaDto.getConfirmaSenha());
 
         return ResponseEntity
-            .ok()
-            .body(UsuarioMapper.toUsuarioResponseDto(user));
+            .noContent()
+            .build();
     }
 
     @GetMapping
