@@ -5,6 +5,12 @@ import io.apirest.estacionamento.java.web.dto.UsuarioCreateDto;
 import io.apirest.estacionamento.java.web.dto.UsuarioResponseDto;
 import io.apirest.estacionamento.java.web.dto.UsuarioSenhaDto;
 import io.apirest.estacionamento.java.web.dto.mapper.UsuarioMapper;
+import io.apirest.estacionamento.java.web.exception.ErrorMessage;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -13,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Tag(name = "Usuários", description = "Contém todos os recursos de Usuários (cadastro, edição e leitura).")
 @RestController
 @RequestMapping(path = "/api/v1/usuarios")
 @RequiredArgsConstructor
@@ -21,6 +28,18 @@ public class UsuarioController {
     private final UsuarioService usuarioService;
 
     @PostMapping
+    @Operation(summary = "Criar Usuário.", description = "Recurso para criar um novo Usuário.",
+        responses = {
+            @ApiResponse(responseCode = "201", description = "Recurso criado com sucesso.",
+                content = @Content(mediaType = "application/json", schema = @Schema(implementation =
+                    UsuarioResponseDto.class))),
+            @ApiResponse(responseCode = "409", description = "Usuário com email já cadastrado.",
+                content = @Content(mediaType = "application/json", schema = @Schema(implementation =
+                    ErrorMessage.class))),
+            @ApiResponse(responseCode = "422", description = "Recurso não processado por dados de entrada inválidos.",
+                content = @Content(mediaType = "application/json", schema = @Schema(implementation =
+                    ErrorMessage.class))),
+        })
     public ResponseEntity<UsuarioResponseDto> create(@RequestBody @Valid UsuarioCreateDto createDto) {
 
         var user = this.usuarioService.salvar(UsuarioMapper.toUsuario(createDto));
@@ -31,6 +50,15 @@ public class UsuarioController {
     }
 
     @GetMapping(path = "/{id}")
+    @Operation(summary = "Recuperar Usuário por id.", description = "Recurso para recuperar um Usuário por id.",
+        responses = {
+            @ApiResponse(responseCode = "200", description = "Recurso recuperado com sucesso.",
+                content = @Content(mediaType = "application/json", schema = @Schema(implementation =
+                    UsuarioResponseDto.class))),
+            @ApiResponse(responseCode = "404", description = "Recurso não encontrado.",
+                content = @Content(mediaType = "application/json", schema = @Schema(implementation =
+                    ErrorMessage.class)))
+        })
     public ResponseEntity<UsuarioResponseDto> findById(@PathVariable(name = "id") final Long id) {
 
         var user = this.usuarioService.buscarPorId(id);
