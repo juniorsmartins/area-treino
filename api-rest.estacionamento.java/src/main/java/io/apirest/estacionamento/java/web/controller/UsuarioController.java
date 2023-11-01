@@ -23,7 +23,6 @@ public class UsuarioController {
     @PostMapping
     public ResponseEntity<UsuarioResponseDto> create(@RequestBody UsuarioCreateDto createDto) {
 
-
         var user = this.usuarioService.salvar(UsuarioMapper.toUsuario(createDto));
 
         return ResponseEntity
