@@ -93,9 +93,9 @@ public class UsuarioController {
     }
 
     @GetMapping
-    @Operation(summary = "Buscar Usuários.", description = "Recurso para buscar todos os Usuários.",
+    @Operation(summary = "Listar Usuários.", description = "Recurso para listar todos os Usuários.",
         responses = {
-            @ApiResponse(responseCode = "200", description = "Recursos buscados com sucesso.",
+            @ApiResponse(responseCode = "200", description = "Recursos listados com sucesso.",
                 content = @Content(mediaType = "application/json", array =
                 @ArraySchema(schema = @Schema(implementation = UsuarioResponseDto.class))))
         })
