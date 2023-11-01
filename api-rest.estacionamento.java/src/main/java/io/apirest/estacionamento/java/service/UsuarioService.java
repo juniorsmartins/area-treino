@@ -2,6 +2,7 @@ package io.apirest.estacionamento.java.service;
 
 import io.apirest.estacionamento.java.entity.Usuario;
 import io.apirest.estacionamento.java.repository.UsuarioRepository;
+import io.apirest.estacionamento.java.web.exception.ex.EntidadeNotFoundException;
 import io.apirest.estacionamento.java.web.exception.ex.UsernameUniqueViolationException;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -27,7 +28,7 @@ public class UsuarioService {
             return this.usuarioRepository.save(usuario);
         } catch (DataIntegrityViolationException ex) {
             throw new UsernameUniqueViolationException(String
-                    .format("Username {%s} já cadastrado.", usuario.getUsername()));
+                .format("Username {%s} já cadastrado.", usuario.getUsername()));
         }
     }
 
@@ -35,7 +36,8 @@ public class UsuarioService {
     public Usuario buscarPorId(final Long id) {
 
         return this.usuarioRepository.findById(id)
-            .orElseThrow(EntityNotFoundException::new);
+            .orElseThrow(() -> new EntidadeNotFoundException(String
+                .format("Usuário id = {%s} não encontrado.", id)));
     }
 
     @Transactional

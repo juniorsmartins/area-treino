@@ -1,10 +1,12 @@
 package io.apirest.estacionamento.java.web.exception;
 
+import io.apirest.estacionamento.java.web.exception.ex.EntidadeNotFoundException;
 import io.apirest.estacionamento.java.web.exception.ex.UsernameUniqueViolationException;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -27,6 +29,7 @@ public class ApiExceptionHandler {
 
         return ResponseEntity
             .status(HttpStatus.UNPROCESSABLE_ENTITY)
+            .contentType(MediaType.APPLICATION_JSON)
             .body(response);
     }
 
@@ -35,12 +38,25 @@ public class ApiExceptionHandler {
                                                                 HttpServletRequest request) {
         log.error("Api Error - ", ex);
 
-        var response =
-                new ErrorMessage(request, HttpStatus.CONFLICT, ex.getMessage());
+        var response = new ErrorMessage(request, HttpStatus.CONFLICT, ex.getMessage());
 
         return ResponseEntity
-                .status(HttpStatus.CONFLICT)
-                .body(response);
+            .status(HttpStatus.CONFLICT)
+            .contentType(MediaType.APPLICATION_JSON)
+            .body(response);
+    }
+
+    @ExceptionHandler(EntidadeNotFoundException.class)
+    public ResponseEntity<ErrorMessage> entidadeNotFound(RuntimeException ex, HttpServletRequest request) {
+
+        log.error("Api Error - ", ex);
+
+        var response = new ErrorMessage(request, HttpStatus.NOT_FOUND, ex.getMessage());
+
+        return ResponseEntity
+            .status(HttpStatus.NOT_FOUND)
+            .contentType(MediaType.APPLICATION_JSON)
+            .body(response);
     }
 }
 
