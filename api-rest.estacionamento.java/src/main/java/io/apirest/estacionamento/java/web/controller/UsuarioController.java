@@ -80,6 +80,9 @@ public class UsuarioController {
                     ErrorMessage.class))),
             @ApiResponse(responseCode = "404", description = "Recurso não encontrado.",
                 content = @Content(mediaType = "application/json", schema = @Schema(implementation =
+                    ErrorMessage.class))),
+            @ApiResponse(responseCode = "422", description = "Recurso com campos inválidos ou mal formatados.",
+                content = @Content(mediaType = "application/json", schema = @Schema(implementation =
                     ErrorMessage.class)))
         })
     public ResponseEntity<Void> updatePassword(@PathVariable(name = "id") final Long id, @RequestBody @Valid UsuarioSenhaDto senhaDto) {
