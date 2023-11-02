@@ -1,4 +1,4 @@
-package io.apirest.estacionamento.java.config;
+package io.apirest.estacionamento.java.security.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
