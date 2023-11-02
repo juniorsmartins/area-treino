@@ -41,6 +41,19 @@ public class UsuarioService {
                 .format("Usuário id = {%s} não encontrado.", id)));
     }
 
+    @Transactional(readOnly = true)
+    public Usuario buscarPorUsername(final String username) {
+
+        return this.usuarioRepository.findByUsername(username)
+            .orElseThrow(() -> new EntidadeNotFoundException(String
+                .format("Usuário não encontrado por username: %s", username)));
+    }
+
+    @Transactional(readOnly = true)
+    public Usuario.Role buscarRolePorUsername(final String username) {
+        return this.usuarioRepository.findRoleByUsername(username);
+    }
+
     @Transactional
     public void editarSenha(final Long id, final String senhaAtual, final String novaSenha, final String confirmaSenha) {
 
