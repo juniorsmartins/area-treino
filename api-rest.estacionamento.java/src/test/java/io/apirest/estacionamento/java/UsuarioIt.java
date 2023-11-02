@@ -79,6 +79,58 @@ public class UsuarioIt {
 
         org.assertj.core.api.Assertions.assertThat(responseBody3).isNotNull();
         org.assertj.core.api.Assertions.assertThat(responseBody3.getStatus()).isEqualTo(422);
+
+        var responseBody4 = this.testClient.post()
+            .uri(CAMINHO)
+            .contentType(MediaType.APPLICATION_JSON)
+            .bodyValue(new UsuarioCreateDto("teste@email.", "123456"))
+            .exchange()
+            .expectStatus().isEqualTo(422)
+            .expectBody(ErrorMessage.class)
+            .returnResult().getResponseBody();
+
+        org.assertj.core.api.Assertions.assertThat(responseBody4).isNotNull();
+        org.assertj.core.api.Assertions.assertThat(responseBody4.getStatus()).isEqualTo(422);
+    }
+
+    @Test
+    public void createUsuario_ComPasswordInvalido_RetornarErrorMessageComStatus422() {
+
+        var responseBody = this.testClient.post()
+            .uri(CAMINHO)
+            .contentType(MediaType.APPLICATION_JSON)
+            .bodyValue(new UsuarioCreateDto("teste@email.com", "12345"))
+            .exchange()
+            .expectStatus().isEqualTo(422)
+            .expectBody(ErrorMessage.class)
+            .returnResult().getResponseBody();
+
+        org.assertj.core.api.Assertions.assertThat(responseBody).isNotNull();
+        org.assertj.core.api.Assertions.assertThat(responseBody.getStatus()).isEqualTo(422);
+
+        var responseBody2 = this.testClient.post()
+            .uri(CAMINHO)
+            .contentType(MediaType.APPLICATION_JSON)
+            .bodyValue(new UsuarioCreateDto("teste@email.com", "1234567"))
+            .exchange()
+            .expectStatus().isEqualTo(422)
+            .expectBody(ErrorMessage.class)
+            .returnResult().getResponseBody();
+
+        org.assertj.core.api.Assertions.assertThat(responseBody2).isNotNull();
+        org.assertj.core.api.Assertions.assertThat(responseBody2.getStatus()).isEqualTo(422);
+
+        var responseBody3 = this.testClient.post()
+            .uri(CAMINHO)
+            .contentType(MediaType.APPLICATION_JSON)
+            .bodyValue(new UsuarioCreateDto("teste@email.com", ""))
+            .exchange()
+            .expectStatus().isEqualTo(422)
+            .expectBody(ErrorMessage.class)
+            .returnResult().getResponseBody();
+
+        org.assertj.core.api.Assertions.assertThat(responseBody3).isNotNull();
+        org.assertj.core.api.Assertions.assertThat(responseBody3.getStatus()).isEqualTo(422);
     }
 }
 
