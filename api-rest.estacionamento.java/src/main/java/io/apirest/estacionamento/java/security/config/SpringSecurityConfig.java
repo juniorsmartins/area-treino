@@ -32,6 +32,7 @@ public class SpringSecurityConfig {
             .httpBasic(AbstractHttpConfigurer::disable) // desabilita esquema básico de segurança
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers(HttpMethod.POST, CAMINHO).permitAll()
+                .requestMatchers(HttpMethod.POST, "/api/v1/auth").permitAll()
                 .anyRequest().authenticated()
             ).sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .addFilterBefore(jwtAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
