@@ -8,6 +8,7 @@ import io.apirest.estacionamento.java.web.exception.ex.UsernameUniqueViolationEx
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,13 +21,15 @@ public class UsuarioService {
 
     private final UsuarioRepository usuarioRepository;
 
+    private final PasswordEncoder passwordEncoder;
+
     @Transactional
     public Usuario salvar(Usuario usuario) {
 
-        usuario.setDataCriacao(LocalDateTime.now());
-
         try {
+            usuario.setPassword(this.passwordEncoder.encode(usuario.getPassword()));
             return this.usuarioRepository.save(usuario);
+
         } catch (DataIntegrityViolationException ex) {
             throw new UsernameUniqueViolationException(String
                 .format("Username {%s} já cadastrado.", usuario.getUsername()));
@@ -63,10 +66,10 @@ public class UsuarioService {
 
         Usuario user = this.buscarPorId(id);
 
-        if (!user.getPassword().equals(senhaAtual))
+        if (!this.passwordEncoder.matches(senhaAtual, user.getPassword()))
             throw new PasswordInvalidException(String.format("Sua senha = {%s} não confere.", senhaAtual));
 
-        user.setPassword(novaSenha);
+        user.setPassword(this.passwordEncoder.encode(novaSenha));
     }
 
     @Transactional(readOnly = true)
