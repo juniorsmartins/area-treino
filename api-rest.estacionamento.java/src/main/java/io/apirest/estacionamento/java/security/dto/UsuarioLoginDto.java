@@ -1,4 +1,4 @@
-package io.apirest.estacionamento.java.web.dto;
+package io.apirest.estacionamento.java.security.dto;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -12,7 +12,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class UsuarioCreateDto {
+public class UsuarioLoginDto {
 
     @NotBlank
     @Email(regexp = "^[a-z0-9_+.]+@[a-z0-9.-]+\\.[a-z]{2,}$")
