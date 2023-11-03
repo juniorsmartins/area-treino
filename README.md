@@ -9,7 +9,7 @@ O objetivo será desenvolver um sistema de gerenciamento para estacionamento.O s
 > - [ ] README;
 > - [x] API configurada com Timezone do país de origem;
 > - [x] API configurada com Locale do país de origem;
-> - [ ] API com sistema de auditoria;
+> - [x] API com sistema de auditoria;
 > - [x] Configuração de acesso a base de dados para ambiente de desenvolvimento;
 > - [x] O usuário terá email, o qual será usado como username (valor único);
 > - [x] O usuário terá senha de seis caracteres;
