@@ -1,5 +1,6 @@
 package io.apirest.estacionamento.java.security.config;
 
+import io.apirest.estacionamento.java.security.jwt.JwtAuthenticationEntryPoint;
 import io.apirest.estacionamento.java.security.jwt.JwtAuthorizationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -36,6 +37,7 @@ public class SpringSecurityConfig {
                 .anyRequest().authenticated()
             ).sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .addFilterBefore(jwtAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
+            .exceptionHandling(ex -> ex.authenticationEntryPoint(new JwtAuthenticationEntryPoint()))
             .build();
     }
 
