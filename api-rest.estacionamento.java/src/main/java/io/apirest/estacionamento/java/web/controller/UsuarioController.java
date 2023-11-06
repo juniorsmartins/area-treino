@@ -52,7 +52,7 @@ public class UsuarioController {
     }
 
     @GetMapping(path = "/{id}")
-    @PreAuthorize("hasRole('ADMIN') OR ( hasRole('CLIENTE') AND #id == authentication.principal.id)")
+    @PreAuthorize("hasRole('ADMIN') OR (hasRole('CLIENTE') AND #id == authentication.principal.id)")
     @Operation(summary = "Recuperar Usuário por id.", description = "Recurso para recuperar um Usuário por id.",
         responses = {
             @ApiResponse(responseCode = "200", description = "Recurso recuperado com sucesso.",
@@ -72,6 +72,7 @@ public class UsuarioController {
     }
 
     @PatchMapping(path = "/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'CLIENTE') AND (#id == authentication.principal.id)")
     @Operation(summary = "Atualizar senha.", description = "Recurso para atualizar a senha de um Usuário.",
         responses = {
             @ApiResponse(responseCode = "204", description = "Recurso atualizado com sucesso.",
