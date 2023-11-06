@@ -16,6 +16,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -51,6 +52,7 @@ public class UsuarioController {
     }
 
     @GetMapping(path = "/{id}")
+    @PreAuthorize("hasRole('ADMIN') OR (hasRole('CLIENTE') AND #id == authentication.principal.id)")
     @Operation(summary = "Recuperar Usuário por id.", description = "Recurso para recuperar um Usuário por id.",
         responses = {
             @ApiResponse(responseCode = "200", description = "Recurso recuperado com sucesso.",
@@ -70,6 +72,7 @@ public class UsuarioController {
     }
 
     @PatchMapping(path = "/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'CLIENTE') AND (#id == authentication.principal.id)")
     @Operation(summary = "Atualizar senha.", description = "Recurso para atualizar a senha de um Usuário.",
         responses = {
             @ApiResponse(responseCode = "204", description = "Recurso atualizado com sucesso.",
@@ -96,6 +99,7 @@ public class UsuarioController {
     }
 
     @GetMapping
+    @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Listar Usuários.", description = "Recurso para listar todos os Usuários.",
         responses = {
             @ApiResponse(responseCode = "200", description = "Recursos listados com sucesso.",
