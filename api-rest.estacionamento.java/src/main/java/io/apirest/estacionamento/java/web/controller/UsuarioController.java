@@ -99,6 +99,7 @@ public class UsuarioController {
     }
 
     @GetMapping
+    @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Listar Usuários.", description = "Recurso para listar todos os Usuários.",
         responses = {
             @ApiResponse(responseCode = "200", description = "Recursos listados com sucesso.",
