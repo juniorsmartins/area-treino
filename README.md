@@ -16,11 +16,11 @@ O objetivo será desenvolver um sistema de gerenciamento para estacionamento.O s
 > - [x] O usuário deverá ter perfil de administrador ou cliente;
 > - [x] O usuário será criado sem autenticação;
 > - [x] O usuário será localizado pelo identificador gerado;
-> - [ ] O administrador, quando autenticado, poderá recuperar qualquer usuário pelo id;
-> - [ ] O cliente, quando autenticado, poderá recuperar somente os próprios dados;
+> - [x] O administrador, quando autenticado, poderá recuperar qualquer usuário pelo id;
+> - [x] O cliente, quando autenticado, poderá recuperar somente os próprios dados;
 > - [x] O usuário poderá alterar a senha;
-> - [ ] O administrador poderá listar todos os usuários quando estiver autenticado;
-> - [ ] Documentar todos os recursos;
+> - [x] O administrador poderá listar todos os usuários quando estiver autenticado;
+> - [x] Documentar todos os recursos;
 > - [ ] Realizar testes de integração do tipo ponto-a-ponto (end-to-end) dos recursos;
 > - [ ] Implementar sistema de segurança e autenticação com Json Web Token;
 > - [ ] Documentar recursos de autenticação;
