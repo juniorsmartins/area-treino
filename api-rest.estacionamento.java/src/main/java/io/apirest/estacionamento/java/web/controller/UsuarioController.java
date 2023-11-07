@@ -54,7 +54,7 @@ public class UsuarioController {
 
     @GetMapping(path = "/{id}")
     @PreAuthorize("hasRole('ADMIN') OR (hasRole('CLIENTE') AND #id == authentication.principal.id)")
-    @Operation(summary = "Recuperar Usuário por id.", description = "Recurso para recuperar um Usuário por id.",
+    @Operation(summary = "Recuperar Usuário por id.", description = "Recurso para recuperar um Usuário por id. Requer Bearer Token. Acesso restrito a ADMIN | CLIENTE.",
         security = @SecurityRequirement(name = "security"),
         responses = {
             @ApiResponse(responseCode = "200", description = "Recurso recuperado com sucesso.",
@@ -78,7 +78,7 @@ public class UsuarioController {
 
     @PatchMapping(path = "/{id}")
     @PreAuthorize("hasAnyRole('ADMIN', 'CLIENTE') AND (#id == authentication.principal.id)")
-    @Operation(summary = "Atualizar senha.", description = "Recurso para atualizar a senha de um Usuário.",
+    @Operation(summary = "Atualizar senha.", description = "Recurso para atualizar a senha de um Usuário. Requer Bearer Token. Acesso restrito a ADMIN | CLIENTE.",
         security = @SecurityRequirement(name = "security"),
         responses = {
             @ApiResponse(responseCode = "204", description = "Recurso atualizado com sucesso.",
@@ -109,7 +109,7 @@ public class UsuarioController {
 
     @GetMapping
     @PreAuthorize("hasRole('ADMIN')")
-    @Operation(summary = "Listar Usuários.", description = "Recurso para listar todos os Usuários.",
+    @Operation(summary = "Listar Usuários.", description = "Recurso para listar todos os Usuários. Requer Bearer Token. Acesso restrito a ADMIN.",
         security = @SecurityRequirement(name = "security"),
         responses = {
             @ApiResponse(responseCode = "200", description = "Recursos listados com sucesso.",

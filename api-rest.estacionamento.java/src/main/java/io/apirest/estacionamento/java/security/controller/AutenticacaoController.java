@@ -2,7 +2,13 @@ package io.apirest.estacionamento.java.security.controller;
 
 import io.apirest.estacionamento.java.security.dto.UsuarioLoginDto;
 import io.apirest.estacionamento.java.security.jwt.JwtUserDetailsService;
+import io.apirest.estacionamento.java.web.dto.UsuarioResponseDto;
 import io.apirest.estacionamento.java.web.exception.ErrorMessage;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+@Tag(name = "Autenticação", description = "Contém recurso para Usuário efetuar Login.")
 @Slf4j
 @RequiredArgsConstructor
 @RestController
@@ -27,6 +34,15 @@ public class AutenticacaoController {
     private final AuthenticationManager authenticationManager;
 
     @PostMapping(path = "/auth")
+    @Operation(summary = "Logar Usuário.", description = "Recurso para logar um Usuário.",
+        responses = {
+            @ApiResponse(responseCode = "200", description = "Login efetuado com sucesso.",
+                content = @Content(mediaType = "application/json", schema = @Schema(implementation =
+                    UsuarioResponseDto.class))),
+            @ApiResponse(responseCode = "400", description = "Username ou Password inválidos.",
+                content = @Content(mediaType = "application/json", schema = @Schema(implementation =
+                    ErrorMessage.class)))
+            })
     public ResponseEntity<?> autenticar(@RequestBody @Valid UsuarioLoginDto loginDto, HttpServletRequest request) {
 
         log.info("Processo de autenticação pelo login '{}'", loginDto.getUsername());
