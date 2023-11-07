@@ -1,9 +1,11 @@
 package io.apirest.estacionamento.java.config;
 
+import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Contact;
 import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.info.License;
+import io.swagger.v3.oas.models.security.SecurityScheme;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -14,6 +16,7 @@ public class SpringDocOpenApiConfig {
     public OpenAPI openAPI() {
 
         return new OpenAPI()
+            .components(new Components().addSecuritySchemes("security", securityScheme()))
             .info(new Info()
                 .title("Rest API - Estacionamento - com Java 21 e Spring Boot 3.0.12")
                 .description("API para gestão de estacionamento de veículos.")
@@ -26,6 +29,17 @@ public class SpringDocOpenApiConfig {
                     .email("teste@email.com")
                     .url("https://www.linkedin.com/in/juniorsmartins/"))
             );
+    }
+
+    private SecurityScheme securityScheme() {
+
+        return new SecurityScheme()
+            .description("Insira um bearer token válido para prosseguir.")
+            .type(SecurityScheme.Type.HTTP)
+            .in(SecurityScheme.In.HEADER)
+            .scheme("bearer")
+            .bearerFormat("JWT")
+            .name("security");
     }
 }
 

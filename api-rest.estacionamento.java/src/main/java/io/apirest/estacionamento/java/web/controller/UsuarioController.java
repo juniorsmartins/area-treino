@@ -11,6 +11,7 @@ import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -54,6 +55,7 @@ public class UsuarioController {
     @GetMapping(path = "/{id}")
     @PreAuthorize("hasRole('ADMIN') OR (hasRole('CLIENTE') AND #id == authentication.principal.id)")
     @Operation(summary = "Recuperar Usuário por id.", description = "Recurso para recuperar um Usuário por id.",
+        security = @SecurityRequirement(name = "security"),
         responses = {
             @ApiResponse(responseCode = "200", description = "Recurso recuperado com sucesso.",
                 content = @Content(mediaType = "application/json", schema = @Schema(implementation =
@@ -74,6 +76,7 @@ public class UsuarioController {
     @PatchMapping(path = "/{id}")
     @PreAuthorize("hasAnyRole('ADMIN', 'CLIENTE') AND (#id == authentication.principal.id)")
     @Operation(summary = "Atualizar senha.", description = "Recurso para atualizar a senha de um Usuário.",
+        security = @SecurityRequirement(name = "security"),
         responses = {
             @ApiResponse(responseCode = "204", description = "Recurso atualizado com sucesso.",
                 content = @Content(mediaType = "application/json", schema = @Schema(implementation =
@@ -101,6 +104,7 @@ public class UsuarioController {
     @GetMapping
     @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Listar Usuários.", description = "Recurso para listar todos os Usuários.",
+        security = @SecurityRequirement(name = "security"),
         responses = {
             @ApiResponse(responseCode = "200", description = "Recursos listados com sucesso.",
                 content = @Content(mediaType = "application/json", array =
