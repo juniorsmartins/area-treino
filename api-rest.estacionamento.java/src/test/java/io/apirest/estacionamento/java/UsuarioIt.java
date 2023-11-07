@@ -155,6 +155,7 @@ public class UsuarioIt {
 
         var responseBody = this.testClient.get()
             .uri(CAMINHO.concat("/100"))
+            .headers(JwtAuthentication.getHeaderAuthorization(this.testClient, "bob@email.com", "123456"))
             .exchange()
             .expectStatus().isOk()
             .expectBody(UsuarioResponseDto.class)
@@ -168,6 +169,23 @@ public class UsuarioIt {
         org.assertj.core.api.Assertions.assertThat(responseBody.getId()).isEqualTo(100);
         org.assertj.core.api.Assertions.assertThat(responseBody.getUsername()).isEqualTo("bob@email.com");
         org.assertj.core.api.Assertions.assertThat(responseBody.getRole()).isEqualTo("ADMIN");
+
+        var responseBody2 = this.testClient.get()
+            .uri(CAMINHO.concat("/101"))
+                .headers(JwtAuthentication.getHeaderAuthorization(this.testClient, "fowler@email.com", "123456"))
+            .exchange()
+            .expectStatus().isOk()
+            .expectBody(UsuarioResponseDto.class)
+            .returnResult().getResponseBody();
+
+        org.assertj.core.api.Assertions.assertThat(responseBody2).isNotNull();
+        org.assertj.core.api.Assertions.assertThat(responseBody2.getId()).isNotNull();
+        org.assertj.core.api.Assertions.assertThat(responseBody2.getUsername()).isNotNull();
+        org.assertj.core.api.Assertions.assertThat(responseBody2.getRole()).isNotNull();
+
+        org.assertj.core.api.Assertions.assertThat(responseBody2.getId()).isEqualTo(101);
+        org.assertj.core.api.Assertions.assertThat(responseBody2.getUsername()).isEqualTo("fowler@email.com");
+        org.assertj.core.api.Assertions.assertThat(responseBody2.getRole()).isEqualTo("CLIENTE");
     }
 
     @Test
