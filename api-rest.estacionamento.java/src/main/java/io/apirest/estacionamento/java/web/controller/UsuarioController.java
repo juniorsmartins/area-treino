@@ -4,7 +4,7 @@ import io.apirest.estacionamento.java.service.UsuarioService;
 import io.apirest.estacionamento.java.web.dto.UsuarioCreateDto;
 import io.apirest.estacionamento.java.web.dto.UsuarioResponseDto;
 import io.apirest.estacionamento.java.web.dto.UsuarioSenhaDto;
-import io.apirest.estacionamento.java.web.dto.mapper.UsuarioMapper;
+import io.apirest.estacionamento.java.web.mapper.UsuarioMapper;
 import io.apirest.estacionamento.java.web.exception.ErrorMessage;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;

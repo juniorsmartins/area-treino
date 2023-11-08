@@ -1,4 +1,4 @@
-package io.apirest.estacionamento.java.security.controller;
+package io.apirest.estacionamento.java.web.controller;
 
 import io.apirest.estacionamento.java.security.dto.UsuarioLoginDto;
 import io.apirest.estacionamento.java.security.jwt.JwtUserDetailsService;
