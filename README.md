@@ -21,10 +21,10 @@ O objetivo será desenvolver um sistema de gerenciamento para estacionamento.O s
 > - [x] O usuário poderá alterar a senha;
 > - [x] O administrador poderá listar todos os usuários quando estiver autenticado;
 > - [x] Documentar todos os recursos;
-> - [ ] Realizar testes de integração do tipo ponto-a-ponto (end-to-end) dos recursos;
-> - [ ] Implementar sistema de segurança e autenticação com Json Web Token;
-> - [ ] Documentar recursos de autenticação;
-> - [ ] Realizar testes sobre o sistema de autenticação;
+> - [x] Realizar testes de integração do tipo ponto-a-ponto (end-to-end) dos recursos;
+> - [x] Implementar sistema de segurança e autenticação com Json Web Token;
+> - [x] Documentar recursos de autenticação;
+> - [x] Realizar testes sobre o sistema de autenticação;
 > - [ ] O cadastro do cliente só será possível depois de realizado o cadastro como usuário. Um usuário poderá ter apenas um único cadastro como cliente e um cliente poderá estar vinculado a um único usuário;
 > - [ ] O cadastro do cliente contém nome completo e CPF (valor único);
 > - [ ] O cadastro do cliente deve estar vinculado a um usuário;
