@@ -90,9 +90,6 @@ public class UsuarioController {
             @ApiResponse(responseCode = "403", description = "Usuário sem permissão para acessar recurso.",
                 content = @Content(mediaType = "application/json", schema = @Schema(implementation =
                     ErrorMessage.class))),
-            @ApiResponse(responseCode = "404", description = "Recurso não encontrado.",
-                content = @Content(mediaType = "application/json", schema = @Schema(implementation =
-                    ErrorMessage.class))),
             @ApiResponse(responseCode = "422", description = "Recurso com campos inválidos ou mal formatados.",
                 content = @Content(mediaType = "application/json", schema = @Schema(implementation =
                     ErrorMessage.class)))
