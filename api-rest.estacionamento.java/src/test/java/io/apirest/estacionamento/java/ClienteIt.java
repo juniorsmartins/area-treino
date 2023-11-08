@@ -63,7 +63,7 @@ public class ClienteIt {
     }
 
     @Test
-    @Order(2)
+    @Order(3)
     public void criarCliente_ComDadosInvalidos_RetornarErrorMessageComStatus422() {
 
         var resposta = this.testClient.post()
@@ -122,7 +122,7 @@ public class ClienteIt {
             .uri(CAMINHO)
             .contentType(MediaType.APPLICATION_JSON)
             .headers(JwtAuthentication.getHeaderAuthorization(this.testClient, "toby@email.com", "123456"))
-            .bodyValue(new ClienteCreateDto("Tobias Ferreira", "781.492.420.07"))
+            .bodyValue(new ClienteCreateDto("Tobias Ferreira", "781.492.420-07"))
             .exchange()
             .expectStatus().isEqualTo(422)
             .expectBody(ErrorMessage.class)
@@ -130,6 +130,24 @@ public class ClienteIt {
 
         org.assertj.core.api.Assertions.assertThat(resposta).isNotNull();
         org.assertj.core.api.Assertions.assertThat(resposta.getStatus()).isEqualTo(422);
+    }
+
+    @Test
+    @Order(4)
+    public void criarCliente_ComUsuarioNaoPermitido_RetornarErrorMessageComStatus403() {
+
+        var resposta = this.testClient.post()
+            .uri(CAMINHO)
+            .contentType(MediaType.APPLICATION_JSON)
+            .headers(JwtAuthentication.getHeaderAuthorization(this.testClient, "bob@email.com", "123456"))
+            .bodyValue(new ClienteCreateDto("Tobias Ferreira", "78149242007"))
+            .exchange()
+            .expectStatus().isForbidden()
+            .expectBody(ErrorMessage.class)
+            .returnResult().getResponseBody();
+
+        org.assertj.core.api.Assertions.assertThat(resposta).isNotNull();
+        org.assertj.core.api.Assertions.assertThat(resposta.getStatus()).isEqualTo(403);
     }
 }
 
