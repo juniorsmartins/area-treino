@@ -68,5 +68,99 @@ public class AutenticacaoIt {
         org.assertj.core.api.Assertions.assertThat(response2).isNotNull();
         org.assertj.core.api.Assertions.assertThat(response2.getStatus()).isEqualTo(400);
     }
+
+    @Test
+    @Order(3)
+    public void autenticar_ComUsernameInvalido_RetornarErrorMessageComStatus422() {
+
+        var response = testClient.post()
+            .uri(CAMINHO)
+            .contentType(MediaType.APPLICATION_JSON)
+            .bodyValue(new UsuarioLoginDto("", "123456"))
+            .exchange()
+            .expectStatus().isEqualTo(422)
+            .expectBody(ErrorMessage.class)
+            .returnResult().getResponseBody();
+
+        org.assertj.core.api.Assertions.assertThat(response).isNotNull();
+        org.assertj.core.api.Assertions.assertThat(response.getStatus()).isEqualTo(422);
+
+        var response2 = testClient.post()
+            .uri(CAMINHO)
+            .contentType(MediaType.APPLICATION_JSON)
+            .bodyValue(new UsuarioLoginDto(" ", "123456"))
+            .exchange()
+            .expectStatus().isEqualTo(422)
+            .expectBody(ErrorMessage.class)
+            .returnResult().getResponseBody();
+
+        org.assertj.core.api.Assertions.assertThat(response2).isNotNull();
+        org.assertj.core.api.Assertions.assertThat(response2.getStatus()).isEqualTo(422);
+
+        var response3 = testClient.post()
+            .uri(CAMINHO)
+            .contentType(MediaType.APPLICATION_JSON)
+            .bodyValue(new UsuarioLoginDto("@email.com", "123456"))
+            .exchange()
+            .expectStatus().isEqualTo(422)
+            .expectBody(ErrorMessage.class)
+            .returnResult().getResponseBody();
+
+        org.assertj.core.api.Assertions.assertThat(response3).isNotNull();
+        org.assertj.core.api.Assertions.assertThat(response3.getStatus()).isEqualTo(422);
+    }
+
+    @Test
+    @Order(4)
+    public void autenticar_ComSenhaInvalida_RetornarErrorMessageComStatus422() {
+
+        var response = testClient.post()
+            .uri(CAMINHO)
+            .contentType(MediaType.APPLICATION_JSON)
+            .bodyValue(new UsuarioLoginDto("fowler@email.com", ""))
+            .exchange()
+            .expectStatus().isEqualTo(422)
+            .expectBody(ErrorMessage.class)
+            .returnResult().getResponseBody();
+
+        org.assertj.core.api.Assertions.assertThat(response).isNotNull();
+        org.assertj.core.api.Assertions.assertThat(response.getStatus()).isEqualTo(422);
+
+        var response2 = testClient.post()
+            .uri(CAMINHO)
+            .contentType(MediaType.APPLICATION_JSON)
+            .bodyValue(new UsuarioLoginDto("fowler@email.com", " "))
+            .exchange()
+            .expectStatus().isEqualTo(422)
+            .expectBody(ErrorMessage.class)
+            .returnResult().getResponseBody();
+
+        org.assertj.core.api.Assertions.assertThat(response2).isNotNull();
+        org.assertj.core.api.Assertions.assertThat(response2.getStatus()).isEqualTo(422);
+
+        var response3 = testClient.post()
+            .uri(CAMINHO)
+            .contentType(MediaType.APPLICATION_JSON)
+            .bodyValue(new UsuarioLoginDto("fowler@email.com", "123"))
+            .exchange()
+            .expectStatus().isEqualTo(422)
+            .expectBody(ErrorMessage.class)
+            .returnResult().getResponseBody();
+
+        org.assertj.core.api.Assertions.assertThat(response3).isNotNull();
+        org.assertj.core.api.Assertions.assertThat(response3.getStatus()).isEqualTo(422);
+
+        var response4 = testClient.post()
+            .uri(CAMINHO)
+            .contentType(MediaType.APPLICATION_JSON)
+            .bodyValue(new UsuarioLoginDto("fowler@email.com", "123456789"))
+            .exchange()
+            .expectStatus().isEqualTo(422)
+            .expectBody(ErrorMessage.class)
+            .returnResult().getResponseBody();
+
+        org.assertj.core.api.Assertions.assertThat(response4).isNotNull();
+        org.assertj.core.api.Assertions.assertThat(response4.getStatus()).isEqualTo(422);
+    }
 }
 
