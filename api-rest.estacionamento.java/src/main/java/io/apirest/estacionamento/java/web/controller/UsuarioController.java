@@ -4,7 +4,7 @@ import io.apirest.estacionamento.java.service.UsuarioService;
 import io.apirest.estacionamento.java.web.dto.UsuarioCreateDto;
 import io.apirest.estacionamento.java.web.dto.UsuarioResponseDto;
 import io.apirest.estacionamento.java.web.dto.UsuarioSenhaDto;
-import io.apirest.estacionamento.java.web.dto.mapper.UsuarioMapper;
+import io.apirest.estacionamento.java.web.mapper.UsuarioMapper;
 import io.apirest.estacionamento.java.web.exception.ErrorMessage;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -88,9 +88,6 @@ public class UsuarioController {
                 content = @Content(mediaType = "application/json", schema = @Schema(implementation =
                     ErrorMessage.class))),
             @ApiResponse(responseCode = "403", description = "Usuário sem permissão para acessar recurso.",
-                content = @Content(mediaType = "application/json", schema = @Schema(implementation =
-                    ErrorMessage.class))),
-            @ApiResponse(responseCode = "404", description = "Recurso não encontrado.",
                 content = @Content(mediaType = "application/json", schema = @Schema(implementation =
                     ErrorMessage.class))),
             @ApiResponse(responseCode = "422", description = "Recurso com campos inválidos ou mal formatados.",

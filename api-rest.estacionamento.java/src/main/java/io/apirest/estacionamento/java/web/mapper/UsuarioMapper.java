@@ -1,4 +1,4 @@
-package io.apirest.estacionamento.java.web.dto.mapper;
+package io.apirest.estacionamento.java.web.mapper;
 
 import io.apirest.estacionamento.java.entity.Usuario;
 import io.apirest.estacionamento.java.web.dto.UsuarioCreateDto;
