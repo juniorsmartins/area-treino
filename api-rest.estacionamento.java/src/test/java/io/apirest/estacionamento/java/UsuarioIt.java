@@ -4,7 +4,10 @@ import io.apirest.estacionamento.java.web.dto.UsuarioCreateDto;
 import io.apirest.estacionamento.java.web.dto.UsuarioResponseDto;
 import io.apirest.estacionamento.java.web.dto.UsuarioSenhaDto;
 import io.apirest.estacionamento.java.web.exception.ErrorMessage;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
@@ -14,6 +17,7 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Sql(scripts = "/sql/usuarios/usuarios-insert.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 @Sql(scripts = "/sql/usuarios/usuarios-delete.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class UsuarioIt {
 
     private static final String CAMINHO = "/api/v1/usuarios";
@@ -22,6 +26,7 @@ public class UsuarioIt {
     WebTestClient testClient;
 
     @Test
+    @Order(1)
     public void createUsuario_ComUsernameAndPasswordValidos_RetornarUsuarioCriadoComStatus201() {
 
         var responseBody = this.testClient.post()
@@ -43,6 +48,7 @@ public class UsuarioIt {
     }
 
     @Test
+    @Order(2)
     public void createUsuario_ComUsernameRepetido_RetornarErrorMessageComStatus409() {
 
         var responseBody = this.testClient.post()
@@ -59,6 +65,7 @@ public class UsuarioIt {
     }
 
     @Test
+    @Order(3)
     public void createUsuario_ComUsernameInvalido_RetornarErrorMessageComStatus422() {
 
         var responseBody = this.testClient.post()
@@ -111,6 +118,7 @@ public class UsuarioIt {
     }
 
     @Test
+    @Order(4)
     public void createUsuario_ComPasswordInvalido_RetornarErrorMessageComStatus422() {
 
         var responseBody = this.testClient.post()
@@ -151,6 +159,7 @@ public class UsuarioIt {
     }
 
     @Test
+    @Order(10)
     public void buscarUsuario_ComIdExistente_RetornarUsuarioComStatus200() {
 
         var responseBody = this.testClient.get()
@@ -189,10 +198,12 @@ public class UsuarioIt {
     }
 
     @Test
+    @Order(11)
     public void buscarUsuario_ComIdInexistente_RetornarErrorMessageComStatus404() {
 
         var responseBody = this.testClient.get()
             .uri(CAMINHO.concat("/0"))
+            .headers(JwtAuthentication.getHeaderAuthorization(this.testClient, "bob@email.com", "123456"))
             .exchange()
             .expectStatus().isNotFound()
             .expectBody(ErrorMessage.class)
@@ -203,6 +214,45 @@ public class UsuarioIt {
     }
 
     @Test
+    @Order(12)
+    public void buscarUsuario_ComUsuarioClienteBuscandoOutroCliente_RetornarErrorMessageComStatus403() {
+
+        var responseBody = this.testClient.get()
+            .uri(CAMINHO.concat("/101"))
+            .headers(JwtAuthentication.getHeaderAuthorization(this.testClient, "beck@email.com", "123456"))
+            .exchange()
+            .expectStatus().isForbidden()
+            .expectBody(ErrorMessage.class)
+            .returnResult().getResponseBody();
+
+        org.assertj.core.api.Assertions.assertThat(responseBody).isNotNull();
+        org.assertj.core.api.Assertions.assertThat(responseBody.getStatus()).isEqualTo(403);
+    }
+
+    @Test
+    @Order(13)
+    public void buscarUsuario_ComUsuarioAdminBuscandoCliente_RetornarUsuarioComStatus200() {
+
+        var responseBody = this.testClient.get()
+            .uri(CAMINHO.concat("/102"))
+            .headers(JwtAuthentication.getHeaderAuthorization(this.testClient, "bob@email.com", "123456"))
+            .exchange()
+            .expectStatus().isOk()
+            .expectBody(UsuarioResponseDto.class)
+            .returnResult().getResponseBody();
+
+        org.assertj.core.api.Assertions.assertThat(responseBody).isNotNull();
+        org.assertj.core.api.Assertions.assertThat(responseBody.getId()).isNotNull();
+        org.assertj.core.api.Assertions.assertThat(responseBody.getUsername()).isNotNull();
+        org.assertj.core.api.Assertions.assertThat(responseBody.getRole()).isNotNull();
+
+        org.assertj.core.api.Assertions.assertThat(responseBody.getId()).isEqualTo(102);
+        org.assertj.core.api.Assertions.assertThat(responseBody.getUsername()).isEqualTo("beck@email.com");
+        org.assertj.core.api.Assertions.assertThat(responseBody.getRole()).isEqualTo("CLIENTE");
+    }
+
+    @Test
+    @Order(20)
     public void editarSenha_ComDadosValidos_RetornarStatus204() {
 
         this.testClient.patch()
