@@ -38,7 +38,7 @@ public class Cliente implements Serializable {
     private String cpf;
 
     @OneToOne
-    @JoinColumn(name = "usuario_id", nullable = false, unique = true)
+    @JoinColumn(name = "usuario_id", nullable = false)
     private Usuario usuario;
 
     @CreatedDate

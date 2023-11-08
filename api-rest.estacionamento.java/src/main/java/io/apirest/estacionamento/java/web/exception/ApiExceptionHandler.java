@@ -1,5 +1,6 @@
 package io.apirest.estacionamento.java.web.exception;
 
+import io.apirest.estacionamento.java.web.exception.ex.CpfUniqueViolationException;
 import io.apirest.estacionamento.java.web.exception.ex.EntidadeNotFoundException;
 import io.apirest.estacionamento.java.web.exception.ex.PasswordInvalidException;
 import io.apirest.estacionamento.java.web.exception.ex.UsernameUniqueViolationException;
@@ -36,9 +37,9 @@ public class ApiExceptionHandler {
             .body(response);
     }
 
-    @ExceptionHandler(UsernameUniqueViolationException.class)
-    public ResponseEntity<ErrorMessage> usernameUniqueViolation(RuntimeException ex,
-                                                                HttpServletRequest request) {
+    @ExceptionHandler(value = {UsernameUniqueViolationException.class, CpfUniqueViolationException.class})
+    public ResponseEntity<ErrorMessage> uniqueViolation(RuntimeException ex,
+                                                        HttpServletRequest request) {
         log.error("Api Error - ", ex);
 
         var response = new ErrorMessage(request, HttpStatus.CONFLICT, ex.getMessage());
