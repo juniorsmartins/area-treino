@@ -276,7 +276,7 @@ public class UsuarioIt {
 
     @Test
     @Order(21)
-    public void editarSenha_ComDadosInvalidos_RetornarErrorMessageStatus403() {
+    public void editarSenha_ComUsuariosDiferentes_RetornarErrorMessageStatus403() {
 
         // Teste ADMIN
         var responseBody = this.testClient.patch()
@@ -308,10 +308,12 @@ public class UsuarioIt {
     }
 
     @Test
+    @Order(22)
     public void editarSenha_ComCamposInvalidos_RetornarErrorMessageStatus422() {
 
         var responseBody = this.testClient.patch()
             .uri(CAMINHO.concat("/100"))
+            .headers(JwtAuthentication.getHeaderAuthorization(this.testClient, "bob@email.com", "123456"))
             .contentType(MediaType.APPLICATION_JSON)
             .bodyValue(new UsuarioSenhaDto("", "654321", "654321"))
             .exchange()
@@ -324,6 +326,7 @@ public class UsuarioIt {
 
         var responseBody2 = this.testClient.patch()
             .uri(CAMINHO.concat("/100"))
+            .headers(JwtAuthentication.getHeaderAuthorization(this.testClient, "bob@email.com", "123456"))
             .contentType(MediaType.APPLICATION_JSON)
             .bodyValue(new UsuarioSenhaDto("123", "654321", "654321"))
             .exchange()
@@ -336,6 +339,7 @@ public class UsuarioIt {
 
         var responseBody3 = this.testClient.patch()
             .uri(CAMINHO.concat("/100"))
+            .headers(JwtAuthentication.getHeaderAuthorization(this.testClient, "bob@email.com", "123456"))
             .contentType(MediaType.APPLICATION_JSON)
             .bodyValue(new UsuarioSenhaDto("123456789", "654321", "654321"))
             .exchange()
@@ -348,6 +352,7 @@ public class UsuarioIt {
 
         var responseBody4 = this.testClient.patch()
             .uri(CAMINHO.concat("/100"))
+            .headers(JwtAuthentication.getHeaderAuthorization(this.testClient, "bob@email.com", "123456"))
             .contentType(MediaType.APPLICATION_JSON)
             .bodyValue(new UsuarioSenhaDto("123456", "", "654321"))
             .exchange()
@@ -360,6 +365,7 @@ public class UsuarioIt {
 
         var responseBody5 = this.testClient.patch()
             .uri(CAMINHO.concat("/100"))
+            .headers(JwtAuthentication.getHeaderAuthorization(this.testClient, "bob@email.com", "123456"))
             .contentType(MediaType.APPLICATION_JSON)
             .bodyValue(new UsuarioSenhaDto("123456", "654", "654321"))
             .exchange()
@@ -372,6 +378,7 @@ public class UsuarioIt {
 
         var responseBody6 = this.testClient.patch()
             .uri(CAMINHO.concat("/100"))
+            .headers(JwtAuthentication.getHeaderAuthorization(this.testClient, "bob@email.com", "123456"))
             .contentType(MediaType.APPLICATION_JSON)
             .bodyValue(new UsuarioSenhaDto("123456789", "987654321", "654321"))
             .exchange()
@@ -384,6 +391,7 @@ public class UsuarioIt {
 
         var responseBody7 = this.testClient.patch()
             .uri(CAMINHO.concat("/100"))
+            .headers(JwtAuthentication.getHeaderAuthorization(this.testClient, "bob@email.com", "123456"))
             .contentType(MediaType.APPLICATION_JSON)
             .bodyValue(new UsuarioSenhaDto("123456", "654321", ""))
             .exchange()
@@ -396,6 +404,7 @@ public class UsuarioIt {
 
         var responseBody8 = this.testClient.patch()
             .uri(CAMINHO.concat("/100"))
+            .headers(JwtAuthentication.getHeaderAuthorization(this.testClient, "bob@email.com", "123456"))
             .contentType(MediaType.APPLICATION_JSON)
             .bodyValue(new UsuarioSenhaDto("123456", "654321", "654"))
             .exchange()
@@ -408,6 +417,7 @@ public class UsuarioIt {
 
         var responseBody9 = this.testClient.patch()
             .uri(CAMINHO.concat("/100"))
+            .headers(JwtAuthentication.getHeaderAuthorization(this.testClient, "bob@email.com", "123456"))
             .contentType(MediaType.APPLICATION_JSON)
             .bodyValue(new UsuarioSenhaDto("123456", "654321", "987654321"))
             .exchange()
@@ -420,10 +430,12 @@ public class UsuarioIt {
     }
 
     @Test
+    @Order(23)
     public void editarSenha_ComSenhaInvalida_RetornarErrorMessageStatus400() {
 
         var responseBody = this.testClient.patch()
             .uri(CAMINHO.concat("/100"))
+            .headers(JwtAuthentication.getHeaderAuthorization(this.testClient, "bob@email.com", "123456"))
             .contentType(MediaType.APPLICATION_JSON)
             .bodyValue(new UsuarioSenhaDto("111111", "654321", "654321"))
             .exchange()
@@ -436,6 +448,7 @@ public class UsuarioIt {
 
         var responseBody2 = this.testClient.patch()
             .uri(CAMINHO.concat("/100"))
+            .headers(JwtAuthentication.getHeaderAuthorization(this.testClient, "bob@email.com", "123456"))
             .contentType(MediaType.APPLICATION_JSON)
             .bodyValue(new UsuarioSenhaDto("123456", "111111", "654321"))
             .exchange()
@@ -448,6 +461,7 @@ public class UsuarioIt {
 
         var responseBody3 = this.testClient.patch()
             .uri(CAMINHO.concat("/100"))
+            .headers(JwtAuthentication.getHeaderAuthorization(this.testClient, "bob@email.com", "123456"))
             .contentType(MediaType.APPLICATION_JSON)
             .bodyValue(new UsuarioSenhaDto("123456", "654321", "111111"))
             .exchange()
@@ -460,10 +474,12 @@ public class UsuarioIt {
     }
 
     @Test
+    @Order(24)
     public void listarUsuarios_SemParametros_RetornarListaDeUsuariosComStatus200() {
 
         var responseBody = this.testClient.get()
             .uri(CAMINHO)
+            .headers(JwtAuthentication.getHeaderAuthorization(this.testClient, "bob@email.com", "123456"))
             .exchange()
             .expectStatus().isOk()
             .expectBodyList(UsuarioResponseDto.class)
@@ -474,6 +490,22 @@ public class UsuarioIt {
         org.assertj.core.api.Assertions.assertThat(responseBody.get(0).getId()).isNotNull();
         org.assertj.core.api.Assertions.assertThat(responseBody.get(0).getUsername()).isNotNull();
         org.assertj.core.api.Assertions.assertThat(responseBody.get(0).getRole()).isNotNull();
+    }
+
+    @Test
+    @Order(25)
+    public void listarUsuarios_SemParametrosComUsuarioCliente_RetornarComStatus403() {
+
+        var responseBody = this.testClient.get()
+            .uri(CAMINHO)
+            .headers(JwtAuthentication.getHeaderAuthorization(this.testClient, "fowler@email.com", "123456"))
+            .exchange()
+            .expectStatus().isForbidden()
+            .expectBodyList(ErrorMessage.class)
+            .returnResult().getResponseBody();
+
+        org.assertj.core.api.Assertions.assertThat(responseBody).isNotNull();
+        org.assertj.core.api.Assertions.assertThat(responseBody.get(0).getStatus()).isEqualTo(403);
     }
 }
 
