@@ -17,5 +17,7 @@ public final class Usuario {
     private String senha;
 
     private TipoUsuarioEnum tipo;
+
+    private Carteira carteira;
 }
 

@@ -9,5 +9,7 @@ public final class Carteira {
     private Long id;
 
     private BigDecimal saldo;
+
+    private Usuario usuario;
 }
 
