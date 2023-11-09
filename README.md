@@ -52,5 +52,9 @@ O objetivo será desenvolver um sistema de gerenciamento para estacionamento.O s
 https://github.com/PicPay/picpay-desafio-backend 
 https://www.youtube.com/watch?v=QXunBiLq2SM 
 
+## Desafio-v2-picpay-java
+
+> - [X] Padrão internacional "ISO 8601" de Data e Hora;
+> - [ ] 
 
 
