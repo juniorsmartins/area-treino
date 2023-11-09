@@ -5,6 +5,10 @@ import java.time.OffsetDateTime;
 
 public final class Transferencia {
 
+    private long version;
+
+    private Long id;
+
     private Carteira emitente;
 
     private Carteira recebedor;

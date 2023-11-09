@@ -20,6 +20,10 @@ public final class UsuarioOrm implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
+    @Version
+//    @org.hibernate.annotations.Generated(GenerationTime.ALWAYS)
+    private long version;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

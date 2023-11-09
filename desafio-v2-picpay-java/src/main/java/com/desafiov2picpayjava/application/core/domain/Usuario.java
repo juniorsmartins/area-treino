@@ -4,6 +4,10 @@ import com.desafiov2picpayjava.application.core.domain.enums.TipoUsuarioEnum;
 
 public final class Usuario {
 
+    private long version;
+
+    private Long id;
+
     private String nome;
 
     private String documento;
