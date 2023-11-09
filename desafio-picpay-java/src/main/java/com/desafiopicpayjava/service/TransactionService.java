@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 import java.util.Map;
 
 @Service
-public class TransactionalService {
+public class TransactionService {
 
     @Autowired
     private TransactionRepository transactionRepository;
@@ -26,17 +26,20 @@ public class TransactionalService {
     @Autowired
     private RestTemplate restTemplate;
 
-    public void createTransaction(TransactionDto transactionDto) throws Exception {
+    @Autowired
+    private NotificationService notificationService;
+
+    public Transaction createTransaction(TransactionDto transactionDto) throws Exception {
 
         User sender = this.userService.findUserById(transactionDto.senderId());
         User receiver = this.userService.findUserById(transactionDto.receiverId());
 
         this.userService.validateTransaction(sender, transactionDto.value());
 
-        var isAuthorized = this.authorizeTransaction(sender, transactionDto.value());
-        if (!isAuthorized) {
-            throw new Exception("Transação não autorizada.");
-        }
+//        var isAuthorized = this.authorizeTransaction(sender, transactionDto.value());
+//        if (!isAuthorized) {
+//            throw new Exception("Transação não autorizada.");
+//        }
 
         var newTransaction = new Transaction();
         newTransaction.setAmount(transactionDto.value());
@@ -50,6 +53,11 @@ public class TransactionalService {
         this.transactionRepository.save(newTransaction);
         this.userService.saveUser(sender);
         this.userService.saveUser(receiver);
+
+        this.notificationService.sendNotification(sender, "Transação realizada com sucesso!");
+        this.notificationService.sendNotification(receiver, "Transação recebida com sucesso!");
+
+        return newTransaction;
     }
 
     public boolean authorizeTransaction(User sender, BigDecimal value) {
