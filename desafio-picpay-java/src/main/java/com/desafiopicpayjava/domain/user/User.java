@@ -25,7 +25,7 @@ public class User {
     private String lastName;
 
     @Column(unique = true)
-    private String documento;
+    private String document;
 
     @Column(unique = true)
     private String email;
