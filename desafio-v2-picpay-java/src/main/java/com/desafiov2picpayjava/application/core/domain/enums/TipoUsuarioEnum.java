@@ -8,7 +8,7 @@ public enum TipoUsuarioEnum {
     COMUM("Comum"),
     LOJISTA("Lojista");
 
-    private final String tipo;
+    private String tipo;
 
     TipoUsuarioEnum(String tipo) {
         this.tipo = tipo;
