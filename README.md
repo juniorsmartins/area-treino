@@ -45,3 +45,12 @@ O objetivo será desenvolver um sistema de gerenciamento para estacionamento.O s
 > - [ ] O administrador poderá listar os estacionamentos pelo CPF do cliente;
 > - [ ] O custo do estacionamento: primeiros quinze minutos (5), primeiros 60 minutos (9,25), a partir de 60 minutos deve incluir 1,75 para cada faixa de 15 minutos;
 > - [ ] O cliente poderá gerar relatório em PDF com sua lista de estacionamentos.
+
+
+## Desafio-picpay-java (versão 1)
+
+https://github.com/PicPay/picpay-desafio-backend 
+https://www.youtube.com/watch?v=QXunBiLq2SM 
+
+
+
