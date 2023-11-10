@@ -20,6 +20,14 @@ public final class Usuario {
 
     private Carteira carteira;
 
+    public long getVersion() {
+        return version;
+    }
+
+    public void setVersion(long version) {
+        this.version = version;
+    }
+
     public Long getId() {
         return id;
     }

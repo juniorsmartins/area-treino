@@ -6,8 +6,11 @@ import com.desafiov2picpayjava.application.ports.out.UsuarioSalvarOutputPort;
 
 import java.util.NoSuchElementException;
 import java.util.Optional;
+import java.util.logging.Logger;
 
 public class UsuarioCadastrarUseCase implements UsuarioCadastrarInputPort {
+
+    private final Logger logger = Logger.getLogger(UsuarioCadastrarUseCase.class.getName());
 
     private final UsuarioSalvarOutputPort usuarioSalvarOutputPort;
 
@@ -18,9 +21,15 @@ public class UsuarioCadastrarUseCase implements UsuarioCadastrarInputPort {
     @Override
     public Usuario cadastrar(Usuario usuario) {
 
-        return Optional.of(usuario)
+        logger.info("UseCase - iniciado processamento de requisição de cadastro.");
+
+        var usuarioCadastrado = Optional.of(usuario)
             .map(this.usuarioSalvarOutputPort::salvar)
             .orElseThrow(NoSuchElementException::new);
+
+        logger.info("UseCase - concluído processamento de requisição de cadastro.");
+
+        return usuarioCadastrado;
     }
 }
 
