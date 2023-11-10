@@ -21,6 +21,8 @@ public final class Usuario {
 
     private Carteira carteira;
 
+    public Usuario() {}
+
     public long getVersion() {
         return version;
     }
@@ -62,7 +64,7 @@ public final class Usuario {
     }
 
     public String getSenha() {
-        return senha;
+        return this.senha;
     }
 
     public void setSenha(String senha) {
@@ -70,7 +72,7 @@ public final class Usuario {
     }
 
     public TipoUsuarioEnum getTipo() {
-        return tipo;
+        return this.tipo;
     }
 
     public void setTipo(TipoUsuarioEnum tipo) {
@@ -78,7 +80,7 @@ public final class Usuario {
     }
 
     public Carteira getCarteira() {
-        return carteira;
+        return this.carteira;
     }
 
     public void setCarteira(Carteira carteira) {

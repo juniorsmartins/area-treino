@@ -347,3 +347,4 @@ class UsuarioControllerIntegrationTest {
         org.assertj.core.api.Assertions.assertThat(resposta.getStatus()).isEqualTo(404);
     }
 }
+

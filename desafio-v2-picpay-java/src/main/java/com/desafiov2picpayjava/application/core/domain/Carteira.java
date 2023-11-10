@@ -12,6 +12,18 @@ public final class Carteira {
 
     private Usuario usuario;
 
+    public Carteira() {}
+
+    public Carteira(BigDecimal saldo, Usuario usuario) {
+        this.saldo = saldo;
+        this.usuario = usuario;
+    }
+
+    public Carteira(Long id, BigDecimal saldo) {
+        this.id = id;
+        this.saldo = saldo;
+    }
+
     public Long getId() {
         return id;
     }
