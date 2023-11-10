@@ -8,7 +8,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -24,13 +23,12 @@ public class UsuarioBuscarPorIdAdapter implements UsuarioBuscarPorIdOutputPort {
 
     @Transactional(readOnly = true)
     @Override
-    public Usuario buscarPorId(final Long id) {
+    public Optional<Usuario> buscarPorId(final Long id) {
 
         logger.info("Adapter - iniciada buscar por id de Usuário no banco de dados.");
 
         var usuarioBuscado = this.usuarioRepository.findById(id)
-            .map(this.usuarioOrmMapper::toUsuario)
-            .orElseThrow(NoSuchElementException::new);
+            .map(this.usuarioOrmMapper::toUsuario);
 
         logger.info("Adapter - concluída busca por id de Usuário no banco de dados.");
 

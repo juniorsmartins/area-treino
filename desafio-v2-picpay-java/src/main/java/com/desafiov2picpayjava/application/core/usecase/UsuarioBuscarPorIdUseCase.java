@@ -3,8 +3,8 @@ package com.desafiov2picpayjava.application.core.usecase;
 import com.desafiov2picpayjava.application.core.domain.Usuario;
 import com.desafiov2picpayjava.application.ports.in.UsuarioBuscarPorIdInputPort;
 import com.desafiov2picpayjava.application.ports.out.UsuarioBuscarPorIdOutputPort;
+import com.desafiov2picpayjava.config.exceptions.http_404.UsuarioNaoEncontradoPorIdException;
 
-import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -23,9 +23,8 @@ public class UsuarioBuscarPorIdUseCase implements UsuarioBuscarPorIdInputPort {
 
         logger.info("UseCase - iniciado processamento de requisição de buscar Usuário por id.");
 
-        var usuarioBuscado = Optional.of(id)
-            .map(this.usuarioBuscarPorIdOutputPort::buscarPorId)
-            .orElseThrow(NoSuchElementException::new);
+        var usuarioBuscado = this.usuarioBuscarPorIdOutputPort.buscarPorId(id)
+            .orElseThrow(() -> new UsuarioNaoEncontradoPorIdException(id));
 
         logger.info("UseCase - concluído processamento de requisição de buscar Usuário por id.");
 
