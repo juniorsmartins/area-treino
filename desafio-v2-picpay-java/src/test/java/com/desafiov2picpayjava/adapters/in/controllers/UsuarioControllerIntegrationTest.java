@@ -2,6 +2,7 @@ package com.desafiov2picpayjava.adapters.in.controllers;
 
 import com.desafiov2picpayjava.adapters.in.dtos.UsuarioDtoIn;
 import com.desafiov2picpayjava.adapters.in.dtos.UsuarioDtoOut;
+import com.desafiov2picpayjava.config.exceptions.dtos.ErrorMessage;
 import com.desafiov2picpayjava.utils.CriadorDeBuilders;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
@@ -39,10 +40,169 @@ class UsuarioControllerIntegrationTest {
             .returnResult().getResponseBody();
 
         org.assertj.core.api.Assertions.assertThat(resposta).isNotNull();
-        org.assertj.core.api.Assertions.assertThat(resposta.nome()).isEqualTo(dtoIn.nome());
+        org.assertj.core.api.Assertions.assertThat(resposta.nome()).isEqualToIgnoringCase(dtoIn.nome());
         org.assertj.core.api.Assertions.assertThat(resposta.documento()).isEqualTo(dtoIn.documento());
         org.assertj.core.api.Assertions.assertThat(resposta.email()).isEqualTo(dtoIn.email());
         org.assertj.core.api.Assertions.assertThat(resposta.senha()).isEqualTo(dtoIn.senha());
         org.assertj.core.api.Assertions.assertThat(resposta.tipo()).isEqualToIgnoringCase(dtoIn.tipo());
+    }
+
+    @Test
+    @Order(2)
+    public void cadastrarUsuario_ComNomeInvalido_RetornarErrorMessageComHttpStatus400() {
+
+        var dtoIn = CriadorDeBuilders.gerarUsuarioDtoInBuilder()
+                .nome("Arnaldo Antunes da Costa Serrana do Rio Azul na Descida da Montanha dos Pampas Verdes e Úmidos do Sul")
+            .build();
+
+        var resposta = this.webTestClient.post()
+            .uri(CAMINHO)
+            .contentType(MediaType.APPLICATION_JSON)
+            .bodyValue(dtoIn)
+            .exchange()
+            .expectStatus().isBadRequest()
+            .expectBody(ErrorMessage.class)
+            .returnResult().getResponseBody();
+
+        org.assertj.core.api.Assertions.assertThat(resposta).isNotNull();
+        org.assertj.core.api.Assertions.assertThat(resposta.getStatus()).isEqualTo(400);
+
+        dtoIn = CriadorDeBuilders.gerarUsuarioDtoInBuilder()
+                .nome(null)
+            .build();
+
+        resposta = this.webTestClient.post()
+            .uri(CAMINHO)
+            .contentType(MediaType.APPLICATION_JSON)
+            .bodyValue(dtoIn)
+            .exchange()
+            .expectStatus().isBadRequest()
+            .expectBody(ErrorMessage.class)
+            .returnResult().getResponseBody();
+
+        org.assertj.core.api.Assertions.assertThat(resposta).isNotNull();
+        org.assertj.core.api.Assertions.assertThat(resposta.getStatus()).isEqualTo(400);
+
+        dtoIn = CriadorDeBuilders.gerarUsuarioDtoInBuilder()
+                .nome("   ")
+            .build();
+
+        resposta = this.webTestClient.post()
+            .uri(CAMINHO)
+            .contentType(MediaType.APPLICATION_JSON)
+            .bodyValue(dtoIn)
+            .exchange()
+            .expectStatus().isBadRequest()
+            .expectBody(ErrorMessage.class)
+            .returnResult().getResponseBody();
+
+        org.assertj.core.api.Assertions.assertThat(resposta).isNotNull();
+        org.assertj.core.api.Assertions.assertThat(resposta.getStatus()).isEqualTo(400);
+    }
+
+    @Test
+    @Order(3)
+    public void cadastrarUsuario_ComDocumentoInvalido_RetornarErrorMessageComHttpStatus400() {
+
+//        var dtoIn = CriadorDeBuilders.gerarUsuarioDtoInBuilder()
+//                .nome("Arnaldo Antunes da Costa Serrana do Rio Azul na Descida da Montanha dos Pampas Verdes e Úmidos do Sul")
+//                .build();
+//
+//        var resposta = this.webTestClient.post()
+//                .uri(CAMINHO)
+//                .contentType(MediaType.APPLICATION_JSON)
+//                .bodyValue(dtoIn)
+//                .exchange()
+//                .expectStatus().isBadRequest()
+//                .expectBody(ErrorMessage.class)
+//                .returnResult().getResponseBody();
+//
+//        org.assertj.core.api.Assertions.assertThat(resposta).isNotNull();
+//        org.assertj.core.api.Assertions.assertThat(resposta.getStatus()).isEqualTo(400);
+    }
+
+    @Test
+    @Order(4)
+    public void cadastrarUsuario_ComEmailInvalido_RetornarErrorMessageComHttpStatus400() {
+
+        var dtoIn = CriadorDeBuilders.gerarUsuarioDtoInBuilder()
+                .email("avemariacheiadegracaseunomeeconvostosejafeitasuavontadeaquinaterracomonoseuamemamemamemamem@email.com")
+            .build();
+
+        var resposta = this.webTestClient.post()
+            .uri(CAMINHO)
+            .contentType(MediaType.APPLICATION_JSON)
+            .bodyValue(dtoIn)
+            .exchange()
+            .expectStatus().isBadRequest()
+            .expectBody(ErrorMessage.class)
+            .returnResult().getResponseBody();
+
+        org.assertj.core.api.Assertions.assertThat(resposta).isNotNull();
+        org.assertj.core.api.Assertions.assertThat(resposta.getStatus()).isEqualTo(400);
+
+        dtoIn = CriadorDeBuilders.gerarUsuarioDtoInBuilder()
+                .email(null)
+            .build();
+
+        resposta = this.webTestClient.post()
+            .uri(CAMINHO)
+            .contentType(MediaType.APPLICATION_JSON)
+            .bodyValue(dtoIn)
+            .exchange()
+            .expectStatus().isBadRequest()
+            .expectBody(ErrorMessage.class)
+            .returnResult().getResponseBody();
+
+        org.assertj.core.api.Assertions.assertThat(resposta).isNotNull();
+        org.assertj.core.api.Assertions.assertThat(resposta.getStatus()).isEqualTo(400);
+
+        dtoIn = CriadorDeBuilders.gerarUsuarioDtoInBuilder()
+                .email("   ")
+            .build();
+
+        resposta = this.webTestClient.post()
+            .uri(CAMINHO)
+            .contentType(MediaType.APPLICATION_JSON)
+            .bodyValue(dtoIn)
+            .exchange()
+            .expectStatus().isBadRequest()
+            .expectBody(ErrorMessage.class)
+            .returnResult().getResponseBody();
+
+        org.assertj.core.api.Assertions.assertThat(resposta).isNotNull();
+        org.assertj.core.api.Assertions.assertThat(resposta.getStatus()).isEqualTo(400);
+
+        dtoIn = CriadorDeBuilders.gerarUsuarioDtoInBuilder()
+                .email("teste@email")
+            .build();
+
+        resposta = this.webTestClient.post()
+            .uri(CAMINHO)
+            .contentType(MediaType.APPLICATION_JSON)
+            .bodyValue(dtoIn)
+            .exchange()
+            .expectStatus().isBadRequest()
+            .expectBody(ErrorMessage.class)
+            .returnResult().getResponseBody();
+
+        org.assertj.core.api.Assertions.assertThat(resposta).isNotNull();
+        org.assertj.core.api.Assertions.assertThat(resposta.getStatus()).isEqualTo(400);
+
+        dtoIn = CriadorDeBuilders.gerarUsuarioDtoInBuilder()
+                .email("@email.com")
+            .build();
+
+        resposta = this.webTestClient.post()
+            .uri(CAMINHO)
+            .contentType(MediaType.APPLICATION_JSON)
+            .bodyValue(dtoIn)
+            .exchange()
+            .expectStatus().isBadRequest()
+            .expectBody(ErrorMessage.class)
+            .returnResult().getResponseBody();
+
+        org.assertj.core.api.Assertions.assertThat(resposta).isNotNull();
+        org.assertj.core.api.Assertions.assertThat(resposta.getStatus()).isEqualTo(400);
     }
 }

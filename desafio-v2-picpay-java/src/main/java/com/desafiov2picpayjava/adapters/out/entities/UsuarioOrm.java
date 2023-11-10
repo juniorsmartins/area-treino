@@ -28,16 +28,16 @@ public final class UsuarioOrm implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "nome", nullable = false, length = 150)
+    @Column(name = "nome", nullable = false, length = 100)
     private String nome;
 
     @Column(name = "documento", nullable = false, unique = true, length = 14)
     private String documento;
 
-    @Column(name = "email", nullable = false, unique = true, length = 150)
+    @Column(name = "email", nullable = false, unique = true, length = 100)
     private String email;
 
-    @Column(name = "senha", nullable = false, length = 50)
+    @Column(name = "senha", nullable = false, length = 30)
     private String senha;
 
     @Enumerated(EnumType.STRING)
