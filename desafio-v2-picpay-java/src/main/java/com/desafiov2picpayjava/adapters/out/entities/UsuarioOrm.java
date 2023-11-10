@@ -44,7 +44,8 @@ public final class UsuarioOrm implements Serializable {
     @Column(name = "tipo", nullable = false)
     private TipoUsuarioEnum tipo;
 
-    @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL)
+    @OneToOne
+    @JoinColumn(name = "carteira_id", referencedColumnName = "id")
     private CarteiraOrm carteira;
 }
 

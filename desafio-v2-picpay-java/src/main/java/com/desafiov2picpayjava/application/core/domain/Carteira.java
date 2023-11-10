@@ -10,13 +10,10 @@ public final class Carteira {
 
     private BigDecimal saldo;
 
-    private Usuario usuario;
-
     public Carteira() {}
 
-    public Carteira(BigDecimal saldo, Usuario usuario) {
+    public Carteira(BigDecimal saldo) {
         this.saldo = saldo;
-        this.usuario = usuario;
     }
 
     public Carteira(Long id, BigDecimal saldo) {
@@ -38,14 +35,6 @@ public final class Carteira {
 
     public void setSaldo(BigDecimal saldo) {
         this.saldo = saldo;
-    }
-
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
     }
 }
 

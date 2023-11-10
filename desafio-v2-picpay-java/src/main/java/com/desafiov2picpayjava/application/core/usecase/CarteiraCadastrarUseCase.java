@@ -32,17 +32,19 @@ public class CarteiraCadastrarUseCase implements CarteiraCadastrarInputPort {
 
         var usuarioComCarteira = Optional.of(usuario)
             .map(user -> this.usuarioBuscarPorIdInputPort.buscarPorId(user.getId()))
-            .map(user -> {
-                var carteira = new Carteira(BigDecimal.ZERO, usuario);
-                carteira = this.carteiraSalvarOutputPort.salvar(carteira);
-                user.setCarteira(carteira);
-                return user;
-            })
+            .map(this::cadastrarCarteiraDoUsuario)
             .orElseThrow(NoSuchElementException::new);
 
         logger.info("UseCase - concluído processamento de requisição para cadastrar Carteira.");
 
         return usuarioComCarteira;
+    }
+
+    private Usuario cadastrarCarteiraDoUsuario(Usuario usuario) {
+        var carteira = new Carteira(BigDecimal.ZERO);
+        carteira = this.carteiraSalvarOutputPort.salvar(carteira);
+        usuario.setCarteira(carteira);
+        return usuario;
     }
 }
 
