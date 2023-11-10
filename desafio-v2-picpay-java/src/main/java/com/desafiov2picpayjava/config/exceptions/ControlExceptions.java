@@ -3,6 +3,7 @@ package com.desafiov2picpayjava.config.exceptions;
 import com.desafiov2picpayjava.config.exceptions.dtos.ErrorMessage;
 import com.desafiov2picpayjava.config.exceptions.enums.TipoDeErroEnum;
 import com.desafiov2picpayjava.config.exceptions.http_400.RequisicaoMalFormuladaException;
+import com.desafiov2picpayjava.config.exceptions.http_404.RecursoNaoEncontradoException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -41,6 +42,18 @@ public class ControlExceptions {
 
         return ResponseEntity
             .badRequest()
+            .body(mensagem);
+    }
+
+    @ExceptionHandler(RecursoNaoEncontradoException.class)
+    public ResponseEntity<ErrorMessage> recursoNaoEncontrado(RecursoNaoEncontradoException ex,
+                                                             HttpServletRequest request) {
+        logger.info("Exception de recurso não encontrado: " + ex);
+
+        var mensagem = new ErrorMessage(request, HttpStatus.NOT_FOUND, ex.getMessage(), TipoDeErroEnum.RECURSO_NAO_ENCONTRADO);
+
+        return ResponseEntity
+            .status(HttpStatus.NOT_FOUND)
             .body(mensagem);
     }
 }
