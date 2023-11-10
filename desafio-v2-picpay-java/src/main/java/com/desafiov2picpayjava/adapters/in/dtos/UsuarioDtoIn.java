@@ -22,7 +22,7 @@ public record UsuarioDtoIn(
     String email,
 
     @NotBlank
-    @Size(max = 30)
+    @Size(min = 6, max = 30)
     String senha,
 
     @NotBlank

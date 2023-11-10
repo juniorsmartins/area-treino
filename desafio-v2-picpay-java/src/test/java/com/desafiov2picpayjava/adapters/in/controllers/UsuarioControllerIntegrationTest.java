@@ -205,4 +205,110 @@ class UsuarioControllerIntegrationTest {
         org.assertj.core.api.Assertions.assertThat(resposta).isNotNull();
         org.assertj.core.api.Assertions.assertThat(resposta.getStatus()).isEqualTo(400);
     }
+
+    @Test
+    @Order(5)
+    public void cadastrarUsuario_ComSenhaInvalida_RetornarErrorMessageComHttpStatus400() {
+
+        var dtoIn = CriadorDeBuilders.gerarUsuarioDtoInBuilder()
+                .senha("123456789abcdefghi10qwertxpto12")
+            .build();
+
+        var resposta = this.webTestClient.post()
+            .uri(CAMINHO)
+            .contentType(MediaType.APPLICATION_JSON)
+            .bodyValue(dtoIn)
+            .exchange()
+            .expectStatus().isBadRequest()
+            .expectBody(ErrorMessage.class)
+            .returnResult().getResponseBody();
+
+        org.assertj.core.api.Assertions.assertThat(resposta).isNotNull();
+        org.assertj.core.api.Assertions.assertThat(resposta.getStatus()).isEqualTo(400);
+
+        dtoIn = CriadorDeBuilders.gerarUsuarioDtoInBuilder()
+                .senha("123")
+            .build();
+
+        resposta = this.webTestClient.post()
+            .uri(CAMINHO)
+            .contentType(MediaType.APPLICATION_JSON)
+            .bodyValue(dtoIn)
+            .exchange()
+            .expectStatus().isBadRequest()
+            .expectBody(ErrorMessage.class)
+            .returnResult().getResponseBody();
+
+        org.assertj.core.api.Assertions.assertThat(resposta).isNotNull();
+        org.assertj.core.api.Assertions.assertThat(resposta.getStatus()).isEqualTo(400);
+
+        dtoIn = CriadorDeBuilders.gerarUsuarioDtoInBuilder()
+                .senha(null)
+            .build();
+
+        resposta = this.webTestClient.post()
+            .uri(CAMINHO)
+            .contentType(MediaType.APPLICATION_JSON)
+            .bodyValue(dtoIn)
+            .exchange()
+            .expectStatus().isBadRequest()
+            .expectBody(ErrorMessage.class)
+            .returnResult().getResponseBody();
+
+        org.assertj.core.api.Assertions.assertThat(resposta).isNotNull();
+        org.assertj.core.api.Assertions.assertThat(resposta.getStatus()).isEqualTo(400);
+
+        dtoIn = CriadorDeBuilders.gerarUsuarioDtoInBuilder()
+                .senha("    ")
+            .build();
+
+        resposta = this.webTestClient.post()
+            .uri(CAMINHO)
+            .contentType(MediaType.APPLICATION_JSON)
+            .bodyValue(dtoIn)
+            .exchange()
+            .expectStatus().isBadRequest()
+            .expectBody(ErrorMessage.class)
+            .returnResult().getResponseBody();
+
+        org.assertj.core.api.Assertions.assertThat(resposta).isNotNull();
+        org.assertj.core.api.Assertions.assertThat(resposta.getStatus()).isEqualTo(400);
+    }
+
+    @Test
+    @Order(2)
+    public void cadastrarUsuario_ComTipoInvalido_RetornarErrorMessageComHttpStatus400() {
+
+        var dtoIn = CriadorDeBuilders.gerarUsuarioDtoInBuilder()
+                .tipo(null)
+            .build();
+
+        var resposta = this.webTestClient.post()
+            .uri(CAMINHO)
+            .contentType(MediaType.APPLICATION_JSON)
+            .bodyValue(dtoIn)
+            .exchange()
+            .expectStatus().isBadRequest()
+            .expectBody(ErrorMessage.class)
+            .returnResult().getResponseBody();
+
+        org.assertj.core.api.Assertions.assertThat(resposta).isNotNull();
+        org.assertj.core.api.Assertions.assertThat(resposta.getStatus()).isEqualTo(400);
+
+        dtoIn = CriadorDeBuilders.gerarUsuarioDtoInBuilder()
+                .nome("   ")
+            .build();
+
+        resposta = this.webTestClient.post()
+            .uri(CAMINHO)
+            .contentType(MediaType.APPLICATION_JSON)
+            .bodyValue(dtoIn)
+            .exchange()
+            .expectStatus().isBadRequest()
+            .expectBody(ErrorMessage.class)
+            .returnResult().getResponseBody();
+
+        org.assertj.core.api.Assertions.assertThat(resposta).isNotNull();
+        org.assertj.core.api.Assertions.assertThat(resposta.getStatus()).isEqualTo(400);
+    }
 }
