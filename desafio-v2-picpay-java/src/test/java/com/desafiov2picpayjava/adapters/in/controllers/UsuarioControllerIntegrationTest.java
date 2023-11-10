@@ -1,6 +1,5 @@
 package com.desafiov2picpayjava.adapters.in.controllers;
 
-import com.desafiov2picpayjava.adapters.in.dtos.UsuarioDtoIn;
 import com.desafiov2picpayjava.adapters.in.dtos.UsuarioDtoOut;
 import com.desafiov2picpayjava.config.exceptions.dtos.ErrorMessage;
 import com.desafiov2picpayjava.utils.CriadorDeBuilders;
@@ -11,11 +10,12 @@ import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@Sql(scripts = "/sql/usuarios-insert.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+@Sql(scripts = "/sql/usuarios-delete.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class UsuarioControllerIntegrationTest {
 
@@ -310,5 +310,25 @@ class UsuarioControllerIntegrationTest {
 
         org.assertj.core.api.Assertions.assertThat(resposta).isNotNull();
         org.assertj.core.api.Assertions.assertThat(resposta.getStatus()).isEqualTo(400);
+    }
+
+    @Test
+    @Order(10)
+    public void buscarUsuarioPorId_ComIdExistente_RetornarUsuarioDtoOutComHttpStatus200() {
+
+        var resposta = this.webTestClient.get()
+            .uri(CAMINHO.concat("/10"))
+            .exchange()
+            .expectStatus().isOk()
+            .expectBody(UsuarioDtoOut.class)
+            .returnResult().getResponseBody();
+
+        org.assertj.core.api.Assertions.assertThat(resposta).isNotNull();
+        org.assertj.core.api.Assertions.assertThat(resposta.id()).isEqualTo(10);
+        org.assertj.core.api.Assertions.assertThat(resposta.nome()).isEqualTo("Jeff Sutherland");
+        org.assertj.core.api.Assertions.assertThat(resposta.documento()).isEqualTo("73249716014");
+        org.assertj.core.api.Assertions.assertThat(resposta.email()).isEqualTo("jeff@email.com");
+        org.assertj.core.api.Assertions.assertThat(resposta.senha()).isEqualTo("123456");
+        org.assertj.core.api.Assertions.assertThat(resposta.tipo()).isEqualTo("LOJISTA");
     }
 }
