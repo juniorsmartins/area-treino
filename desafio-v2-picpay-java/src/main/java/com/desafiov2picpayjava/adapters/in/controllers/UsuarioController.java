@@ -1,6 +1,6 @@
 package com.desafiov2picpayjava.adapters.in.controllers;
 
-import com.desafiov2picpayjava.adapters.in.dtos.UsuarioDtoIn;
+import com.desafiov2picpayjava.adapters.in.dtos.UsuarioCadastrarDtoIn;
 import com.desafiov2picpayjava.adapters.in.dtos.UsuarioDtoOut;
 import com.desafiov2picpayjava.adapters.in.mappers.UsuarioDtoInMapper;
 import com.desafiov2picpayjava.adapters.in.mappers.UsuarioDtoOutMapper;
@@ -32,7 +32,7 @@ public class UsuarioController {
     private final UsuarioDtoOutMapper usuarioDtoOutMapper;
 
     @PostMapping
-    public ResponseEntity<UsuarioDtoOut> cadastrar(@RequestBody @Valid UsuarioDtoIn dtoIn) {
+    public ResponseEntity<UsuarioDtoOut> cadastrar(@RequestBody @Valid UsuarioCadastrarDtoIn dtoIn) {
 
         this.logger.info("Controller - recebida requisição para cadastrar Usuário.");
 

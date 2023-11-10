@@ -6,7 +6,7 @@ import jakarta.validation.constraints.Size;
 import lombok.Builder;
 
 @Builder
-public record UsuarioDtoIn(
+public record UsuarioCadastrarDtoIn(
 
     @NotBlank
     @Size(max = 100)
