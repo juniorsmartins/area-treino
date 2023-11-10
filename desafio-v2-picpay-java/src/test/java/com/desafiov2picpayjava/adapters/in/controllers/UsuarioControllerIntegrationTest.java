@@ -331,4 +331,19 @@ class UsuarioControllerIntegrationTest {
         org.assertj.core.api.Assertions.assertThat(resposta.senha()).isEqualTo("123456");
         org.assertj.core.api.Assertions.assertThat(resposta.tipo()).isEqualTo("LOJISTA");
     }
+
+    @Test
+    @Order(11)
+    public void buscarUsuarioPorId_ComIdInexistente_RetornarErrorMessageComHttpStatus404() {
+
+        var resposta = this.webTestClient.get()
+            .uri(CAMINHO.concat("/0"))
+            .exchange()
+            .expectStatus().isNotFound()
+            .expectBody(ErrorMessage.class)
+            .returnResult().getResponseBody();
+
+        org.assertj.core.api.Assertions.assertThat(resposta).isNotNull();
+        org.assertj.core.api.Assertions.assertThat(resposta.getStatus()).isEqualTo(404);
+    }
 }
