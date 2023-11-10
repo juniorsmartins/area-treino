@@ -1,6 +1,7 @@
 package com.desafiov2picpayjava.application.core.domain;
 
 import com.desafiov2picpayjava.application.core.domain.enums.TipoUsuarioEnum;
+import com.desafiov2picpayjava.application.core.domain.value_objects.CorreioEletronico;
 
 public final class Usuario {
 
@@ -12,7 +13,7 @@ public final class Usuario {
 
     private String documento;
 
-    private String email;
+    private CorreioEletronico email;
 
     private String senha;
 
@@ -20,8 +21,18 @@ public final class Usuario {
 
     private Carteira carteira;
 
+    public Usuario() {}
+
+    public long getVersion() {
+        return version;
+    }
+
+    public void setVersion(long version) {
+        this.version = version;
+    }
+
     public Long getId() {
-        return id;
+        return this.id;
     }
 
     public void setId(Long id) {
@@ -29,7 +40,7 @@ public final class Usuario {
     }
 
     public String getNome() {
-        return nome;
+        return this.nome;
     }
 
     public void setNome(String nome) {
@@ -37,7 +48,7 @@ public final class Usuario {
     }
 
     public String getDocumento() {
-        return documento;
+        return this.documento;
     }
 
     public void setDocumento(String documento) {
@@ -45,15 +56,15 @@ public final class Usuario {
     }
 
     public String getEmail() {
-        return email;
+        return this.email.getEmail();
     }
 
     public void setEmail(String email) {
-        this.email = email;
+        this.email = new CorreioEletronico(email);
     }
 
     public String getSenha() {
-        return senha;
+        return this.senha;
     }
 
     public void setSenha(String senha) {
@@ -61,7 +72,7 @@ public final class Usuario {
     }
 
     public TipoUsuarioEnum getTipo() {
-        return tipo;
+        return this.tipo;
     }
 
     public void setTipo(TipoUsuarioEnum tipo) {
@@ -69,7 +80,7 @@ public final class Usuario {
     }
 
     public Carteira getCarteira() {
-        return carteira;
+        return this.carteira;
     }
 
     public void setCarteira(Carteira carteira) {
