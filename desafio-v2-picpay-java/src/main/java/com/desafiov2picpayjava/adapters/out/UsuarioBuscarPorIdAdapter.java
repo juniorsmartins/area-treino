@@ -5,13 +5,13 @@ import com.desafiov2picpayjava.adapters.out.repositories.UsuarioRepository;
 import com.desafiov2picpayjava.application.core.domain.Usuario;
 import com.desafiov2picpayjava.application.ports.out.UsuarioBuscarPorIdOutputPort;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 import java.util.logging.Logger;
 
-@Component
+@Repository
 @RequiredArgsConstructor
 public class UsuarioBuscarPorIdAdapter implements UsuarioBuscarPorIdOutputPort {
 
@@ -25,12 +25,12 @@ public class UsuarioBuscarPorIdAdapter implements UsuarioBuscarPorIdOutputPort {
     @Override
     public Optional<Usuario> buscarPorId(final Long id) {
 
-        logger.info("Adapter - iniciado buscar por id de Usuário no banco de dados.");
+        logger.info("Adapter - iniciado buscar Usuário por id no banco de dados.");
 
         var usuarioBuscado = this.usuarioRepository.findById(id)
             .map(this.usuarioOrmMapper::toUsuario);
 
-        logger.info("Adapter - concluído busca por id de Usuário no banco de dados.");
+        logger.info("Adapter - concluído buscar Usuário por id no banco de dados.");
 
         return usuarioBuscado;
     }

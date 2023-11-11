@@ -2,8 +2,8 @@ package com.desafiov2picpayjava.application.ports.in;
 
 import com.desafiov2picpayjava.application.core.domain.Carteira;
 
-public interface CarteiraCadastrarInputPort {
+public interface CarteiraBuscarPorIdInputPort {
 
-    Carteira cadastrar(Carteira Carteira);
+    Carteira buscarPorId(Long id);
 }
 
