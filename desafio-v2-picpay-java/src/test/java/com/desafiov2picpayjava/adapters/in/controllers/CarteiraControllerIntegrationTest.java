@@ -1,5 +1,6 @@
 package com.desafiov2picpayjava.adapters.in.controllers;
 
+import com.desafiov2picpayjava.adapters.in.dtos.CarteiraBuscarDtoOut;
 import com.desafiov2picpayjava.adapters.in.dtos.CarteiraCadastrarDtoOut;
 import com.desafiov2picpayjava.adapters.in.dtos.UsuarioIdDto;
 import com.desafiov2picpayjava.config.exceptions.dtos.ErrorMessage;
@@ -184,6 +185,23 @@ class CarteiraControllerIntegrationTest {
 
         org.assertj.core.api.Assertions.assertThat(resposta).isNotNull();
         org.assertj.core.api.Assertions.assertThat(resposta.getStatus()).isEqualTo(404);
+    }
+
+    @Test
+    @Order(5)
+    public void buscarCarteiraPorId_ComIdExistente_RetornarCarteiraBuscarDtoOutComHttpStatus200() {
+
+        var resposta = this.webTestClient.get()
+            .uri(CAMINHO)
+            .exchange()
+            .expectStatus().isOk()
+            .expectBody(CarteiraBuscarDtoOut.class)
+            .returnResult().getResponseBody();
+
+        org.assertj.core.api.Assertions.assertThat(resposta).isNotNull();
+        org.assertj.core.api.Assertions.assertThat(resposta.id()).isEqualTo(16);
+        org.assertj.core.api.Assertions.assertThat(resposta.saldo()).isEqualTo(BigDecimal.valueOf(10));
+        org.assertj.core.api.Assertions.assertThat(resposta.usuario().id()).isEqualTo(16);
     }
 }
 
