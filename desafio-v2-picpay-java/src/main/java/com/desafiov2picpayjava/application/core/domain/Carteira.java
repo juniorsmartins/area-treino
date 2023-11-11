@@ -19,6 +19,10 @@ public final class Carteira {
         this.usuario = usuario;
     }
 
+    public void depositarNaCarteira(BigDecimal valor) {
+        this.setSaldo(this.getSaldo().add(valor));
+    }
+
     public long getVersion() {
         return version;
     }

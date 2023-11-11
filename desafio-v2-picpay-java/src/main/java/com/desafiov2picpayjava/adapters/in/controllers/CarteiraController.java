@@ -1,13 +1,10 @@
 package com.desafiov2picpayjava.adapters.in.controllers;
 
-import com.desafiov2picpayjava.adapters.in.dtos.CarteiraBuscarDtoOut;
-import com.desafiov2picpayjava.adapters.in.dtos.CarteiraCadastrarDtoIn;
-import com.desafiov2picpayjava.adapters.in.dtos.CarteiraCadastrarDtoOut;
-import com.desafiov2picpayjava.adapters.in.mappers.CarteiraBuscarDtoOutMapper;
-import com.desafiov2picpayjava.adapters.in.mappers.CarteiraCadastrarDtoInMapper;
-import com.desafiov2picpayjava.adapters.in.mappers.CarteiraCadastrarDtoOutMapper;
+import com.desafiov2picpayjava.adapters.in.dtos.*;
+import com.desafiov2picpayjava.adapters.in.mappers.*;
 import com.desafiov2picpayjava.application.ports.in.CarteiraBuscarPorIdInputPort;
 import com.desafiov2picpayjava.application.ports.in.CarteiraCadastrarInputPort;
+import com.desafiov2picpayjava.application.ports.in.CarteiraDepositarInputPort;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -29,11 +26,17 @@ public class CarteiraController {
 
     private final CarteiraBuscarPorIdInputPort carteiraBuscarPorIdInputPort;
 
+    private final CarteiraDepositarInputPort carteiraDepositarInputPort;
+
     private final CarteiraCadastrarDtoInMapper carteiraCadastrarDtoInMapper;
 
     private final CarteiraCadastrarDtoOutMapper carteiraCadastrarDtoOutMapper;
 
     private final CarteiraBuscarDtoOutMapper carteiraBuscarDtoOutMapper;
+
+    private final CarteiraDepositarDtoInMapper carteiraDepositarDtoInMapper;
+
+    private final CarteiraDepositarDtoOutMapper carteiraDepositarDtoOutMapper;
 
     @PostMapping
     public ResponseEntity<CarteiraCadastrarDtoOut> cadastrar(@RequestBody @Valid CarteiraCadastrarDtoIn dtoIn) {
@@ -64,6 +67,24 @@ public class CarteiraController {
             .orElseThrow(NoSuchElementException::new);
 
         this.logger.info("Controller - concluído com sucesso busca de Carteira por id.");
+
+        return ResponseEntity
+            .ok()
+            .body(dtoOut);
+    }
+
+    @PutMapping
+    public ResponseEntity<CarteiraDepositarDtoOut> depositar(@RequestBody @Valid CarteiraDepositarDtoIn dtoIn) {
+
+        this.logger.info("Controller - recebida requisição para depositar valor na Carteira.");
+
+        var dtoOut = Optional.of(dtoIn)
+            .map(this.carteiraDepositarDtoInMapper::toCarteira)
+            .map(this.carteiraDepositarInputPort::depositar)
+            .map(this.carteiraDepositarDtoOutMapper::toCarteiraDepositarDtoOut)
+            .orElseThrow(NoSuchElementException::new);
+
+        this.logger.info("Controller - concluído com sucesso depósito de valor na Carteira.");
 
         return ResponseEntity
             .ok()
