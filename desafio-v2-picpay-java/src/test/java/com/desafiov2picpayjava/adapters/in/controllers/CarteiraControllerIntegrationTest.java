@@ -224,16 +224,12 @@ class CarteiraControllerIntegrationTest {
     @Order(10)
     public void depositarNaCarteira_ComIdExistenteAndDadosValidos_RetornarCarteiraDepositarDtoOutComHttpStatus200() {
 
-        var userId = UsuarioIdDto.builder()
-            .id(16L)
-            .build();
-
         var dtoIn = CriadorDeBuilders.gerarCarteiraDepositarDtoInBuilder()
-            .usuario(userId)
+            .id(20L)
             .build();
 
         var resposta = this.webTestClient.put()
-            .uri(CAMINHO.concat("/20"))
+            .uri(CAMINHO)
             .contentType(MediaType.APPLICATION_JSON)
             .bodyValue(dtoIn)
             .exchange()
@@ -244,7 +240,83 @@ class CarteiraControllerIntegrationTest {
         org.assertj.core.api.Assertions.assertThat(resposta).isNotNull();
         org.assertj.core.api.Assertions.assertThat(resposta.id()).isEqualTo(20);
         org.assertj.core.api.Assertions.assertThat(resposta.saldo()).isEqualTo(BigDecimal.valueOf(20).setScale(2));
-        org.assertj.core.api.Assertions.assertThat(resposta.usuario().id()).isEqualTo(16);
+    }
+
+    @Test
+    @Order(11)
+    public void depositarNaCarteira_ComIdInexistenteAndDadosValidos_RetornarErrorMessageComHttpStatus404() {
+
+        var dtoIn = CriadorDeBuilders.gerarCarteiraDepositarDtoInBuilder()
+            .id(2000L)
+            .build();
+
+        var resposta = this.webTestClient.put()
+            .uri(CAMINHO)
+            .contentType(MediaType.APPLICATION_JSON)
+            .bodyValue(dtoIn)
+            .exchange()
+            .expectStatus().isNotFound()
+            .expectBody(ErrorMessage.class)
+            .returnResult().getResponseBody();
+
+        org.assertj.core.api.Assertions.assertThat(resposta).isNotNull();
+        org.assertj.core.api.Assertions.assertThat(resposta.getStatus()).isEqualTo(404);
+    }
+
+    @Test
+    @Order(12)
+    public void depositarNaCarteira_ComIdExistenteAndDadosInvalidos_RetornarErrorMessageComHttpStatus400() {
+
+        var dtoIn = CriadorDeBuilders.gerarCarteiraDepositarDtoInBuilder()
+            .id(20L)
+            .saldo(null)
+            .build();
+
+        var resposta = this.webTestClient.put()
+            .uri(CAMINHO)
+            .contentType(MediaType.APPLICATION_JSON)
+            .bodyValue(dtoIn)
+            .exchange()
+            .expectStatus().isBadRequest()
+            .expectBody(ErrorMessage.class)
+            .returnResult().getResponseBody();
+
+        org.assertj.core.api.Assertions.assertThat(resposta).isNotNull();
+        org.assertj.core.api.Assertions.assertThat(resposta.getStatus()).isEqualTo(400);
+
+        dtoIn = CriadorDeBuilders.gerarCarteiraDepositarDtoInBuilder()
+            .id(20L)
+            .saldo(BigDecimal.valueOf(-12))
+            .build();
+
+        resposta = this.webTestClient.put()
+            .uri(CAMINHO)
+            .contentType(MediaType.APPLICATION_JSON)
+            .bodyValue(dtoIn)
+            .exchange()
+            .expectStatus().isBadRequest()
+            .expectBody(ErrorMessage.class)
+            .returnResult().getResponseBody();
+
+        org.assertj.core.api.Assertions.assertThat(resposta).isNotNull();
+        org.assertj.core.api.Assertions.assertThat(resposta.getStatus()).isEqualTo(400);
+
+        dtoIn = CriadorDeBuilders.gerarCarteiraDepositarDtoInBuilder()
+            .id(20L)
+            .saldo(BigDecimal.ZERO)
+            .build();
+
+        resposta = this.webTestClient.put()
+            .uri(CAMINHO)
+            .contentType(MediaType.APPLICATION_JSON)
+            .bodyValue(dtoIn)
+            .exchange()
+            .expectStatus().isBadRequest()
+            .expectBody(ErrorMessage.class)
+            .returnResult().getResponseBody();
+
+        org.assertj.core.api.Assertions.assertThat(resposta).isNotNull();
+        org.assertj.core.api.Assertions.assertThat(resposta.getStatus()).isEqualTo(400);
     }
 }
 

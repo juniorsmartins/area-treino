@@ -1,6 +1,5 @@
 package com.desafiov2picpayjava.adapters.in.dtos;
 
-import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.Builder;
@@ -12,10 +11,10 @@ public record CarteiraDepositarDtoIn(
 
     @NotNull
     @Positive
-    BigDecimal saldo,
+    Long id,
 
     @NotNull
-    @Valid
-    UsuarioIdDto usuario
+    @Positive
+    BigDecimal saldo
 ) { }
 
