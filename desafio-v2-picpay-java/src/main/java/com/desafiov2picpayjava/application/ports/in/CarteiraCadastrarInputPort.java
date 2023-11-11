@@ -1,9 +1,9 @@
 package com.desafiov2picpayjava.application.ports.in;
 
-import com.desafiov2picpayjava.application.core.domain.Usuario;
+import com.desafiov2picpayjava.application.core.domain.Carteira;
 
 public interface CarteiraCadastrarInputPort {
 
-    Usuario cadastrar(Usuario usuario);
+    Carteira cadastrar(Carteira Carteira);
 }
 

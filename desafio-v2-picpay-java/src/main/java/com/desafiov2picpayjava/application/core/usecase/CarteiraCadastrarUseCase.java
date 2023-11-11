@@ -1,12 +1,10 @@
 package com.desafiov2picpayjava.application.core.usecase;
 
 import com.desafiov2picpayjava.application.core.domain.Carteira;
-import com.desafiov2picpayjava.application.core.domain.Usuario;
 import com.desafiov2picpayjava.application.ports.in.CarteiraCadastrarInputPort;
 import com.desafiov2picpayjava.application.ports.in.UsuarioBuscarPorIdInputPort;
 import com.desafiov2picpayjava.application.ports.out.CarteiraSalvarOutputPort;
 
-import java.math.BigDecimal;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.logging.Logger;
@@ -26,13 +24,13 @@ public class CarteiraCadastrarUseCase implements CarteiraCadastrarInputPort {
     }
 
     @Override
-    public Usuario cadastrar(Usuario usuario) {
+    public Carteira cadastrar(Carteira carteira) {
 
         logger.info("UseCase - iniciado processamento de requisição para cadastrar Carteira.");
 
-        var usuarioComCarteira = Optional.of(usuario)
-            .map(user -> this.usuarioBuscarPorIdInputPort.buscarPorId(user.getId()))
-            .map(this::cadastrarCarteiraDoUsuario)
+        var usuarioComCarteira = Optional.of(carteira)
+            .map(this::validarUsuario)
+            .map(this.carteiraSalvarOutputPort::salvar)
             .orElseThrow(NoSuchElementException::new);
 
         logger.info("UseCase - concluído processamento de requisição para cadastrar Carteira.");
@@ -40,10 +38,10 @@ public class CarteiraCadastrarUseCase implements CarteiraCadastrarInputPort {
         return usuarioComCarteira;
     }
 
-    private Usuario cadastrarCarteiraDoUsuario(Usuario usuario) {
-        var carteira = new Carteira(BigDecimal.ZERO, usuario);
-        this.carteiraSalvarOutputPort.salvar(carteira);
-        return usuario;
+    private Carteira validarUsuario(Carteira carteira) {
+        var user = this.usuarioBuscarPorIdInputPort.buscarPorId(carteira.getUsuario().getId());
+        carteira.setUsuario(user);
+        return carteira;
     }
 }
 

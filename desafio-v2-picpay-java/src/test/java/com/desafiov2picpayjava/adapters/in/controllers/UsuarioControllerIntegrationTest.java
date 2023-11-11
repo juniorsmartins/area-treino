@@ -14,8 +14,8 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@Sql(scripts = "/sql/usuarios-insert.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-@Sql(scripts = "/sql/usuarios-delete.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
+@Sql(scripts = "/sql/usuarios/usuarios-insert.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+@Sql(scripts = "/sql/usuarios/usuarios-delete.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class UsuarioControllerIntegrationTest {
 
@@ -28,7 +28,7 @@ class UsuarioControllerIntegrationTest {
     @Order(1)
     public void cadastrarUsuario_ComDadosValidos_RetornarUsuarioDtoOutComHttpStatus201() {
 
-        var dtoIn = CriadorDeBuilders.gerarUsuarioDtoInBuilder().build();
+        var dtoIn = CriadorDeBuilders.gerarUsuarioCadastrarDtoInBuilder().build();
 
         var resposta = this.webTestClient.post()
             .uri(CAMINHO)
@@ -51,7 +51,7 @@ class UsuarioControllerIntegrationTest {
     @Order(2)
     public void cadastrarUsuario_ComNomeInvalido_RetornarErrorMessageComHttpStatus400() {
 
-        var dtoIn = CriadorDeBuilders.gerarUsuarioDtoInBuilder()
+        var dtoIn = CriadorDeBuilders.gerarUsuarioCadastrarDtoInBuilder()
                 .nome("Arnaldo Antunes da Costa Serrana do Rio Azul na Descida da Montanha dos Pampas Verdes e Úmidos do Sul")
             .build();
 
@@ -67,7 +67,7 @@ class UsuarioControllerIntegrationTest {
         org.assertj.core.api.Assertions.assertThat(resposta).isNotNull();
         org.assertj.core.api.Assertions.assertThat(resposta.getStatus()).isEqualTo(400);
 
-        dtoIn = CriadorDeBuilders.gerarUsuarioDtoInBuilder()
+        dtoIn = CriadorDeBuilders.gerarUsuarioCadastrarDtoInBuilder()
                 .nome(null)
             .build();
 
@@ -83,7 +83,7 @@ class UsuarioControllerIntegrationTest {
         org.assertj.core.api.Assertions.assertThat(resposta).isNotNull();
         org.assertj.core.api.Assertions.assertThat(resposta.getStatus()).isEqualTo(400);
 
-        dtoIn = CriadorDeBuilders.gerarUsuarioDtoInBuilder()
+        dtoIn = CriadorDeBuilders.gerarUsuarioCadastrarDtoInBuilder()
                 .nome("   ")
             .build();
 
@@ -125,7 +125,7 @@ class UsuarioControllerIntegrationTest {
     @Order(4)
     public void cadastrarUsuario_ComEmailInvalido_RetornarErrorMessageComHttpStatus400() {
 
-        var dtoIn = CriadorDeBuilders.gerarUsuarioDtoInBuilder()
+        var dtoIn = CriadorDeBuilders.gerarUsuarioCadastrarDtoInBuilder()
                 .email("avemariacheiadegracaseunomeeconvostosejafeitasuavontadeaquinaterracomonoseuamemamemamemamem@email.com")
             .build();
 
@@ -141,7 +141,7 @@ class UsuarioControllerIntegrationTest {
         org.assertj.core.api.Assertions.assertThat(resposta).isNotNull();
         org.assertj.core.api.Assertions.assertThat(resposta.getStatus()).isEqualTo(400);
 
-        dtoIn = CriadorDeBuilders.gerarUsuarioDtoInBuilder()
+        dtoIn = CriadorDeBuilders.gerarUsuarioCadastrarDtoInBuilder()
                 .email(null)
             .build();
 
@@ -157,7 +157,7 @@ class UsuarioControllerIntegrationTest {
         org.assertj.core.api.Assertions.assertThat(resposta).isNotNull();
         org.assertj.core.api.Assertions.assertThat(resposta.getStatus()).isEqualTo(400);
 
-        dtoIn = CriadorDeBuilders.gerarUsuarioDtoInBuilder()
+        dtoIn = CriadorDeBuilders.gerarUsuarioCadastrarDtoInBuilder()
                 .email("   ")
             .build();
 
@@ -173,7 +173,7 @@ class UsuarioControllerIntegrationTest {
         org.assertj.core.api.Assertions.assertThat(resposta).isNotNull();
         org.assertj.core.api.Assertions.assertThat(resposta.getStatus()).isEqualTo(400);
 
-        dtoIn = CriadorDeBuilders.gerarUsuarioDtoInBuilder()
+        dtoIn = CriadorDeBuilders.gerarUsuarioCadastrarDtoInBuilder()
                 .email("teste@email")
             .build();
 
@@ -189,7 +189,7 @@ class UsuarioControllerIntegrationTest {
         org.assertj.core.api.Assertions.assertThat(resposta).isNotNull();
         org.assertj.core.api.Assertions.assertThat(resposta.getStatus()).isEqualTo(400);
 
-        dtoIn = CriadorDeBuilders.gerarUsuarioDtoInBuilder()
+        dtoIn = CriadorDeBuilders.gerarUsuarioCadastrarDtoInBuilder()
                 .email("@email.com")
             .build();
 
@@ -210,7 +210,7 @@ class UsuarioControllerIntegrationTest {
     @Order(5)
     public void cadastrarUsuario_ComSenhaInvalida_RetornarErrorMessageComHttpStatus400() {
 
-        var dtoIn = CriadorDeBuilders.gerarUsuarioDtoInBuilder()
+        var dtoIn = CriadorDeBuilders.gerarUsuarioCadastrarDtoInBuilder()
                 .senha("123456789abcdefghi10qwertxpto12")
             .build();
 
@@ -226,7 +226,7 @@ class UsuarioControllerIntegrationTest {
         org.assertj.core.api.Assertions.assertThat(resposta).isNotNull();
         org.assertj.core.api.Assertions.assertThat(resposta.getStatus()).isEqualTo(400);
 
-        dtoIn = CriadorDeBuilders.gerarUsuarioDtoInBuilder()
+        dtoIn = CriadorDeBuilders.gerarUsuarioCadastrarDtoInBuilder()
                 .senha("123")
             .build();
 
@@ -242,7 +242,7 @@ class UsuarioControllerIntegrationTest {
         org.assertj.core.api.Assertions.assertThat(resposta).isNotNull();
         org.assertj.core.api.Assertions.assertThat(resposta.getStatus()).isEqualTo(400);
 
-        dtoIn = CriadorDeBuilders.gerarUsuarioDtoInBuilder()
+        dtoIn = CriadorDeBuilders.gerarUsuarioCadastrarDtoInBuilder()
                 .senha(null)
             .build();
 
@@ -258,7 +258,7 @@ class UsuarioControllerIntegrationTest {
         org.assertj.core.api.Assertions.assertThat(resposta).isNotNull();
         org.assertj.core.api.Assertions.assertThat(resposta.getStatus()).isEqualTo(400);
 
-        dtoIn = CriadorDeBuilders.gerarUsuarioDtoInBuilder()
+        dtoIn = CriadorDeBuilders.gerarUsuarioCadastrarDtoInBuilder()
                 .senha("    ")
             .build();
 
@@ -279,7 +279,7 @@ class UsuarioControllerIntegrationTest {
     @Order(2)
     public void cadastrarUsuario_ComTipoInvalido_RetornarErrorMessageComHttpStatus400() {
 
-        var dtoIn = CriadorDeBuilders.gerarUsuarioDtoInBuilder()
+        var dtoIn = CriadorDeBuilders.gerarUsuarioCadastrarDtoInBuilder()
                 .tipo(null)
             .build();
 
@@ -295,7 +295,7 @@ class UsuarioControllerIntegrationTest {
         org.assertj.core.api.Assertions.assertThat(resposta).isNotNull();
         org.assertj.core.api.Assertions.assertThat(resposta.getStatus()).isEqualTo(400);
 
-        dtoIn = CriadorDeBuilders.gerarUsuarioDtoInBuilder()
+        dtoIn = CriadorDeBuilders.gerarUsuarioCadastrarDtoInBuilder()
                 .nome("   ")
             .build();
 
