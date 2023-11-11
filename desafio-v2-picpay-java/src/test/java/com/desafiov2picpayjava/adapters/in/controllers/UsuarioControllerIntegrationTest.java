@@ -1,5 +1,6 @@
 package com.desafiov2picpayjava.adapters.in.controllers;
 
+import com.desafiov2picpayjava.adapters.in.dtos.UsuarioBuscarDtoOut;
 import com.desafiov2picpayjava.adapters.in.dtos.UsuarioCadastrarDtoOut;
 import com.desafiov2picpayjava.config.exceptions.dtos.ErrorMessage;
 import com.desafiov2picpayjava.utils.CriadorDeBuilders;
@@ -320,7 +321,7 @@ class UsuarioControllerIntegrationTest {
             .uri(CAMINHO.concat("/10"))
             .exchange()
             .expectStatus().isOk()
-            .expectBody(UsuarioCadastrarDtoOut.class)
+            .expectBody(UsuarioBuscarDtoOut.class)
             .returnResult().getResponseBody();
 
         org.assertj.core.api.Assertions.assertThat(resposta).isNotNull();

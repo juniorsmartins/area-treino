@@ -192,15 +192,15 @@ class CarteiraControllerIntegrationTest {
     public void buscarCarteiraPorId_ComIdExistente_RetornarCarteiraBuscarDtoOutComHttpStatus200() {
 
         var resposta = this.webTestClient.get()
-            .uri(CAMINHO)
+            .uri(CAMINHO.concat("/20"))
             .exchange()
             .expectStatus().isOk()
             .expectBody(CarteiraBuscarDtoOut.class)
             .returnResult().getResponseBody();
 
         org.assertj.core.api.Assertions.assertThat(resposta).isNotNull();
-        org.assertj.core.api.Assertions.assertThat(resposta.id()).isEqualTo(16);
-        org.assertj.core.api.Assertions.assertThat(resposta.saldo()).isEqualTo(BigDecimal.valueOf(10));
+        org.assertj.core.api.Assertions.assertThat(resposta.id()).isEqualTo(20);
+        org.assertj.core.api.Assertions.assertThat(resposta.saldo()).isEqualTo(BigDecimal.TEN.setScale(2));
         org.assertj.core.api.Assertions.assertThat(resposta.usuario().id()).isEqualTo(16);
     }
 }
