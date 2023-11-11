@@ -1,12 +1,12 @@
 package com.desafiov2picpayjava.adapters.in.mappers;
 
-import com.desafiov2picpayjava.adapters.in.dtos.UsuarioDtoOut;
+import com.desafiov2picpayjava.adapters.in.dtos.UsuarioBuscarDtoOut;
 import com.desafiov2picpayjava.application.core.domain.Usuario;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
-public interface UsuarioDtoOutMapper {
+public interface UsuarioBuscarDtoOutMapper {
 
-    UsuarioDtoOut toUsuarioDtoOut(Usuario usuario);
+    UsuarioBuscarDtoOut toUsuarioBuscarDtoOut(Usuario usuario);
 }
 

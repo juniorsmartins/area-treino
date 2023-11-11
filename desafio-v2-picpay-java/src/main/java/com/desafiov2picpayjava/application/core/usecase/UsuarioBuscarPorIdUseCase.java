@@ -5,7 +5,6 @@ import com.desafiov2picpayjava.application.ports.in.UsuarioBuscarPorIdInputPort;
 import com.desafiov2picpayjava.application.ports.out.UsuarioBuscarPorIdOutputPort;
 import com.desafiov2picpayjava.config.exceptions.http_404.UsuarioNaoEncontradoPorIdException;
 
-import java.util.Optional;
 import java.util.logging.Logger;
 
 public class UsuarioBuscarPorIdUseCase implements UsuarioBuscarPorIdInputPort {

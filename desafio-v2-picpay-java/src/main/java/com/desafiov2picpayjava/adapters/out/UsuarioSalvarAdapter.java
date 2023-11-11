@@ -6,13 +6,14 @@ import com.desafiov2picpayjava.application.core.domain.Usuario;
 import com.desafiov2picpayjava.application.ports.out.UsuarioSalvarOutputPort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.logging.Logger;
 
-@Component
+@Repository
 @RequiredArgsConstructor
 public class UsuarioSalvarAdapter implements UsuarioSalvarOutputPort {
 

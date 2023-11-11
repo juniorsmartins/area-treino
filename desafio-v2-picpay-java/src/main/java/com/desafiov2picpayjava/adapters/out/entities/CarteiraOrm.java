@@ -30,7 +30,7 @@ public final class CarteiraOrm implements Serializable {
     @Column(name = "saldo", nullable = false, scale = 4)
     private BigDecimal saldo;
 
-    @OneToOne
-    @JoinColumn(name = "usuario_id")
+    @OneToOne(targetEntity = UsuarioOrm.class)
+    @JoinColumn(name = "usuario_id", unique = true, referencedColumnName = "id")
     private UsuarioOrm usuario;
 }

@@ -3,7 +3,7 @@ package com.desafiov2picpayjava.adapters.in.dtos;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public record UsuarioDtoOut(
+public record UsuarioCadastrarDtoOut(
 
     Long id,
 
@@ -15,8 +15,6 @@ public record UsuarioDtoOut(
 
     String senha,
 
-    String tipo,
-
-    CarteiraDtoOut carteira
+    String tipo
 ) { }
 

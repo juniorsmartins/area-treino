@@ -19,9 +19,15 @@ public final class Usuario {
 
     private TipoUsuarioEnum tipo;
 
-    private Carteira carteira;
-
     public Usuario() {}
+
+    public String getEmail() {
+        return this.email.getEmail();
+    }
+
+    public void setEmail(String email) {
+        this.email = new CorreioEletronico(email);
+    }
 
     public long getVersion() {
         return version;
@@ -32,7 +38,7 @@ public final class Usuario {
     }
 
     public Long getId() {
-        return this.id;
+        return id;
     }
 
     public void setId(Long id) {
@@ -40,7 +46,7 @@ public final class Usuario {
     }
 
     public String getNome() {
-        return this.nome;
+        return nome;
     }
 
     public void setNome(String nome) {
@@ -48,23 +54,19 @@ public final class Usuario {
     }
 
     public String getDocumento() {
-        return this.documento;
+        return documento;
     }
 
     public void setDocumento(String documento) {
         this.documento = documento;
     }
 
-    public String getEmail() {
-        return this.email.getEmail();
-    }
-
-    public void setEmail(String email) {
-        this.email = new CorreioEletronico(email);
+    public void setEmail(CorreioEletronico email) {
+        this.email = email;
     }
 
     public String getSenha() {
-        return this.senha;
+        return senha;
     }
 
     public void setSenha(String senha) {
@@ -72,19 +74,24 @@ public final class Usuario {
     }
 
     public TipoUsuarioEnum getTipo() {
-        return this.tipo;
+        return tipo;
     }
 
     public void setTipo(TipoUsuarioEnum tipo) {
         this.tipo = tipo;
     }
 
-    public Carteira getCarteira() {
-        return this.carteira;
-    }
-
-    public void setCarteira(Carteira carteira) {
-        this.carteira = carteira;
+    @Override
+    public String toString() {
+        return "Usuario{" +
+                "version=" + version +
+                ", id=" + id +
+                ", nome='" + nome + '\'' +
+                ", documento='" + documento + '\'' +
+                ", email=" + email +
+                ", senha='" + senha + '\'' +
+                ", tipo=" + tipo +
+                '}';
     }
 }
 
