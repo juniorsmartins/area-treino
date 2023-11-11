@@ -203,5 +203,20 @@ class CarteiraControllerIntegrationTest {
         org.assertj.core.api.Assertions.assertThat(resposta.saldo()).isEqualTo(BigDecimal.TEN.setScale(2));
         org.assertj.core.api.Assertions.assertThat(resposta.usuario().id()).isEqualTo(16);
     }
+
+    @Test
+    @Order(6)
+    public void buscarCarteiraPorId_ComIdInexistente_RetornarErrorMessageComHttpStatus404() {
+
+        var resposta = this.webTestClient.get()
+            .uri(CAMINHO.concat("/2000"))
+            .exchange()
+            .expectStatus().isNotFound()
+            .expectBody(ErrorMessage.class)
+            .returnResult().getResponseBody();
+
+        org.assertj.core.api.Assertions.assertThat(resposta).isNotNull();
+        org.assertj.core.api.Assertions.assertThat(resposta.getStatus()).isEqualTo(404);
+    }
 }
 
