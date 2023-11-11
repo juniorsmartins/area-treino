@@ -7,6 +7,7 @@ import com.desafiov2picpayjava.adapters.in.mappers.UsuarioBuscarDtoOutMapper;
 import com.desafiov2picpayjava.adapters.in.mappers.UsuarioCadastrarDtoInMapper;
 import com.desafiov2picpayjava.adapters.in.mappers.UsuarioCadastrarDtoOutMapper;
 import com.desafiov2picpayjava.application.ports.in.UsuarioBuscarPorIdInputPort;
+import com.desafiov2picpayjava.application.ports.in.UsuarioBuscarTodosInputPort;
 import com.desafiov2picpayjava.application.ports.in.UsuarioCadastrarInputPort;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.logging.Logger;
@@ -28,6 +30,8 @@ public class UsuarioController {
     private final UsuarioCadastrarInputPort usuarioCadastrarInputPort;
 
     private final UsuarioBuscarPorIdInputPort usuarioBuscarPorIdInputPort;
+
+    private final UsuarioBuscarTodosInputPort usuarioBuscarTodosInputPort;
 
     private final UsuarioCadastrarDtoInMapper usuarioCadastrarDtoInMapper;
 
@@ -68,6 +72,23 @@ public class UsuarioController {
         return ResponseEntity
             .ok()
             .body(dtoOut);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<UsuarioBuscarDtoOut>> buscarTodos() {
+
+        this.logger.info("Controller - recebida requisição para buscar todos os Usuários.");
+
+        var usuarios = this.usuarioBuscarTodosInputPort.buscarTodos()
+            .stream()
+            .map(this.usuarioBuscarDtoOutMapper::toUsuarioBuscarDtoOut)
+            .toList();
+
+        this.logger.info("Controller - concluído com sucesso buscar todos os Usuários.");
+
+        return ResponseEntity
+            .ok()
+            .body(usuarios);
     }
 }
 

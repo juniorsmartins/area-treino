@@ -25,12 +25,12 @@ public class UsuarioBuscarPorIdAdapter implements UsuarioBuscarPorIdOutputPort {
     @Override
     public Optional<Usuario> buscarPorId(final Long id) {
 
-        logger.info("Adapter - iniciada buscar por id de Usuário no banco de dados.");
+        logger.info("Adapter - iniciado buscar por id de Usuário no banco de dados.");
 
         var usuarioBuscado = this.usuarioRepository.findById(id)
             .map(this.usuarioOrmMapper::toUsuario);
 
-        logger.info("Adapter - concluída busca por id de Usuário no banco de dados.");
+        logger.info("Adapter - concluído busca por id de Usuário no banco de dados.");
 
         return usuarioBuscado;
     }
