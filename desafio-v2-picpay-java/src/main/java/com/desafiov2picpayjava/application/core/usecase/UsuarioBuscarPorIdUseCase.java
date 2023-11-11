@@ -5,7 +5,6 @@ import com.desafiov2picpayjava.application.ports.in.UsuarioBuscarPorIdInputPort;
 import com.desafiov2picpayjava.application.ports.out.UsuarioBuscarPorIdOutputPort;
 import com.desafiov2picpayjava.config.exceptions.http_404.UsuarioNaoEncontradoPorIdException;
 
-import java.util.Optional;
 import java.util.logging.Logger;
 
 public class UsuarioBuscarPorIdUseCase implements UsuarioBuscarPorIdInputPort {
@@ -25,10 +24,6 @@ public class UsuarioBuscarPorIdUseCase implements UsuarioBuscarPorIdInputPort {
 
         var usuarioBuscado = this.usuarioBuscarPorIdOutputPort.buscarPorId(id)
             .orElseThrow(() -> new UsuarioNaoEncontradoPorIdException(id));
-
-        System.out.println("--------------------------------");
-        System.out.println("----- " + usuarioBuscado + " -----");
-        System.out.println("--------------------------------");
 
         logger.info("UseCase - concluído processamento de requisição de buscar Usuário por id.");
 

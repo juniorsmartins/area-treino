@@ -1,7 +1,9 @@
 package com.desafiov2picpayjava.adapters.in.controllers;
 
+import com.desafiov2picpayjava.adapters.in.dtos.UsuarioBuscarDtoOut;
 import com.desafiov2picpayjava.adapters.in.dtos.UsuarioCadastrarDtoIn;
 import com.desafiov2picpayjava.adapters.in.dtos.UsuarioCadastrarDtoOut;
+import com.desafiov2picpayjava.adapters.in.mappers.UsuarioBuscarDtoOutMapper;
 import com.desafiov2picpayjava.adapters.in.mappers.UsuarioCadastrarDtoInMapper;
 import com.desafiov2picpayjava.adapters.in.mappers.UsuarioCadastrarDtoOutMapper;
 import com.desafiov2picpayjava.application.ports.in.UsuarioBuscarPorIdInputPort;
@@ -31,6 +33,8 @@ public class UsuarioController {
 
     private final UsuarioCadastrarDtoOutMapper usuarioCadastrarDtoOutMapper;
 
+    private final UsuarioBuscarDtoOutMapper usuarioBuscarDtoOutMapper;
+
     @PostMapping
     public ResponseEntity<UsuarioCadastrarDtoOut> cadastrar(@RequestBody @Valid UsuarioCadastrarDtoIn dtoIn) {
 
@@ -50,13 +54,13 @@ public class UsuarioController {
     }
 
     @GetMapping(path = "/{id}")
-    public ResponseEntity<UsuarioCadastrarDtoOut> buscarPorId(@PathVariable(name = "id") final Long id) {
+    public ResponseEntity<UsuarioBuscarDtoOut> buscarPorId(@PathVariable(name = "id") final Long id) {
 
         this.logger.info("Controller - recebida requisição para buscar Usuário por id.");
 
         var dtoOut = Optional.of(id)
             .map(this.usuarioBuscarPorIdInputPort::buscarPorId)
-            .map(this.usuarioCadastrarDtoOutMapper::toUsuarioDtoOut)
+            .map(this.usuarioBuscarDtoOutMapper::toUsuarioBuscarDtoOut)
             .orElseThrow(NoSuchElementException::new);
 
         this.logger.info("Controller - concluído com sucesso busca de Usuário por id.");

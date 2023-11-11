@@ -30,10 +30,6 @@ public class UsuarioBuscarPorIdAdapter implements UsuarioBuscarPorIdOutputPort {
         var usuarioBuscado = this.usuarioRepository.findById(id)
             .map(this.usuarioOrmMapper::toUsuario);
 
-        System.out.println("--------------------------------");
-        System.out.println("----- " + usuarioBuscado + " -----");
-        System.out.println("--------------------------------");
-
         logger.info("Adapter - concluída busca por id de Usuário no banco de dados.");
 
         return usuarioBuscado;
