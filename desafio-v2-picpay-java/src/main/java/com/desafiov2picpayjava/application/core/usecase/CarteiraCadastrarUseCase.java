@@ -41,9 +41,8 @@ public class CarteiraCadastrarUseCase implements CarteiraCadastrarInputPort {
     }
 
     private Usuario cadastrarCarteiraDoUsuario(Usuario usuario) {
-        var carteira = new Carteira(BigDecimal.ZERO);
-        carteira = this.carteiraSalvarOutputPort.salvar(carteira);
-        usuario.setCarteira(carteira);
+        var carteira = new Carteira(BigDecimal.ZERO, usuario);
+        this.carteiraSalvarOutputPort.salvar(carteira);
         return usuario;
     }
 }

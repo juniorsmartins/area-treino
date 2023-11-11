@@ -26,6 +26,10 @@ public class UsuarioBuscarPorIdUseCase implements UsuarioBuscarPorIdInputPort {
         var usuarioBuscado = this.usuarioBuscarPorIdOutputPort.buscarPorId(id)
             .orElseThrow(() -> new UsuarioNaoEncontradoPorIdException(id));
 
+        System.out.println("--------------------------------");
+        System.out.println("----- " + usuarioBuscado + " -----");
+        System.out.println("--------------------------------");
+
         logger.info("UseCase - concluído processamento de requisição de buscar Usuário por id.");
 
         return usuarioBuscado;

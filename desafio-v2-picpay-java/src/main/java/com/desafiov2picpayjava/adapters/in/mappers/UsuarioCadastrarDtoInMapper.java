@@ -8,7 +8,7 @@ import org.mapstruct.Mapping;
 import org.mapstruct.Named;
 
 @Mapper(componentModel = "spring")
-public interface UsuarioDtoInMapper {
+public interface UsuarioCadastrarDtoInMapper {
 
     @Mapping(target = "tipo", source = "tipo", qualifiedByName = "tipoStringToEnum")
     Usuario toUsuario(UsuarioCadastrarDtoIn usuarioCadastrarDtoIn);

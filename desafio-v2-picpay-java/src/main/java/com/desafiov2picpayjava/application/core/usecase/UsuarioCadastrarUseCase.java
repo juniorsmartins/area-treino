@@ -2,7 +2,6 @@ package com.desafiov2picpayjava.application.core.usecase;
 
 import com.desafiov2picpayjava.application.core.domain.Usuario;
 import com.desafiov2picpayjava.application.core.usecase.utils.Utils;
-import com.desafiov2picpayjava.application.ports.in.CarteiraCadastrarInputPort;
 import com.desafiov2picpayjava.application.ports.in.UsuarioCadastrarInputPort;
 import com.desafiov2picpayjava.application.ports.out.UsuarioSalvarOutputPort;
 
@@ -16,15 +15,11 @@ public class UsuarioCadastrarUseCase implements UsuarioCadastrarInputPort {
 
     private final UsuarioSalvarOutputPort usuarioSalvarOutputPort;
 
-    private final CarteiraCadastrarInputPort carteiraCadastrarInputPort;
-
     private final Utils utils;
 
-    public UsuarioCadastrarUseCase(UsuarioSalvarOutputPort usuarioSalvarOutputPort, Utils utils,
-                                   CarteiraCadastrarInputPort carteiraCadastrarInputPort) {
+    public UsuarioCadastrarUseCase(UsuarioSalvarOutputPort usuarioSalvarOutputPort, Utils utils) {
         this.usuarioSalvarOutputPort = usuarioSalvarOutputPort;
         this.utils = utils;
-        this.carteiraCadastrarInputPort = carteiraCadastrarInputPort;
     }
 
     @Override
@@ -35,7 +30,6 @@ public class UsuarioCadastrarUseCase implements UsuarioCadastrarInputPort {
         var usuarioCadastrado = Optional.of(usuario)
             .map(this::capitalizarNome)
             .map(this.usuarioSalvarOutputPort::salvar)
-            .map(this.carteiraCadastrarInputPort::cadastrar)
             .orElseThrow(NoSuchElementException::new);
 
         logger.info("UseCase - concluído processamento de requisição de cadastro.");

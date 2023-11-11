@@ -10,15 +10,21 @@ public final class Carteira {
 
     private BigDecimal saldo;
 
+    private Usuario usuario;
+
     public Carteira() {}
 
-    public Carteira(BigDecimal saldo) {
+    public Carteira(BigDecimal saldo, Usuario usuario) {
         this.saldo = saldo;
+        this.usuario = usuario;
     }
 
-    public Carteira(Long id, BigDecimal saldo) {
-        this.id = id;
-        this.saldo = saldo;
+    public long getVersion() {
+        return version;
+    }
+
+    public void setVersion(long version) {
+        this.version = version;
     }
 
     public Long getId() {
@@ -35,6 +41,24 @@ public final class Carteira {
 
     public void setSaldo(BigDecimal saldo) {
         this.saldo = saldo;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+    @Override
+    public String toString() {
+        return "Carteira{" +
+                "version=" + version +
+                ", id=" + id +
+                ", saldo=" + saldo +
+                ", usuario=" + usuario +
+                '}';
     }
 }
 

@@ -43,9 +43,5 @@ public final class UsuarioOrm implements Serializable {
     @Enumerated(EnumType.STRING)
     @Column(name = "tipo", nullable = false)
     private TipoUsuarioEnum tipo;
-
-    @OneToOne
-    @JoinColumn(name = "carteira_id", referencedColumnName = "id")
-    private CarteiraOrm carteira;
 }
 
