@@ -2,6 +2,7 @@ package com.desafiov2picpayjava.adapters.in.controllers;
 
 import com.desafiov2picpayjava.adapters.in.dtos.CarteiraBuscarDtoOut;
 import com.desafiov2picpayjava.adapters.in.dtos.CarteiraCadastrarDtoOut;
+import com.desafiov2picpayjava.adapters.in.dtos.CarteiraDepositarDtoOut;
 import com.desafiov2picpayjava.adapters.in.dtos.UsuarioIdDto;
 import com.desafiov2picpayjava.config.exceptions.dtos.ErrorMessage;
 import com.desafiov2picpayjava.utils.CriadorDeBuilders;
@@ -217,6 +218,33 @@ class CarteiraControllerIntegrationTest {
 
         org.assertj.core.api.Assertions.assertThat(resposta).isNotNull();
         org.assertj.core.api.Assertions.assertThat(resposta.getStatus()).isEqualTo(404);
+    }
+
+    @Test
+    @Order(10)
+    public void depositarNaCarteira_ComIdExistenteAndDadosValidos_RetornarCarteiraDepositarDtoOutComHttpStatus200() {
+
+        var userId = UsuarioIdDto.builder()
+            .id(16L)
+            .build();
+
+        var dtoIn = CriadorDeBuilders.gerarCarteiraDepositarDtoInBuilder()
+            .usuario(userId)
+            .build();
+
+        var resposta = this.webTestClient.put()
+            .uri(CAMINHO.concat("/20"))
+            .contentType(MediaType.APPLICATION_JSON)
+            .bodyValue(dtoIn)
+            .exchange()
+            .expectStatus().isOk()
+            .expectBody(CarteiraDepositarDtoOut.class)
+            .returnResult().getResponseBody();
+
+        org.assertj.core.api.Assertions.assertThat(resposta).isNotNull();
+        org.assertj.core.api.Assertions.assertThat(resposta.id()).isEqualTo(20);
+        org.assertj.core.api.Assertions.assertThat(resposta.saldo()).isEqualTo(BigDecimal.valueOf(20).setScale(2));
+        org.assertj.core.api.Assertions.assertThat(resposta.usuario().id()).isEqualTo(16);
     }
 }
 

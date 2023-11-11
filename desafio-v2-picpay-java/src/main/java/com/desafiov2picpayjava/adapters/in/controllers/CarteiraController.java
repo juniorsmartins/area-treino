@@ -1,8 +1,6 @@
 package com.desafiov2picpayjava.adapters.in.controllers;
 
-import com.desafiov2picpayjava.adapters.in.dtos.CarteiraBuscarDtoOut;
-import com.desafiov2picpayjava.adapters.in.dtos.CarteiraCadastrarDtoIn;
-import com.desafiov2picpayjava.adapters.in.dtos.CarteiraCadastrarDtoOut;
+import com.desafiov2picpayjava.adapters.in.dtos.*;
 import com.desafiov2picpayjava.adapters.in.mappers.CarteiraBuscarDtoOutMapper;
 import com.desafiov2picpayjava.adapters.in.mappers.CarteiraCadastrarDtoInMapper;
 import com.desafiov2picpayjava.adapters.in.mappers.CarteiraCadastrarDtoOutMapper;
@@ -68,6 +66,19 @@ public class CarteiraController {
         return ResponseEntity
             .ok()
             .body(dtoOut);
+    }
+
+    @PutMapping(path = "/{id}")
+    public ResponseEntity<CarteiraDepositarDtoOut> depositar(@PathVariable(name = "id") final Long id,
+                                                             @RequestBody @Valid CarteiraDepositarDtoIn dtoIn) {
+
+        this.logger.info("Controller - recebida requisição para depositar valor na Carteira.");
+
+        this.logger.info("Controller - concluído com sucesso depósito de valor na Carteira.");
+
+        return ResponseEntity
+            .ok()
+            .body(null);
     }
 }
 

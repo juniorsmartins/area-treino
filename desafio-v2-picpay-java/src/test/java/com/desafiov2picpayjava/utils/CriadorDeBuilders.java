@@ -1,6 +1,7 @@
 package com.desafiov2picpayjava.utils;
 
 import com.desafiov2picpayjava.adapters.in.dtos.CarteiraCadastrarDtoIn;
+import com.desafiov2picpayjava.adapters.in.dtos.CarteiraDepositarDtoIn;
 import com.desafiov2picpayjava.adapters.in.dtos.UsuarioCadastrarDtoIn;
 import com.desafiov2picpayjava.application.core.domain.enums.TipoUsuarioEnum;
 import com.github.javafaker.Faker;
@@ -30,6 +31,12 @@ public final class CriadorDeBuilders {
 
         return CarteiraCadastrarDtoIn.builder()
             .saldo(BigDecimal.ZERO);
+    }
+
+    public static CarteiraDepositarDtoIn.CarteiraDepositarDtoInBuilder gerarCarteiraDepositarDtoInBuilder() {
+
+        return CarteiraDepositarDtoIn.builder()
+            .saldo(BigDecimal.TEN);
     }
 }
 
