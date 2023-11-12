@@ -26,14 +26,14 @@ public class CarteiraCadastrarUseCase implements CarteiraCadastrarInputPort {
     @Override
     public Carteira cadastrar(Carteira carteira) {
 
-        logger.info("UseCase - iniciado processamento de requisição para cadastrar Carteira.");
+        this.logger.info("UseCase - iniciado processamento de requisição para cadastrar Carteira.");
 
         var usuarioComCarteira = Optional.of(carteira)
             .map(this::validarUsuario)
             .map(this.carteiraSalvarOutputPort::salvar)
             .orElseThrow(NoSuchElementException::new);
 
-        logger.info("UseCase - concluído processamento de requisição para cadastrar Carteira.");
+        this.logger.info("UseCase - concluído processamento de requisição para cadastrar Carteira.");
 
         return usuarioComCarteira;
     }
