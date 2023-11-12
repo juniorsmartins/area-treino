@@ -26,15 +26,15 @@ public final class TransferenciaOrm implements Serializable {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "emitente_id", nullable = false, updatable = false)
-    private CarteiraOrm emitente;
+    @JoinColumn(name = "pagador_id", nullable = false, updatable = false, referencedColumnName = "id")
+    private CarteiraOrm pagador;
 
     @ManyToOne
-    @JoinColumn(name = "recebedor_id", nullable = false, updatable = false)
-    private CarteiraOrm recebedor;
+    @JoinColumn(name = "beneficiario_id", nullable = false, updatable = false, referencedColumnName = "id")
+    private CarteiraOrm beneficiario;
 
     @Column(name = "valor", nullable = false, scale = 4, updatable = false)
-    private BigDecimal valor;
+    private BigDecimal value;
 
     @Column(name = "data_time_transacao", nullable = false, updatable = false)
     private OffsetDateTime dataTimeTransacao;

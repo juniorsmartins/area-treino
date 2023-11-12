@@ -9,13 +9,25 @@ public final class Transferencia {
 
     private Long id;
 
-    private Carteira emitente;
+    private BigDecimal value;
 
-    private Carteira recebedor;
+    private Long payer;
 
-    private BigDecimal valor;
+    private Carteira pagador;
+
+    private Long payee;
+
+    private Carteira beneficiario;
 
     private OffsetDateTime dataTimeTransacao;
+
+    public long getVersion() {
+        return version;
+    }
+
+    public void setVersion(long version) {
+        this.version = version;
+    }
 
     public Long getId() {
         return id;
@@ -25,28 +37,44 @@ public final class Transferencia {
         this.id = id;
     }
 
-    public Carteira getEmitente() {
-        return emitente;
+    public BigDecimal getValue() {
+        return value;
     }
 
-    public void setEmitente(Carteira emitente) {
-        this.emitente = emitente;
+    public void setValue(BigDecimal value) {
+        this.value = value;
     }
 
-    public Carteira getRecebedor() {
-        return recebedor;
+    public Long getPayer() {
+        return payer;
     }
 
-    public void setRecebedor(Carteira recebedor) {
-        this.recebedor = recebedor;
+    public void setPayer(Long payer) {
+        this.payer = payer;
     }
 
-    public BigDecimal getValor() {
-        return valor;
+    public Carteira getPagador() {
+        return pagador;
     }
 
-    public void setValor(BigDecimal valor) {
-        this.valor = valor;
+    public void setPagador(Carteira pagador) {
+        this.pagador = pagador;
+    }
+
+    public Long getPayee() {
+        return payee;
+    }
+
+    public void setPayee(Long payee) {
+        this.payee = payee;
+    }
+
+    public Carteira getBeneficiario() {
+        return beneficiario;
+    }
+
+    public void setBeneficiario(Carteira beneficiario) {
+        this.beneficiario = beneficiario;
     }
 
     public OffsetDateTime getDataTimeTransacao() {
