@@ -250,5 +250,51 @@ class TransferenciaControllerIntegrationTest {
         org.assertj.core.api.Assertions.assertThat(resposta).isNotNull();
         org.assertj.core.api.Assertions.assertThat(resposta.getStatus()).isEqualTo(404);
     }
+
+    @Test
+    @Order(4)
+    public void fazerTransferencia_ComSaldoInsuficiente_RetornarErrorMessageComHttpStatus409() {
+
+        var dtoIn = TransferenciaDtoIn.builder()
+            .value(BigDecimal.valueOf(1000L))
+            .payer(21L)
+            .payee(20L)
+            .build();
+
+        var resposta = this.webTestClient.post()
+            .uri(CAMINHO)
+            .contentType(MediaType.APPLICATION_JSON)
+            .bodyValue(dtoIn)
+            .exchange()
+            .expectStatus().isEqualTo(409)
+            .expectBody(ErrorMessage.class)
+            .returnResult().getResponseBody();
+
+        org.assertj.core.api.Assertions.assertThat(resposta).isNotNull();
+        org.assertj.core.api.Assertions.assertThat(resposta.getStatus()).isEqualTo(409);
+    }
+
+    @Test
+    @Order(5)
+    public void fazerTransferencia_ComUsuarioLojistaComoPagador_RetornarErrorMessageComHttpStatus409() {
+
+        var dtoIn = TransferenciaDtoIn.builder()
+            .value(BigDecimal.ONE)
+            .payer(20L)
+            .payee(21L)
+            .build();
+
+        var resposta = this.webTestClient.post()
+            .uri(CAMINHO)
+            .contentType(MediaType.APPLICATION_JSON)
+            .bodyValue(dtoIn)
+            .exchange()
+            .expectStatus().isEqualTo(409)
+            .expectBody(ErrorMessage.class)
+            .returnResult().getResponseBody();
+
+        org.assertj.core.api.Assertions.assertThat(resposta).isNotNull();
+        org.assertj.core.api.Assertions.assertThat(resposta.getStatus()).isEqualTo(409);
+    }
 }
 
