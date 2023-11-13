@@ -23,6 +23,10 @@ public final class Carteira {
         this.setSaldo(this.getSaldo().add(valor));
     }
 
+    public void retirarDaCarteira(BigDecimal valor) {
+        this.setSaldo(this.getSaldo().subtract(valor));
+    }
+
     public long getVersion() {
         return version;
     }

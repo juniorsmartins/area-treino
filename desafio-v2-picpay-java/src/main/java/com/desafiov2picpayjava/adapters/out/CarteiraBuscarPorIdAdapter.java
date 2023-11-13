@@ -4,11 +4,11 @@ import com.desafiov2picpayjava.adapters.out.mappers.CarteiraOrmMapper;
 import com.desafiov2picpayjava.adapters.out.repositories.CarteiraRepository;
 import com.desafiov2picpayjava.application.core.domain.Carteira;
 import com.desafiov2picpayjava.application.ports.out.CarteiraBuscarPorIdOutputPort;
+import com.desafiov2picpayjava.config.exceptions.http_404.CarteiraNaoEncontradaPorIdException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
 import java.util.logging.Logger;
 
 @Repository
@@ -23,12 +23,13 @@ public class CarteiraBuscarPorIdAdapter implements CarteiraBuscarPorIdOutputPort
 
     @Transactional(readOnly = true)
     @Override
-    public Optional<Carteira> buscarPorId(final Long id) {
+    public Carteira buscarPorId(final Long id) {
 
         this.logger.info("Adapter - iniciado buscar Carteira por id no banco de dados.");
 
         var carteiraBuscada = this.carteiraRepository.findById(id)
-            .map(this.carteiraOrmMapper::toCarteira);
+            .map(this.carteiraOrmMapper::toCarteira)
+            .orElseThrow(() -> new CarteiraNaoEncontradaPorIdException(id));
 
         this.logger.info("Adapter - concluído buscar Carteira por id no banco de dados.");
 
