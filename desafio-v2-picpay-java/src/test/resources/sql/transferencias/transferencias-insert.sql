@@ -6,3 +6,7 @@ INSERT INTO carteiras(version, id, saldo, usuario_id) VALUES
     (0, 20, 10, 15),
     (0, 21, 50, 16);
 
+INSERT INTO transferencias(version, id, pagador_id, beneficiario_id, valor, data_time_transacao) VALUES
+    (0, 5, 21, 20, 1, TIMESTAMP '2023-11-05T11:34:56Z'),
+    (0, 6, 21, 20, 2, TIMESTAMP '2023-11-10T12:21:12Z');
+
