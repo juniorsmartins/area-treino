@@ -4,6 +4,7 @@ import com.desafiov2picpayjava.config.exceptions.dtos.ErrorMessage;
 import com.desafiov2picpayjava.config.exceptions.enums.TipoDeErroEnum;
 import com.desafiov2picpayjava.config.exceptions.http_400.RequisicaoMalFormuladaException;
 import com.desafiov2picpayjava.config.exceptions.http_404.RecursoNaoEncontradoException;
+import com.desafiov2picpayjava.config.exceptions.http_409.RegrasDeNegocioException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,7 +12,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import org.springframework.web.context.request.WebRequest;
 
 import java.util.logging.Logger;
 
@@ -54,6 +54,18 @@ public class ControlExceptions {
 
         return ResponseEntity
             .status(HttpStatus.NOT_FOUND)
+            .body(mensagem);
+    }
+
+    @ExceptionHandler(RegrasDeNegocioException.class)
+    public ResponseEntity<ErrorMessage> erroNaRequisicao(RegrasDeNegocioException ex,
+                                                         HttpServletRequest request) {
+        logger.info("Exception de requisição mal formulada: " + ex);
+
+        var mensagem = new ErrorMessage(request, HttpStatus.CONFLICT, ex.getMessage(), TipoDeErroEnum.REGRA_NEGOCIO_VIOLADA);
+
+        return ResponseEntity
+            .status(HttpStatus.CONFLICT)
             .body(mensagem);
     }
 }
