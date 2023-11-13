@@ -21,6 +21,9 @@ public final class TransferenciaOrm implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
+    @Version
+    private long version;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
