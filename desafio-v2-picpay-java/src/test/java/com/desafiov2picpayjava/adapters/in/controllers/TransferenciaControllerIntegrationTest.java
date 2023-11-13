@@ -1,5 +1,6 @@
 package com.desafiov2picpayjava.adapters.in.controllers;
 
+import com.desafiov2picpayjava.adapters.in.dtos.TransferenciaBuscarDtoOut;
 import com.desafiov2picpayjava.adapters.in.dtos.TransferenciaDtoIn;
 import com.desafiov2picpayjava.config.exceptions.dtos.ErrorMessage;
 import org.junit.jupiter.api.MethodOrderer;
@@ -295,6 +296,23 @@ class TransferenciaControllerIntegrationTest {
 
         org.assertj.core.api.Assertions.assertThat(resposta).isNotNull();
         org.assertj.core.api.Assertions.assertThat(resposta.getStatus()).isEqualTo(409);
+    }
+
+    @Test
+    @Order(10)
+    public void buscarHistoricoDeTransferencias_RetornarListaDeTransferenciaBuscarDtoOutComHttpStatus200() {
+
+        var resposta = this.webTestClient.get()
+            .uri(CAMINHO)
+            .exchange()
+            .expectStatus().isOk()
+            .expectBodyList(TransferenciaBuscarDtoOut.class)
+            .returnResult().getResponseBody();
+
+        org.assertj.core.api.Assertions.assertThat(resposta).isNotNull();
+        org.assertj.core.api.Assertions.assertThat(resposta.size()).isEqualTo(2);
+        org.assertj.core.api.Assertions.assertThat(resposta.get(0)).isNotNull();
+        org.assertj.core.api.Assertions.assertThat(resposta.get(1)).isNotNull();
     }
 }
 

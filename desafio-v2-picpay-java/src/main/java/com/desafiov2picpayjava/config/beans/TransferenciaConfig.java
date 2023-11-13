@@ -2,7 +2,9 @@ package com.desafiov2picpayjava.config.beans;
 
 import com.desafiov2picpayjava.adapters.out.CarteiraBuscarPorIdAdapter;
 import com.desafiov2picpayjava.adapters.out.CarteiraSalvarAdapter;
+import com.desafiov2picpayjava.adapters.out.TransferenciaBuscarTodosAdapter;
 import com.desafiov2picpayjava.adapters.out.TransferenciaSalvarAdapter;
+import com.desafiov2picpayjava.application.core.usecase.TransferenciaBuscarTodosUseCase;
 import com.desafiov2picpayjava.application.core.usecase.TransferenciaEfetuarUseCase;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,6 +17,11 @@ public class TransferenciaConfig {
                                                                    CarteiraBuscarPorIdAdapter carteiraBuscarPorIdAdapter,
                                                                    CarteiraSalvarAdapter carteiraSalvarAdapter) {
         return new TransferenciaEfetuarUseCase(transferenciaSalvarAdapter, carteiraBuscarPorIdAdapter, carteiraSalvarAdapter);
+    }
+
+    @Bean
+    public TransferenciaBuscarTodosUseCase transferenciaBuscarTodosUseCase(TransferenciaBuscarTodosAdapter transferenciaBuscarTodosAdapter) {
+        return new TransferenciaBuscarTodosUseCase(transferenciaBuscarTodosAdapter);
     }
 }
 
