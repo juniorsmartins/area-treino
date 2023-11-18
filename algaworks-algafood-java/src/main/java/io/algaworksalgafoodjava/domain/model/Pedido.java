@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 
 @Entity
-@Table(name = "restaurantes")
+@Table(name = "pedidos")
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -16,7 +16,7 @@ import java.math.BigDecimal;
 @Setter
 @ToString
 @EqualsAndHashCode(of = {"id"})
-public class Restaurante implements Serializable {
+public final class Pedido implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -25,14 +25,16 @@ public class Restaurante implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "nome", length = 50, unique = true, nullable = false)
-    private String nome;
+    @Column(name = "codigo", nullable = false)
+    private String codigo;
 
-    @Column(name = "taxa_frete", precision = 10, scale = 2, nullable = false)
-    private BigDecimal taxaFrete = BigDecimal.ZERO;
+    @Column(name = "sub_total", precision = 10, scale = 2)
+    private BigDecimal subTotal;
 
-    @ManyToOne
-    @JoinColumn(name = "cozinha_id", nullable = false)
-    private Cozinha cozinha;
+    @Column(name = "taxa_frete", precision = 10, scale = 2)
+    private BigDecimal taxaFrete;
+
+    @Column(name = "valor_total", precision = 10, scale = 2)
+    private BigDecimal valorTotal;
 }
 
