@@ -22,7 +22,7 @@ public class CozinhaRepositoryImpl implements CozinhaRepository {
     }
 
     @Override
-    public Cozinha buscar(Long id) {
+    public Cozinha buscar(final Long id) {
         return this.entityManager.find(Cozinha.class, id);
     }
 

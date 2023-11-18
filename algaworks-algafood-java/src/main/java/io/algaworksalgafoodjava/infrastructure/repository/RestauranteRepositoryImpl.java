@@ -20,7 +20,7 @@ public class RestauranteRepositoryImpl implements RestauranteRepository {
     }
 
     @Override
-    public Restaurante buscar(Long id) {
+    public Restaurante buscar(final Long id) {
         return this.entityManager.find(Restaurante.class, id);
     }
 
