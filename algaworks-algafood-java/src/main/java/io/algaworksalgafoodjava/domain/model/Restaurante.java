@@ -30,5 +30,8 @@ public class Restaurante implements Serializable {
 
     @Column(name = "taxa_frete", precision = 10, scale = 2, nullable = false)
     private BigDecimal taxaFrete = BigDecimal.ZERO;
+
+    @ManyToOne
+    private Cozinha cozinha;
 }
 
