@@ -17,7 +17,7 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 @Sql(scripts = "/sql/clientes/clientes-insert.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 @Sql(scripts = "/sql/clientes/clientes-delete.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class ClienteIt {
+class ClienteIt {
 
     private static final String CAMINHO = "/api/v1/clientes";
 
@@ -26,7 +26,7 @@ public class ClienteIt {
 
     @Test
     @Order(1)
-    public void criarCliente_ComDadosValidos_RetornarClienteComStatus201() {
+    void criarCliente_ComDadosValidos_RetornarClienteComStatus201() {
 
         var resposta = this.testClient.post()
             .uri(CAMINHO)
@@ -46,7 +46,7 @@ public class ClienteIt {
 
     @Test
     @Order(2)
-    public void criarCliente_ComCpfJaCadastrado_RetornarErrorMessageComStatus409() {
+    void criarCliente_ComCpfJaCadastrado_RetornarErrorMessageComStatus409() {
 
         var resposta = this.testClient.post()
             .uri(CAMINHO)
@@ -64,7 +64,7 @@ public class ClienteIt {
 
     @Test
     @Order(3)
-    public void criarCliente_ComDadosInvalidos_RetornarErrorMessageComStatus422() {
+    void criarCliente_ComDadosInvalidos_RetornarErrorMessageComStatus422() {
 
         var resposta = this.testClient.post()
             .uri(CAMINHO)
@@ -134,7 +134,7 @@ public class ClienteIt {
 
     @Test
     @Order(4)
-    public void criarCliente_ComUsuarioNaoPermitido_RetornarErrorMessageComStatus403() {
+    void criarCliente_ComUsuarioNaoPermitido_RetornarErrorMessageComStatus403() {
 
         var resposta = this.testClient.post()
             .uri(CAMINHO)
@@ -148,6 +148,22 @@ public class ClienteIt {
 
         org.assertj.core.api.Assertions.assertThat(resposta).isNotNull();
         org.assertj.core.api.Assertions.assertThat(resposta.getStatus()).isEqualTo(403);
+    }
+
+    @Test
+    @Order(5)
+    void buscarCliente_ComIdExistentePeloAdmin_RetornarClienteComStatus200() {
+
+        var resposta = this.testClient.get()
+            .uri("/api/v1/clientes/21")
+            .headers(JwtAuthentication.getHeaderAuthorization(testClient, "bob@email.com", "123456"))
+            .exchange()
+            .expectStatus().isOk()
+            .expectBody(ClienteResponseDto.class)
+            .returnResult().getResponseBody();
+
+        org.assertj.core.api.Assertions.assertThat(resposta).isNotNull();
+        org.assertj.core.api.Assertions.assertThat(resposta.getId()).isEqualTo(21);
     }
 }
 

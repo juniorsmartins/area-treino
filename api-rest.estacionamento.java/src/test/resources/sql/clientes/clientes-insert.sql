@@ -6,5 +6,6 @@ INSERT INTO usuarios (id, username, password, role) VALUES
 
 INSERT INTO clientes(id, nome, cpf, usuario_id) VALUES
     (10, 'Bianca Silva', '77917017079', 101),
-    (20, 'Roberto Gomes', '78149242007', 102);
+    (20, 'Roberto Gomes', '78149242007', 102),
+    (21, 'Robert Martin', '76605916069', 100);
 
