@@ -19,10 +19,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Tag(name = "Clientes", description = "Contém todas as operações relativas ao recurso Cliente.")
 @RequiredArgsConstructor
@@ -61,6 +58,16 @@ public class ClienteController {
 
         return ResponseEntity
             .status(201)
+            .body(ClienteMapper.toClienteResponseDto(cliente));
+    }
+
+    @GetMapping(path = "/{id}")
+    public ResponseEntity<ClienteResponseDto> getById(@PathVariable(name = "id") final Long id) {
+
+        var cliente = this.clienteService.buscarPorId(id);
+
+        return ResponseEntity
+            .ok()
             .body(ClienteMapper.toClienteResponseDto(cliente));
     }
 }
