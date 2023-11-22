@@ -45,5 +45,28 @@ public class CozinhaController {
             .ok()
             .body(cozinha);
     }
+
+    @PostMapping(
+        consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
+        produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}
+    )
+    public ResponseEntity<Cozinha> adicionar(@RequestBody Cozinha cozinha) {
+        var cozinhaSalva = this.cozinhaRepository.salvar(cozinha);
+
+        return ResponseEntity
+            .status(HttpStatus.CREATED)
+            .body(cozinhaSalva);
+    }
+
+    @PutMapping(path = "/{id}")
+    public ResponseEntity<Cozinha> atualizar(@PathVariable(name = "id") final Long id,
+                                             @RequestBody Cozinha cozinha) {
+        cozinha.setId(id);
+        var cozinhaAtualizada = this.cozinhaRepository.salvar(cozinha);
+
+        return ResponseEntity
+            .ok()
+            .body(cozinhaAtualizada);
+    }
 }
 
