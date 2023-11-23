@@ -13,3 +13,5 @@ p
 @src/test/java/com/algaworks/junit/ConsultaRegistroJUnitTest.java,8/3/8338a8f6d42009adee1772f780f3bb4f86dccb6c
 h
 8src/test/java/com/algaworks/junit/EntityManagerTest.java,3/8/380f5500bbf69c5cffaedd06bea16c8c534caf2b
+p
+@src/test/java/com/algaworks/junit/OperacoesComTransacaoTest.java,5/3/53c2efa06334af6079b351a201ff8e1a1e6dbacf
