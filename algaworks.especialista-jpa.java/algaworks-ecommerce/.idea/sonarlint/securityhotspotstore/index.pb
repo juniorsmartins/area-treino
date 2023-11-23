@@ -9,3 +9,5 @@ h
 8src/main/java/com/algaworks/ecommerce/model/Produto.java,f/9/f9f72a877f35dc0cc2c588e0d02efaf8703a19a6
 |
 Lsrc/main/java/com/algaworks/ecommerce/util/IniciarUnidadeDePersistencia.java,7/d/7d2b6b85e148147697dd7934890230e68343f09f
+p
+@src/test/java/com/algaworks/junit/ConsultaRegistroJUnitTest.java,8/3/8338a8f6d42009adee1772f780f3bb4f86dccb6c
