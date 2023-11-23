@@ -11,3 +11,5 @@ h
 Lsrc/main/java/com/algaworks/ecommerce/util/IniciarUnidadeDePersistencia.java,7/d/7d2b6b85e148147697dd7934890230e68343f09f
 p
 @src/test/java/com/algaworks/junit/ConsultaRegistroJUnitTest.java,8/3/8338a8f6d42009adee1772f780f3bb4f86dccb6c
+h
+8src/test/java/com/algaworks/junit/EntityManagerTest.java,3/8/380f5500bbf69c5cffaedd06bea16c8c534caf2b

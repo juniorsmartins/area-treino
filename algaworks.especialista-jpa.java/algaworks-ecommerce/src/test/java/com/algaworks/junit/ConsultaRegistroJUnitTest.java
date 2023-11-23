@@ -1,37 +1,29 @@
 package com.algaworks.junit;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
+import com.algaworks.ecommerce.model.Produto;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
-public class ConsultaRegistroJUnitTest {
+public class ConsultaRegistroJUnitTest extends EntityManagerTest {
 
-    private static EntityManagerFactory entityManagerFactory;
+    @Test
+    void buscarPorIdentificador() {
 
-    private EntityManager entityManager;
+        var produto = this.entityManager.find(Produto.class, 1);
 
-    @BeforeAll
-    public static void setUpBeforeClass() {
-        entityManagerFactory = Persistence.createEntityManagerFactory("Ecommerce-PU");
+        Assertions.assertNotNull(produto);
+        Assertions.assertEquals("Kindle", produto.getNome());
     }
 
-    @AfterAll
-    public static void tearDownAfterClass() {
-        entityManagerFactory.close();
-    }
+    @Test
+    void atualizarReferencia() {
 
-    @BeforeEach
-    public void setUp() {
-        entityManager = entityManagerFactory.createEntityManager();
-    }
+        var produto = this.entityManager.find(Produto.class, 1);
+        produto.setNome("Microfone Samson");
 
-    @AfterEach
-    public void tearDown() {
-        entityManager.close();
+        this.entityManager.refresh(produto); // reinicia a entidade do banco de dados. Ignora o setNome("Microfone Samson")
+
+        Assertions.assertEquals("Kindle", produto.getNome());
     }
 }
 
