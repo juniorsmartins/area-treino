@@ -9,6 +9,22 @@ import java.math.BigDecimal;
 public class OperacoesComTransacaoTest extends EntityManagerTest {
 
     @Test
+    void impedirOperacaoComBancoDeDados() {
+        var produto = this.entityManager.find(Produto.class, 1);
+
+        this.entityManager.detach(produto); // Detach desanexou o produto do banco de dados e impediu o restante da operação.
+
+        this.entityManager.getTransaction().begin();
+        produto.setNome("Kindle Paperwhite Geração 2");
+        this.entityManager.getTransaction().commit();
+
+        this.entityManager.clear();
+
+        var produtoPraVerificar = this.entityManager.find(Produto.class, produto.getId());
+        Assertions.assertEquals("Kindle", produtoPraVerificar.getNome());
+    }
+
+    @Test
     void mostrarDiferencaPersistAndMerge() {
         var produtoPersist = Produto.builder()
             .id(5)
