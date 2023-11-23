@@ -4,6 +4,7 @@ import io.algaworksalgafoodjava.api.wrapper.CozinhaXmlWrapper;
 import io.algaworksalgafoodjava.domain.model.Cozinha;
 import io.algaworksalgafoodjava.domain.repository.CozinhaRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -61,8 +62,15 @@ public class CozinhaController {
     @PutMapping(path = "/{id}")
     public ResponseEntity<Cozinha> atualizar(@PathVariable(name = "id") final Long id,
                                              @RequestBody Cozinha cozinha) {
-        cozinha.setId(id);
-        var cozinhaAtualizada = this.cozinhaRepository.salvar(cozinha);
+
+        var cozinhaEncontrada = this.cozinhaRepository.buscar(id);
+
+        if (ObjectUtils.isEmpty(cozinhaEncontrada)) {
+            return ResponseEntity.notFound().build();
+        }
+
+        BeanUtils.copyProperties(cozinha, cozinhaEncontrada, "id");
+        var cozinhaAtualizada = this.cozinhaRepository.salvar(cozinhaEncontrada);
 
         return ResponseEntity
             .ok()
