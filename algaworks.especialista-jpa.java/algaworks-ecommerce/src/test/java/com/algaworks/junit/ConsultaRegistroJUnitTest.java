@@ -4,7 +4,7 @@ import com.algaworks.ecommerce.model.Produto;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-public class ConsultaRegistroJUnitTest extends EntityManagerTest {
+class ConsultaRegistroJUnitTest extends EntityManagerTest {
 
     @Test
     void buscarPorIdentificador() {
