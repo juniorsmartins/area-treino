@@ -15,3 +15,7 @@ h
 8src/test/java/com/algaworks/junit/EntityManagerTest.java,3/8/380f5500bbf69c5cffaedd06bea16c8c534caf2b
 p
 @src/test/java/com/algaworks/junit/OperacoesComTransacaoTest.java,5/3/53c2efa06334af6079b351a201ff8e1a1e6dbacf
+g
+7src/test/java/com/algaworks/junit/PrimeiroCrudTest.java,f/9/f943c27dc6764be9d23fadb9a4cbd90ddcc10e1a
+h
+8src/main/java/com/algaworks/ecommerce/model/Cliente.java,2/c/2cdd1e14781c3677ee9eed4a4eff84ce8293303e
