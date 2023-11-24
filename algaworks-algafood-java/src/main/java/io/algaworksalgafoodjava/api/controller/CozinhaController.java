@@ -76,5 +76,16 @@ public class CozinhaController {
             .ok()
             .body(cozinhaAtualizada);
     }
+
+    @DeleteMapping(path = "/{id}")
+    public ResponseEntity<Void> remover(@PathVariable(name = "id") final Long id) {
+        var cozinha = this.cozinhaRepository.buscar(id);
+
+        this.cozinhaRepository.remover(cozinha);
+
+        return ResponseEntity
+            .noContent()
+            .build();
+    }
 }
 
