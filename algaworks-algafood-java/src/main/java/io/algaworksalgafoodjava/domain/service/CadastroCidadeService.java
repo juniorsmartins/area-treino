@@ -16,5 +16,9 @@ public class CadastroCidadeService {
     public List<Cidade> listar() {
         return this.cidadeRepository.listar();
     }
+
+    public Cidade buscar(final Long id) {
+        return this.cidadeRepository.buscar(id);
+    }
 }
 
