@@ -20,5 +20,9 @@ public class CadastroCidadeService {
     public Cidade buscar(final Long id) {
         return this.cidadeRepository.buscar(id);
     }
+
+    public Cidade salvar(Cidade cidade) {
+        return this.cidadeRepository.salvar(cidade);
+    }
 }
 

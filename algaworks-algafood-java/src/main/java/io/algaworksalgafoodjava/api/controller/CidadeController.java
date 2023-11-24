@@ -1,16 +1,15 @@
 package io.algaworksalgafoodjava.api.controller;
 
+import io.algaworksalgafoodjava.domain.exception.EntidadeNaoEncontradaException;
 import io.algaworksalgafoodjava.domain.model.Cidade;
 import io.algaworksalgafoodjava.domain.service.CadastroCidadeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.ObjectUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -44,6 +43,26 @@ public class CidadeController {
         return ResponseEntity
             .ok()
             .body(resposta);
+    }
+
+    @PostMapping(
+        consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
+        produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}
+    )
+    public ResponseEntity<Cidade> adicionar(@RequestBody Cidade cidade) {
+
+        try {
+            cidade = this.cadastroCidadeService.salvar(cidade);
+
+            return ResponseEntity
+                .created(URI.create("/api/v1/cidades/" + cidade.getId()))
+                .body(cidade);
+
+        } catch (EntidadeNaoEncontradaException ex) {
+            return ResponseEntity
+                .notFound()
+                .build();
+        }
     }
 }
 
