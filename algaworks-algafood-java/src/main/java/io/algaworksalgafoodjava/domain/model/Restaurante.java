@@ -16,7 +16,7 @@ import java.math.BigDecimal;
 @Setter
 @ToString
 @EqualsAndHashCode(of = {"id"})
-public class Restaurante implements Serializable {
+public final class Restaurante implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -29,7 +29,7 @@ public class Restaurante implements Serializable {
     private String nome;
 
     @Column(name = "taxa_frete", precision = 10, scale = 2, nullable = false)
-    private BigDecimal taxaFrete = BigDecimal.ZERO;
+    private BigDecimal taxaFrete;
 
     @ManyToOne
     @JoinColumn(name = "cozinha_id", nullable = false)
