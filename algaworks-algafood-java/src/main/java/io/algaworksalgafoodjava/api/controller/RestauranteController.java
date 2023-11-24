@@ -1,5 +1,6 @@
 package io.algaworksalgafoodjava.api.controller;
 
+import io.algaworksalgafoodjava.domain.exception.EntidadeNaoEncontradaException;
 import io.algaworksalgafoodjava.domain.model.Restaurante;
 import io.algaworksalgafoodjava.domain.service.CadastroRestauranteService;
 import lombok.RequiredArgsConstructor;
@@ -49,17 +50,17 @@ public class RestauranteController {
     public ResponseEntity<Restaurante> adicionar(@RequestBody Restaurante restaurante) {
 
         try {
-            restaurante = this.cadastroRestauranteService.adicionar(restaurante);
+            restaurante = this.cadastroRestauranteService.salvar(restaurante);
 
-        } catch (EmptyResultDataAccessException ex) {
+            return ResponseEntity
+                .created(URI.create("/api/v1/restaurantes/" + restaurante.getId()))
+                .body(restaurante);
+
+        } catch (EntidadeNaoEncontradaException ex) {
             return ResponseEntity
                 .badRequest()
                 .build();
         }
-
-        return ResponseEntity
-            .created(URI.create("/api/v1/restaurantes/" + restaurante.getId()))
-            .body(restaurante);
     }
 }
 
