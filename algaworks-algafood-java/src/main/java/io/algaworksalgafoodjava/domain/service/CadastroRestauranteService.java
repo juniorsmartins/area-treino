@@ -16,5 +16,9 @@ public class CadastroRestauranteService {
     public List<Restaurante> listar() {
         return this.restauranteRepository.listar();
     }
+
+    public Restaurante buscar(final Long id) {
+        return this.restauranteRepository.buscar(id);
+    }
 }
 
