@@ -47,7 +47,7 @@ public class RestauranteController {
     }
 
     @PostMapping(produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-    public ResponseEntity<Restaurante> adicionar(@RequestBody Restaurante restaurante) {
+    public ResponseEntity<?> adicionar(@RequestBody Restaurante restaurante) {
 
         try {
             restaurante = this.cadastroRestauranteService.salvar(restaurante);
@@ -59,7 +59,7 @@ public class RestauranteController {
         } catch (EntidadeNaoEncontradaException ex) {
             return ResponseEntity
                 .badRequest()
-                .build();
+                .body(ex.getMessage());
         }
     }
 }
