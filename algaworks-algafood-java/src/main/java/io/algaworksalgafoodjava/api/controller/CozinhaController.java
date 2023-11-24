@@ -4,11 +4,9 @@ import io.algaworksalgafoodjava.api.wrapper.CozinhaXmlWrapper;
 import io.algaworksalgafoodjava.domain.exception.EntidadeEmUsoException;
 import io.algaworksalgafoodjava.domain.exception.EntidadeNaoEncontradaException;
 import io.algaworksalgafoodjava.domain.model.Cozinha;
-import io.algaworksalgafoodjava.domain.repository.CozinhaRepository;
 import io.algaworksalgafoodjava.domain.service.CadastroCozinhaService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -24,20 +22,18 @@ public class CozinhaController {
 
     private final CadastroCozinhaService cadastroCozinhaService;
 
-    private final CozinhaRepository cozinhaRepository;
-
     @GetMapping(produces = {MediaType.APPLICATION_JSON_VALUE})
     public List<Cozinha> listar() {
-        return this.cozinhaRepository.listar();
+        return this.cadastroCozinhaService.listar();
     }
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping(produces = {MediaType.APPLICATION_XML_VALUE})
     public CozinhaXmlWrapper listarXml() {
-        return new CozinhaXmlWrapper(this.cozinhaRepository.listar());
+        return new CozinhaXmlWrapper(this.cadastroCozinhaService.listar());
     }
 
-    @GetMapping(path = "/{id}")
+    @GetMapping(path = "/{id}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public ResponseEntity<Cozinha> buscar(@PathVariable(name = "id") final Long id) {
 
         var resposta = this.cadastroCozinhaService.buscar(id);
@@ -65,12 +61,14 @@ public class CozinhaController {
             .body(cozinhaSalva);
     }
 
-    @PutMapping(path = "/{id}")
+    @PutMapping(path = "/{id}",
+        consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
+        produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}
+    )
     public ResponseEntity<Cozinha> atualizar(@PathVariable(name = "id") final Long id,
                                              @RequestBody Cozinha cozinha) {
 
-        var cozinhaEncontrada = this.cozinhaRepository.buscar(id);
-
+        var cozinhaEncontrada = this.cadastroCozinhaService.buscar(id);
         if (ObjectUtils.isEmpty(cozinhaEncontrada)) {
             return ResponseEntity.notFound().build();
         }
