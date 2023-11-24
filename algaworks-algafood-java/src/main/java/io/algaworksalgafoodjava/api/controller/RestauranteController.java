@@ -95,7 +95,7 @@ public class RestauranteController {
     }
 
     @DeleteMapping(path = "/{id}")
-    public ResponseEntity<Void> remover(@PathVariable(name = "id") final Long id) {
+    public ResponseEntity<?> remover(@PathVariable(name = "id") final Long id) {
 
         try {
             this.cadastroRestauranteService.excluir(id);
@@ -112,7 +112,7 @@ public class RestauranteController {
         } catch (EntidadeEmUsoException ex) {
             return ResponseEntity
                 .status(HttpStatus.CONFLICT)
-                .build();
+                .body(ex.getMessage());
         }
     }
 }

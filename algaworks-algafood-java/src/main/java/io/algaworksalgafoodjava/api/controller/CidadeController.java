@@ -1,9 +1,11 @@
 package io.algaworksalgafoodjava.api.controller;
 
+import io.algaworksalgafoodjava.domain.exception.EntidadeEmUsoException;
 import io.algaworksalgafoodjava.domain.exception.EntidadeNaoEncontradaException;
 import io.algaworksalgafoodjava.domain.model.Cidade;
 import io.algaworksalgafoodjava.domain.service.CadastroCidadeService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.ObjectUtils;
@@ -88,6 +90,28 @@ public class CidadeController {
         } catch (IllegalArgumentException ex) {
             return ResponseEntity
                 .badRequest()
+                .body(ex.getMessage());
+        }
+    }
+
+    @DeleteMapping(path = "/{id}")
+    public ResponseEntity<?> remover(@PathVariable(name = "id") final Long id) {
+
+        try {
+            this.cadastroCidadeService.excluir(id);
+
+            return ResponseEntity
+                .noContent()
+                .build();
+
+        } catch (EntidadeNaoEncontradaException ex) {
+            return ResponseEntity
+                .notFound()
+                .build();
+
+        } catch (EntidadeEmUsoException ex) {
+            return ResponseEntity
+                .status(HttpStatus.CONFLICT)
                 .body(ex.getMessage());
         }
     }
