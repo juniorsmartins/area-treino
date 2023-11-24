@@ -71,7 +71,7 @@ public class RestauranteController {
         consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
         produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}
     )
-    public ResponseEntity<Restaurante> atualizar(@PathVariable(name = "id") final Long id,
+    public ResponseEntity<?> atualizar(@PathVariable(name = "id") final Long id,
                                                  @RequestBody Restaurante restaurante) {
         restaurante.setId(id);
 
@@ -90,7 +90,7 @@ public class RestauranteController {
         } catch (IllegalArgumentException ex) {
             return ResponseEntity
                 .badRequest()
-                .build();
+                .body(ex.getMessage());
         }
     }
 

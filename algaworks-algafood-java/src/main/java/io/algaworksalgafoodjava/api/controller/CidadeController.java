@@ -64,5 +64,32 @@ public class CidadeController {
                 .build();
         }
     }
+
+    @PutMapping(path = "/{id}",
+        consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
+        produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}
+    )
+    public ResponseEntity<?> atualizar(@PathVariable(name = "id") final Long id,
+                                            @RequestBody Cidade cidade) {
+        cidade.setId(id);
+
+        try {
+            cidade = this.cadastroCidadeService.atualizar(cidade);
+
+            return ResponseEntity
+                .ok()
+                .body(cidade);
+
+        } catch (EntidadeNaoEncontradaException ex) {
+            return ResponseEntity
+                .notFound()
+                .build();
+
+        } catch (IllegalArgumentException ex) {
+            return ResponseEntity
+                .badRequest()
+                .body(ex.getMessage());
+        }
+    }
 }
 
