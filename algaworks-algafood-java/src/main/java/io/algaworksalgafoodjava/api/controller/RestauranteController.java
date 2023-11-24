@@ -4,7 +4,6 @@ import io.algaworksalgafoodjava.domain.exception.EntidadeNaoEncontradaException;
 import io.algaworksalgafoodjava.domain.model.Restaurante;
 import io.algaworksalgafoodjava.domain.service.CadastroRestauranteService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.ObjectUtils;
@@ -46,7 +45,10 @@ public class RestauranteController {
             .body(restaurante);
     }
 
-    @PostMapping(produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    @PostMapping(
+        consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
+        produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}
+    )
     public ResponseEntity<?> adicionar(@RequestBody Restaurante restaurante) {
 
         try {
@@ -60,6 +62,33 @@ public class RestauranteController {
             return ResponseEntity
                 .badRequest()
                 .body(ex.getMessage());
+        }
+    }
+
+    @PutMapping(path = "/{id}",
+        consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
+        produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}
+    )
+    public ResponseEntity<Restaurante> atualizar(@PathVariable(name = "id") final Long id,
+                                                 @RequestBody Restaurante restaurante) {
+        restaurante.setId(id);
+
+        try {
+            var resposta = this.cadastroRestauranteService.atualizar(restaurante);
+
+            return ResponseEntity
+                .ok()
+                .body(resposta);
+
+        } catch (EntidadeNaoEncontradaException ex) {
+            return ResponseEntity
+                .notFound()
+                .build();
+
+        } catch (IllegalArgumentException ex) {
+            return ResponseEntity
+                .badRequest()
+                .build();
         }
     }
 }
