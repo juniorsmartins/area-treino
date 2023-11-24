@@ -34,8 +34,8 @@ public class EstadoRepositoryImpl implements EstadoRepository {
 
     @Transactional
     @Override
-    public void remover(Estado estado) {
-        estado = this.buscar(estado.getId());
+    public void remover(final Long id) {
+        var estado = this.buscar(id);
         this.entityManager.remove(estado);
     }
 }

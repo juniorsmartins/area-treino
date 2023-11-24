@@ -1,11 +1,14 @@
 package io.algaworksalgafoodjava.domain.service;
 
+import io.algaworksalgafoodjava.domain.exception.EntidadeEmUsoException;
 import io.algaworksalgafoodjava.domain.exception.EntidadeNaoEncontradaException;
 import io.algaworksalgafoodjava.domain.model.Restaurante;
 import io.algaworksalgafoodjava.domain.repository.CozinhaRepository;
 import io.algaworksalgafoodjava.domain.repository.RestauranteRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
@@ -56,6 +59,20 @@ public class CadastroRestauranteService {
 
         BeanUtils.copyProperties(restaurante, restauranteDoBanco, "id", "cozinha");
         return this.restauranteRepository.salvar(restauranteDoBanco);
+    }
+
+    public void excluir(final Long id) {
+
+        try {
+            this.restauranteRepository.remover(id);
+
+        } catch (EmptyResultDataAccessException ex) {
+            throw new EntidadeNaoEncontradaException(String.format("Restaurante com id %s não encontrado.", id));
+
+        } catch (DataIntegrityViolationException ex) {
+            throw new EntidadeEmUsoException(String
+                .format("Restaurante com id %s não pode ser removido, pois está em uso.", id));
+        }
     }
 }
 

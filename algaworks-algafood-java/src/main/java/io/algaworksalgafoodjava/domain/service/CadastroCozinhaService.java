@@ -9,11 +9,21 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class CadastroCozinhaService {
 
     private final CozinhaRepository cozinhaRepository;
+
+    public List<Cozinha> listar() {
+        return this.cozinhaRepository.listar();
+    }
+
+    public Cozinha buscar(final Long id) {
+        return this.cozinhaRepository.buscar(id);
+    }
 
     public Cozinha salvar(Cozinha cozinha) {
         return this.cozinhaRepository.salvar(cozinha);
@@ -25,16 +35,12 @@ public class CadastroCozinhaService {
             this.cozinhaRepository.remover(id);
 
         } catch (EmptyResultDataAccessException ex) {
-            throw new EntidadeNaoEncontradaException(String.format("Cozinha com id %s não foi encontrada.", id));
+            throw new EntidadeNaoEncontradaException(String.format("Cozinha com id %s não encontrada.", id));
 
         } catch (DataIntegrityViolationException ex) {
             throw new EntidadeEmUsoException(String
                 .format("Cozinha com id %s não pode ser removida, pois está em uso.", id));
         }
-    }
-
-    public Cozinha buscar(final Long id) {
-        return this.cozinhaRepository.buscar(id);
     }
 }
 

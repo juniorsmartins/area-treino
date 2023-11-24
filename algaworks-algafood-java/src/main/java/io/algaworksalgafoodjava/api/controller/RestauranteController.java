@@ -1,9 +1,11 @@
 package io.algaworksalgafoodjava.api.controller;
 
+import io.algaworksalgafoodjava.domain.exception.EntidadeEmUsoException;
 import io.algaworksalgafoodjava.domain.exception.EntidadeNaoEncontradaException;
 import io.algaworksalgafoodjava.domain.model.Restaurante;
 import io.algaworksalgafoodjava.domain.service.CadastroRestauranteService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.ObjectUtils;
@@ -49,7 +51,7 @@ public class RestauranteController {
         consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
         produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}
     )
-    public ResponseEntity<?> adicionar(@RequestBody Restaurante restaurante) {
+    public ResponseEntity<Object> adicionar(@RequestBody Restaurante restaurante) {
 
         try {
             restaurante = this.cadastroRestauranteService.salvar(restaurante);
@@ -88,6 +90,28 @@ public class RestauranteController {
         } catch (IllegalArgumentException ex) {
             return ResponseEntity
                 .badRequest()
+                .build();
+        }
+    }
+
+    @DeleteMapping(path = "/{id}")
+    public ResponseEntity<Void> remover(@PathVariable(name = "id") final Long id) {
+
+        try {
+            this.cadastroRestauranteService.excluir(id);
+
+            return ResponseEntity
+                .noContent()
+                .build();
+
+        } catch (EntidadeNaoEncontradaException ex) {
+            return ResponseEntity
+                .notFound()
+                .build();
+
+        } catch (EntidadeEmUsoException ex) {
+            return ResponseEntity
+                .status(HttpStatus.CONFLICT)
                 .build();
         }
     }
