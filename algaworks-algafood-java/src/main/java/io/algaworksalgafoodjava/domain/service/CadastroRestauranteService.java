@@ -34,7 +34,6 @@ public class CadastroRestauranteService {
 
         var idCozinha = restaurante.getCozinha().getId();
         var cozinha = this.cozinhaRepository.buscar(idCozinha);
-
         if (ObjectUtils.isEmpty(cozinha)) {
             throw new EntidadeNaoEncontradaException(String.format("Não existe cozinha com id %s", idCozinha));
         }
