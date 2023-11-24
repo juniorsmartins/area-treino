@@ -32,5 +32,9 @@ public class CadastroCozinhaService {
                 .format("Cozinha com id %s não pode ser removida, pois está em uso.", id));
         }
     }
+
+    public Cozinha buscar(final Long id) {
+        return this.cozinhaRepository.buscar(id);
+    }
 }
 

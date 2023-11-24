@@ -40,9 +40,9 @@ public class CozinhaController {
     @GetMapping(path = "/{id}")
     public ResponseEntity<Cozinha> buscar(@PathVariable(name = "id") final Long id) {
 
-        var cozinha = this.cozinhaRepository.buscar(id);
+        var resposta = this.cadastroCozinhaService.buscar(id);
 
-        if (ObjectUtils.isEmpty(cozinha)) {
+        if (ObjectUtils.isEmpty(resposta)) {
             return ResponseEntity
                 .notFound()
                 .build();
@@ -50,7 +50,7 @@ public class CozinhaController {
 
         return ResponseEntity
             .ok()
-            .body(cozinha);
+            .body(resposta);
     }
 
     @PostMapping(

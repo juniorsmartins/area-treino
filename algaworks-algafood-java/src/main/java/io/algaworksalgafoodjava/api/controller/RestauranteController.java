@@ -3,14 +3,13 @@ package io.algaworksalgafoodjava.api.controller;
 import io.algaworksalgafoodjava.domain.model.Restaurante;
 import io.algaworksalgafoodjava.domain.service.CadastroRestauranteService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.ObjectUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -43,6 +42,23 @@ public class RestauranteController {
 
         return ResponseEntity
             .ok()
+            .body(restaurante);
+    }
+
+    @PostMapping(produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    public ResponseEntity<Restaurante> adicionar(@RequestBody Restaurante restaurante) {
+
+        try {
+            restaurante = this.cadastroRestauranteService.adicionar(restaurante);
+
+        } catch (EmptyResultDataAccessException ex) {
+            return ResponseEntity
+                .badRequest()
+                .build();
+        }
+
+        return ResponseEntity
+            .created(URI.create("/api/v1/restaurantes/" + restaurante.getId()))
             .body(restaurante);
     }
 }
