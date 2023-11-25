@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping(path = "/api/v1/restaurantes")
@@ -71,8 +72,8 @@ public class RestauranteController {
         consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
         produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}
     )
-    public ResponseEntity<?> atualizar(@PathVariable(name = "id") final Long id,
-                                                 @RequestBody Restaurante restaurante) {
+    public ResponseEntity<Object> atualizar(@PathVariable(name = "id") final Long id,
+                                            @RequestBody Restaurante restaurante) {
         restaurante.setId(id);
 
         try {
@@ -94,8 +95,34 @@ public class RestauranteController {
         }
     }
 
+    @PatchMapping(path = "/{id}",
+        consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
+        produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}
+    )
+    public ResponseEntity<Object> atualizarParcial(@PathVariable(name = "id") final Long id,
+                                                   @RequestBody Map<String, Object> campos) {
+
+        try {
+            var resposta = this.cadastroRestauranteService.atualizarParcial(id, campos);
+
+            return ResponseEntity
+                .ok()
+                .body(resposta);
+
+        } catch (EntidadeNaoEncontradaException ex) {
+            return ResponseEntity
+                .notFound()
+                .build();
+
+        } catch (IllegalArgumentException ex) {
+            return ResponseEntity
+                .badRequest()
+                .body(ex.getMessage());
+        }
+    }
+
     @DeleteMapping(path = "/{id}")
-    public ResponseEntity<?> remover(@PathVariable(name = "id") final Long id) {
+    public ResponseEntity<Object> remover(@PathVariable(name = "id") final Long id) {
 
         try {
             this.cadastroRestauranteService.excluir(id);
