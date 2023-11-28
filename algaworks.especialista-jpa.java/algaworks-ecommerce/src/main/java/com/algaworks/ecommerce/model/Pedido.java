@@ -40,5 +40,8 @@ public final class Pedido implements Serializable {
     private StatusPedidoEnum status;
 
     private BigDecimal total;
+
+    @Embedded
+    private EnderecoEntregaPedido enderecoEntrega;
 }
 

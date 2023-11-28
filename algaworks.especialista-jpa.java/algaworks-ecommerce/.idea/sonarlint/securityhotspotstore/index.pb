@@ -45,3 +45,7 @@ Psrc/test/java/com/algaworks/junit/iniciandocomjpa/ConsultaRegistroJUnitTest.jav
 Psrc/test/java/com/algaworks/junit/iniciandocomjpa/OperacoesComTransacaoTest.java,8/8/8838a16c14f221f5964175ef22a63e55d8293634
 w
 Gsrc/test/java/com/algaworks/junit/iniciandocomjpa/PrimeiroCrudTest.java,5/a/5af19d19e77aaa98faea6b62b9e14fe5df860e27
+v
+Fsrc/main/java/com/algaworks/ecommerce/model/EnderecoEntregaPedido.java,0/9/09fbe34217790c5881b20a246ab9f66e1e0a66ee
+„
+Tsrc/test/java/com/algaworks/junit/mapeamentobasico/MapeamentoObjetoEmbutidoTest.java,5/7/57e74eb3e97a92a54d94cf183e58c935ef56002b
