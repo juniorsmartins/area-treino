@@ -12,7 +12,6 @@ class MapeandoEnumeracoesTest extends EntityManagerTest {
     void testarEnum() {
 
         var cliente = Cliente.builder()
-            .id(6)
             .nome("José Mineiro")
             .sexo(SexoClienteEnum.MASCULINO)
             .build();

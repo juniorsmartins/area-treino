@@ -28,7 +28,6 @@ public class OperacoesComTransacaoTest extends EntityManagerTest {
     @Test
     void mostrarDiferencaPersistAndMerge() {
         var produtoPersist = Produto.builder()
-            .id(5)
             .nome("Smartphone One Plus")
             .descricao("O processador mais rápido.")
             .preco(BigDecimal.valueOf(2450))
@@ -132,8 +131,8 @@ public class OperacoesComTransacaoTest extends EntityManagerTest {
 
     @Test
     void inserirPrimeiroObjeto() {
+
         var produto = Produto.builder()
-            .id(2)
             .nome("Câmera Canon")
             .descricao("A melhor definição para suas fotos.")
             .preco(BigDecimal.valueOf(5000))

@@ -49,3 +49,5 @@ v
 Fsrc/main/java/com/algaworks/ecommerce/model/EnderecoEntregaPedido.java,0/9/09fbe34217790c5881b20a246ab9f66e1e0a66ee
 „
 Tsrc/test/java/com/algaworks/junit/mapeamentobasico/MapeamentoObjetoEmbutidoTest.java,5/7/57e74eb3e97a92a54d94cf183e58c935ef56002b
+ƒ
+Ssrc/test/java/com/algaworks/junit/mapeamentobasico/EstrategiaChavePrimariaTest.java,f/e/fe89b3fdd493826a59e242b19831bc60ed89ebcc

@@ -49,8 +49,9 @@ class PrimeiroCrudTest extends EntityManagerTest {
 
     @Test
     void inserirClienteComMerge() {
+
         var cliente = Cliente.builder()
-            .id(2)
+            .id(5)
             .nome("Robert Martin")
             .build();
 
@@ -67,8 +68,8 @@ class PrimeiroCrudTest extends EntityManagerTest {
 
     @Test
     void inserirClienteComPersist() {
+
         var cliente = Cliente.builder()
-            .id(1)
             .nome("Martin Fowler")
             .build();
 
