@@ -1,10 +1,6 @@
 
 7
 pom.xml,4/4/442292b8a7efeabbe4cc176709b833b1792140ec
-j
-:src/test/java/com/algaworks/junit/EntendendoJUnitTest.java,8/6/868a917cf2d6b3129914dccdb21d6e10153c9795
-G
-src/main/java/Main.java,e/4/e44a8606ce010ad9b89aafdfcee2ab49afbf6d10
 h
 8src/main/java/com/algaworks/ecommerce/model/Produto.java,f/9/f9f72a877f35dc0cc2c588e0d02efaf8703a19a6
 |
@@ -19,3 +15,25 @@ g
 7src/test/java/com/algaworks/junit/PrimeiroCrudTest.java,f/9/f943c27dc6764be9d23fadb9a4cbd90ddcc10e1a
 h
 8src/main/java/com/algaworks/ecommerce/model/Cliente.java,2/c/2cdd1e14781c3677ee9eed4a4eff84ce8293303e
+r
+Bsrc/main/java/com/algaworks/ecommerce/model/enums/SexoCliente.java,6/f/6f229d836fd423ff53023ef0802e8587bff14ef2
+v
+Fsrc/main/java/com/algaworks/ecommerce/model/enums/SexoClienteEnum.java,6/f/6fcaa7fcd6b256eb2e9b86b3337329b6fb08b888
+j
+:src/main/java/com/algaworks/ecommerce/model/Categoria.java,b/a/ba2cf89026347110547f876bdd28fa41cdc7acab
+h
+8src/main/java/com/algaworks/ecommerce/model/Estoque.java,0/1/01b74b767c3abf50ca011beee6542a0fbb9bccc6
+w
+Gsrc/main/java/com/algaworks/ecommerce/model/enums/StatusPedidoEnum.java,c/0/c09680516a694bab00f1be1592c8ca1a113bec06
+g
+7src/main/java/com/algaworks/ecommerce/model/Pedido.java,d/9/d9d078bf4c0f3b4084e132b8e7009dc7f6b72b55
+k
+;src/main/java/com/algaworks/ecommerce/model/ItemPedido.java,3/d/3dd050fd4d9cbafb88eb8bf33f5583031ff02e5e
+p
+@src/main/java/com/algaworks/ecommerce/model/PagamentoCartao.java,9/6/9663e2355679ef7d0c5ab68f868c592d3d13aa6b
+z
+Jsrc/main/java/com/algaworks/ecommerce/model/enums/StatusPagamentoEnum.java,5/6/56e671c5d4faefa8c1963a520a460ae06d4a652a
+p
+@src/main/java/com/algaworks/ecommerce/model/PagamentoBoleto.java,6/4/64d3bf008224c18233673a34668e7e4f753f902c
+k
+;src/main/java/com/algaworks/ecommerce/model/NotaFiscal.java,c/2/c28384952daf2c6e4a323413cb6c2785aa4a5f4b

@@ -1,16 +1,15 @@
 package com.algaworks.ecommerce.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
-@Table(name = "produtos")
+@Table(name = "pagamentos_boleto")
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -18,18 +17,19 @@ import java.math.BigDecimal;
 @Setter
 @ToString
 @EqualsAndHashCode(of = {"id"})
-public final class Produto implements Serializable {
+public final class NotaFiscal implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private String nome;
+    private Integer pedidoId;
 
-    private String descricao;
+    private String xml;
 
-    private BigDecimal preco;
+    private Date dataEmissao;
 }
 

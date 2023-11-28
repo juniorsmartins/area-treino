@@ -1,16 +1,14 @@
 package com.algaworks.ecommerce.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.algaworks.ecommerce.model.enums.StatusPagamentoEnum;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.math.BigDecimal;
 
 @Entity
-@Table(name = "produtos")
+@Table(name = "pagamentos_cartao")
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -18,18 +16,17 @@ import java.math.BigDecimal;
 @Setter
 @ToString
 @EqualsAndHashCode(of = {"id"})
-public final class Produto implements Serializable {
+public final class PagamentoCartao implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private String nome;
+    private Integer pedidoId;
 
-    private String descricao;
-
-    private BigDecimal preco;
+    private StatusPagamentoEnum status;
 }
 
