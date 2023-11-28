@@ -36,8 +36,12 @@ public final class Pedido implements Serializable {
     @Column(name = "nota_fiscal_id")
     private Integer notaFiscalId;
 
+    @Enumerated(EnumType.STRING)
     private StatusPedidoEnum status;
 
     private BigDecimal total;
+
+    @Embedded
+    private EnderecoEntregaPedido enderecoEntrega;
 }
 

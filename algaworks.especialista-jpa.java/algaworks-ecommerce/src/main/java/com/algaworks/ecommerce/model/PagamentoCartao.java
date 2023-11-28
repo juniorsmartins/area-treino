@@ -28,6 +28,7 @@ public final class PagamentoCartao implements Serializable {
     @Column(name = "pedido_id")
     private Integer pedidoId;
 
+    @Enumerated(EnumType.STRING)
     private StatusPagamentoEnum status;
 }
 

@@ -28,6 +28,7 @@ public final class PagamentoBoleto implements Serializable {
     @Column(name = "pedido_id")
     private Integer pedidoId;
 
+    @Enumerated(EnumType.STRING)
     private StatusPagamentoEnum status;
 
     @Column(name = "codigo_barras")
