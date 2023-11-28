@@ -25,10 +25,13 @@ public final class ItemPedido implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Column(name = "pedido_id")
     private Integer pedidoId;
 
+    @Column(name = "produto_id")
     private Integer produtoId;
 
+    @Column(name = "preco_produto")
     private BigDecimal precoProduto;
 
     private Integer quantidade;

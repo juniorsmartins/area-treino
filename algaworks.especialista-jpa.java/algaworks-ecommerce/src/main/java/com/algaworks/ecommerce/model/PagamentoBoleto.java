@@ -25,10 +25,12 @@ public final class PagamentoBoleto implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Column(name = "pedido_id")
     private Integer pedidoId;
 
     private StatusPagamentoEnum status;
 
+    @Column(name = "codigo_barras")
     private String codigoBarras;
 }
 

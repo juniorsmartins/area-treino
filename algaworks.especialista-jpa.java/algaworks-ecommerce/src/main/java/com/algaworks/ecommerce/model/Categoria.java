@@ -26,6 +26,7 @@ public final class Categoria implements Serializable {
 
     private String nome;
 
+    @Column(name = "categoria_pai_id")
     private Integer categoriaPaiId;
 }
 

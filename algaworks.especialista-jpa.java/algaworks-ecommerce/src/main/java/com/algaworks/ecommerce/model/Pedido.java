@@ -27,10 +27,13 @@ public final class Pedido implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Column(name = "data_pedido")
     private LocalDateTime dataPedido;
 
+    @Column(name = "data_conclusao")
     private LocalDateTime dataConclusao;
 
+    @Column(name = "nota_fiscal_id")
     private Integer notaFiscalId;
 
     private StatusPedidoEnum status;
