@@ -37,3 +37,11 @@ p
 @src/main/java/com/algaworks/ecommerce/model/PagamentoBoleto.java,6/4/64d3bf008224c18233673a34668e7e4f753f902c
 k
 ;src/main/java/com/algaworks/ecommerce/model/NotaFiscal.java,c/2/c28384952daf2c6e4a323413cb6c2785aa4a5f4b
+
+Osrc/test/java/com/algaworks/junit/mapeamentobasico/MapeandoEnumeracoesTest.java,5/e/5e89287b1d804cfed68427d64d0e75f5ce1fd028
+€
+Psrc/test/java/com/algaworks/junit/iniciandocomjpa/ConsultaRegistroJUnitTest.java,1/6/16ffe7fc290c3ea467aa605417522d5d32c9a95e
+€
+Psrc/test/java/com/algaworks/junit/iniciandocomjpa/OperacoesComTransacaoTest.java,8/8/8838a16c14f221f5964175ef22a63e55d8293634
+w
+Gsrc/test/java/com/algaworks/junit/iniciandocomjpa/PrimeiroCrudTest.java,5/a/5af19d19e77aaa98faea6b62b9e14fe5df860e27

@@ -1,6 +1,7 @@
-package com.algaworks.junit;
+package com.algaworks.junit.iniciandocomjpa;
 
 import com.algaworks.ecommerce.model.Produto;
+import com.algaworks.junit.EntityManagerTest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

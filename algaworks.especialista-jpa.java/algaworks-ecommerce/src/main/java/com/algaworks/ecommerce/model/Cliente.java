@@ -1,9 +1,7 @@
 package com.algaworks.ecommerce.model;
 
 import com.algaworks.ecommerce.model.enums.SexoClienteEnum;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serial;
@@ -28,6 +26,7 @@ public final class Cliente implements Serializable {
 
     private String nome;
 
+    @Enumerated(EnumType.STRING)
     private SexoClienteEnum sexo;
 }
 
