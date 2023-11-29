@@ -49,3 +49,5 @@ Jsrc/test/java/com/algaworks/junit/relacionamentos/RelacionamentosTest.java,8/5
 Ssrc/test/java/com/algaworks/junit/relacionamentos/RelacionamentosManyToOneTest.java,1/d/1d3f1277b3a689a333c836c22b3b04995007419e
 ƒ
 Ssrc/test/java/com/algaworks/junit/relacionamentos/RelacionamentosOneToManyTest.java,3/5/350f46ff0603d66f159f3fcae0d178f4164acfd8
+}
+Msrc/test/java/com/algaworks/junit/relacionamentos/AutoRelacionamentoTest.java,d/3/d3a687ab6d041df4b0d82895b7c18035e514804f

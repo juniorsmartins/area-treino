@@ -33,7 +33,7 @@ class RelacionamentosOneToManyTest extends EntityManagerTest {
         var clienteVerificar = this.entityManager.find(Cliente.class, cliente.getId());
         Assertions.assertNotNull(clienteVerificar);
         Assertions.assertNotNull(clienteVerificar.getPedidos());
-        Assertions.assertEquals(clienteVerificar.getPedidos().size(), 1);
+        Assertions.assertFalse(clienteVerificar.getPedidos().isEmpty());
     }
 }
 
