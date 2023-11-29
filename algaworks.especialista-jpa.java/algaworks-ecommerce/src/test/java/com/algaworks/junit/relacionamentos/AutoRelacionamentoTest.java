@@ -31,8 +31,8 @@ class AutoRelacionamentoTest extends EntityManagerTest {
         Assertions.assertNotNull(categoriaFilhaVerificar.getCategoriaPai());
         Assertions.assertEquals(categoriaFilhaVerificar.getCategoriaPai().getNome(), categoriaPai.getNome());
 
-        var categoriaPaizao = this.entityManager.find(Categoria.class, categoriaPai.getId());
-        Assertions.assertFalse(categoriaPaizao.getCategorias().isEmpty());
+        var categoriaPaiVerificar = this.entityManager.find(Categoria.class, categoriaPai.getId());
+        Assertions.assertFalse(categoriaPaiVerificar.getCategorias().isEmpty());
     }
 }
 
