@@ -28,6 +28,7 @@ public final class Pedido implements Serializable {
     private Integer id;
 
     @ManyToOne
+    @JoinColumn(name = "cliente_id")
     private Cliente cliente;
 
     @Column(name = "data_pedido")

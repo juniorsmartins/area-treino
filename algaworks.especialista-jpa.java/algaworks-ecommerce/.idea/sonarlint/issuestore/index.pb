@@ -45,3 +45,5 @@ Tsrc/test/java/com/algaworks/junit/mapeamentobasico/MapeamentoObjetoEmbutidoTest
 Ssrc/test/java/com/algaworks/junit/mapeamentobasico/EstrategiaChavePrimariaTest.java,f/e/fe89b3fdd493826a59e242b19831bc60ed89ebcc
 z
 Jsrc/test/java/com/algaworks/junit/relacionamentos/RelacionamentosTest.java,8/5/85c45fbe73e62674bd6c890bec45df2723868b66
+ƒ
+Ssrc/test/java/com/algaworks/junit/relacionamentos/RelacionamentosManyToOneTest.java,1/d/1d3f1277b3a689a333c836c22b3b04995007419e
