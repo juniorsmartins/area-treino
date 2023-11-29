@@ -5,18 +5,10 @@ h
 8src/main/java/com/algaworks/ecommerce/model/Produto.java,f/9/f9f72a877f35dc0cc2c588e0d02efaf8703a19a6
 |
 Lsrc/main/java/com/algaworks/ecommerce/util/IniciarUnidadeDePersistencia.java,7/d/7d2b6b85e148147697dd7934890230e68343f09f
-p
-@src/test/java/com/algaworks/junit/ConsultaRegistroJUnitTest.java,8/3/8338a8f6d42009adee1772f780f3bb4f86dccb6c
 h
 8src/test/java/com/algaworks/junit/EntityManagerTest.java,3/8/380f5500bbf69c5cffaedd06bea16c8c534caf2b
-p
-@src/test/java/com/algaworks/junit/OperacoesComTransacaoTest.java,5/3/53c2efa06334af6079b351a201ff8e1a1e6dbacf
-g
-7src/test/java/com/algaworks/junit/PrimeiroCrudTest.java,f/9/f943c27dc6764be9d23fadb9a4cbd90ddcc10e1a
 h
 8src/main/java/com/algaworks/ecommerce/model/Cliente.java,2/c/2cdd1e14781c3677ee9eed4a4eff84ce8293303e
-r
-Bsrc/main/java/com/algaworks/ecommerce/model/enums/SexoCliente.java,6/f/6f229d836fd423ff53023ef0802e8587bff14ef2
 v
 Fsrc/main/java/com/algaworks/ecommerce/model/enums/SexoClienteEnum.java,6/f/6fcaa7fcd6b256eb2e9b86b3337329b6fb08b888
 j
@@ -51,3 +43,5 @@ Fsrc/main/java/com/algaworks/ecommerce/model/EnderecoEntregaPedido.java,0/9/09f
 Tsrc/test/java/com/algaworks/junit/mapeamentobasico/MapeamentoObjetoEmbutidoTest.java,5/7/57e74eb3e97a92a54d94cf183e58c935ef56002b
 ƒ
 Ssrc/test/java/com/algaworks/junit/mapeamentobasico/EstrategiaChavePrimariaTest.java,f/e/fe89b3fdd493826a59e242b19831bc60ed89ebcc
+z
+Jsrc/test/java/com/algaworks/junit/relacionamentos/RelacionamentosTest.java,8/5/85c45fbe73e62674bd6c890bec45df2723868b66
