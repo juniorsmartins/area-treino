@@ -53,3 +53,5 @@ Msrc/test/java/com/algaworks/junit/relacionamentos/AutoRelacionamentoTest.java,
 Zsrc/test/java/com/algaworks/junit/relacionamentos/RemovendoEntidadesReferenciadasTest.java,a/9/a98a661e3ad5c548b05c1c2aa92829e7bb34530d
 „
 Tsrc/test/java/com/algaworks/junit/relacionamentos/RelacionamentosManyToManyTest.java,b/5/b5d96cedb62f554508facd586d9b81dce6ace09e
+‚
+Rsrc/test/java/com/algaworks/junit/relacionamentos/RelacionamentosOneToOneTest.java,d/7/d74abfea49769b8ee22bc5c64e1d27c010d2d75f

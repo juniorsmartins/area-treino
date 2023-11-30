@@ -1,29 +1,22 @@
 package com.algaworks.ecommerce.model;
 
-import com.algaworks.ecommerce.model.enums.StatusPedidoEnum;
-import jakarta.persistence.*;
-import lombok.*;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
-import java.io.Serial;
-import java.io.Serializable;
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Entity
-@Table(name = "pedidos")
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Setter
-@ToString
-@EqualsAndHashCode(of = {"id"})
-public final class Pedido implements Serializable {
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@Entity
+@Table(name = "pedido")
+public class Pedido {
 
-    @Serial
-    private static final long serialVersionUID = 1L;
-
+    @EqualsAndHashCode.Include
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -33,7 +26,7 @@ public final class Pedido implements Serializable {
     private Cliente cliente;
 
     @OneToMany(mappedBy = "pedido")
-    private List<ItemPedido> itensPedido;
+    private List<ItemPedido> itens;
 
     @Column(name = "data_pedido")
     private LocalDateTime dataPedido;
@@ -47,12 +40,11 @@ public final class Pedido implements Serializable {
     private BigDecimal total;
 
     @Enumerated(EnumType.STRING)
-    private StatusPedidoEnum status;
+    private StatusPedido status;
+
+    @OneToOne(mappedBy = "pedido")
+    private PagamentoCartao pagamento;
 
     @Embedded
     private EnderecoEntregaPedido enderecoEntrega;
-
-    @OneToOne(mappedBy = "pedido")
-    private PagamentoCartao pagamentoCartao;
 }
-
