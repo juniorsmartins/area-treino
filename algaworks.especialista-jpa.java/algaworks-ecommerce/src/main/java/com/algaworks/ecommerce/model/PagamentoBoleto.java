@@ -25,8 +25,8 @@ public final class PagamentoBoleto implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "pedido_id")
-    private Integer pedidoId;
+//    @Column(name = "pedido_id")
+//    private Integer pedido;
 
     @Enumerated(EnumType.STRING)
     private StatusPagamentoEnum status;
