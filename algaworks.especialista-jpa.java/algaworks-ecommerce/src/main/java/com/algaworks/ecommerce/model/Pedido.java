@@ -8,6 +8,7 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "pedidos")
@@ -31,6 +32,9 @@ public final class Pedido implements Serializable {
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
 
+    @OneToMany(mappedBy = "pedido")
+    private List<ItemPedido> itensPedido;
+
     @Column(name = "data_pedido")
     private LocalDateTime dataPedido;
 
@@ -47,5 +51,8 @@ public final class Pedido implements Serializable {
 
     @Embedded
     private EnderecoEntregaPedido enderecoEntrega;
+
+    @OneToOne(mappedBy = "pedido")
+    private PagamentoCartao pagamentoCartao;
 }
 

@@ -6,6 +6,7 @@ import lombok.*;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table(name = "clientes")
@@ -29,5 +30,8 @@ public final class Cliente implements Serializable {
 
     @Enumerated(EnumType.STRING)
     private SexoClienteEnum sexo;
+
+    @OneToMany(mappedBy = "cliente")
+    private List<Pedido> pedidos;
 }
 
