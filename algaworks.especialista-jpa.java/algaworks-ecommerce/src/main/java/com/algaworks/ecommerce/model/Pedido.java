@@ -28,21 +28,11 @@ public final class Pedido implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @ManyToOne
-    @JoinColumn(name = "cliente_id")
-    private Cliente cliente;
-
-    @OneToMany(mappedBy = "pedido")
-    private List<ItemPedido> itensPedido;
-
     @Column(name = "data_pedido")
     private LocalDateTime dataPedido;
 
     @Column(name = "data_conclusao")
     private LocalDateTime dataConclusao;
-
-    @Column(name = "nota_fiscal_id")
-    private Integer notaFiscalId;
 
     private BigDecimal total;
 
@@ -51,6 +41,16 @@ public final class Pedido implements Serializable {
 
     @Embedded
     private EnderecoEntregaPedido enderecoEntrega;
+
+    @ManyToOne
+    @JoinColumn(name = "cliente_id")
+    private Cliente cliente;
+
+    @OneToMany(mappedBy = "pedido")
+    private List<ItemPedido> itensPedido;
+
+    @OneToOne(mappedBy = "pedido")
+    private NotaFiscal notaFiscal;
 
     @OneToOne(mappedBy = "pedido")
     private PagamentoCartao pagamentoCartao;

@@ -1,5 +1,6 @@
 package com.algaworks.junit.relacionamentos;
 
+import com.algaworks.ecommerce.model.NotaFiscal;
 import com.algaworks.ecommerce.model.Pedido;
 import com.algaworks.junit.EntityManagerTest;
 import org.junit.jupiter.api.Assertions;
