@@ -38,5 +38,8 @@ public final class Produto implements Serializable {
         inverseJoinColumns = @JoinColumn(name = "categoria_id", referencedColumnName = "id")
     )
     private List<Categoria> categorias;
+
+    @OneToOne(mappedBy = "produto")
+    private Estoque estoque;
 }
 

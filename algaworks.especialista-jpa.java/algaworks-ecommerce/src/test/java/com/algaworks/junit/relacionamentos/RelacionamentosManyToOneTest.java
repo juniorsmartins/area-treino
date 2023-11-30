@@ -48,7 +48,6 @@ class RelacionamentosManyToOneTest extends EntityManagerTest {
             .total(BigDecimal.ONE)
             .dataPedido(LocalDateTime.now())
             .dataConclusao(LocalDateTime.now().plusDays(1))
-            .notaFiscalId(1)
             .status(StatusPedidoEnum.AGUARDANDO)
             .build();
 

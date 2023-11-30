@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
-@Table(name = "pagamentos_boleto")
+@Table(name = "notas_fiscal")
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -26,8 +26,13 @@ public final class NotaFiscal implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "pedido_id")
-    private Integer pedidoId;
+    @OneToOne(optional = false)
+    @JoinColumn(name = "pedido_id")
+//    @JoinTable(name = "pedido_nota_fiscal_id",
+//        joinColumns = @JoinColumn(name = "nota_fiscal_id", unique = true),
+//        inverseJoinColumns = @JoinColumn(name = "pedido_id", unique = true)
+//    )
+    private Pedido pedido;
 
     private String xml;
 
