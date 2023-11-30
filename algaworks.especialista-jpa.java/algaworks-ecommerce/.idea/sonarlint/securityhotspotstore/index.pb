@@ -43,8 +43,6 @@ Fsrc/main/java/com/algaworks/ecommerce/model/EnderecoEntregaPedido.java,0/9/09f
 Tsrc/test/java/com/algaworks/junit/mapeamentobasico/MapeamentoObjetoEmbutidoTest.java,5/7/57e74eb3e97a92a54d94cf183e58c935ef56002b
 ƒ
 Ssrc/test/java/com/algaworks/junit/mapeamentobasico/EstrategiaChavePrimariaTest.java,f/e/fe89b3fdd493826a59e242b19831bc60ed89ebcc
-z
-Jsrc/test/java/com/algaworks/junit/relacionamentos/RelacionamentosTest.java,8/5/85c45fbe73e62674bd6c890bec45df2723868b66
 ƒ
 Ssrc/test/java/com/algaworks/junit/relacionamentos/RelacionamentosManyToOneTest.java,1/d/1d3f1277b3a689a333c836c22b3b04995007419e
 ƒ
@@ -53,3 +51,5 @@ Ssrc/test/java/com/algaworks/junit/relacionamentos/RelacionamentosOneToManyTest.
 Msrc/test/java/com/algaworks/junit/relacionamentos/AutoRelacionamentoTest.java,d/3/d3a687ab6d041df4b0d82895b7c18035e514804f
 Š
 Zsrc/test/java/com/algaworks/junit/relacionamentos/RemovendoEntidadesReferenciadasTest.java,a/9/a98a661e3ad5c548b05c1c2aa92829e7bb34530d
+„
+Tsrc/test/java/com/algaworks/junit/relacionamentos/RelacionamentosManyToManyTest.java,b/5/b5d96cedb62f554508facd586d9b81dce6ace09e

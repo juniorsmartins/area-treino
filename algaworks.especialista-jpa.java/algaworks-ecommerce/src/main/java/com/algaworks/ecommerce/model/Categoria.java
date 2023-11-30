@@ -33,5 +33,8 @@ public final class Categoria implements Serializable {
 
     @OneToMany(mappedBy = "categoriaPai") // Lado Non-Owning
     private List<Categoria> categorias;
+
+    @ManyToMany(mappedBy = "categorias")
+    private List<Produto> produtos;
 }
 

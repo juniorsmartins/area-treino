@@ -11,3 +11,5 @@ insert into pedidos(id, cliente_id, data_pedido, data_conclusao, nota_fiscal_id,
 
 insert into itens_pedido(id, pedido_id, produto_id, preco_produto, quantidade) values(1, 1, 1, 28.82, 2);
 
+insert into categorias(id, nome) values(1, 'Eletrônicos');
+
