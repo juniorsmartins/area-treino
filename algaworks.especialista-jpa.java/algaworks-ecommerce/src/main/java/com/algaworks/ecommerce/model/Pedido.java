@@ -42,11 +42,11 @@ public final class Pedido implements Serializable {
     @Embedded
     private EnderecoEntregaPedido enderecoEntrega;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
 
-    @OneToMany(mappedBy = "pedido")
+    @OneToMany(mappedBy = "pedido") // Padrão JPA é Lazy para listas/plural. E Eager para valor singular.
     private List<ItemPedido> itensPedido;
 
     @OneToOne(mappedBy = "pedido")
