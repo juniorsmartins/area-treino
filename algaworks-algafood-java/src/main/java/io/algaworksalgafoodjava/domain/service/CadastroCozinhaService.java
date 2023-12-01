@@ -10,6 +10,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -21,9 +22,8 @@ public class CadastroCozinhaService {
         return this.cozinhaRepository.findAll();
     }
 
-    public Cozinha buscar(final Long id) {
-        return this.cozinhaRepository.findById(id)
-                .orElseThrow();
+    public Optional<Cozinha> buscar(final Long id) {
+        return this.cozinhaRepository.findById(id);
     }
 
     public Cozinha salvar(Cozinha cozinha) {

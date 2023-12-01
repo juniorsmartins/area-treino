@@ -36,17 +36,9 @@ public class CozinhaController {
     @GetMapping(path = "/{id}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public ResponseEntity<Cozinha> buscar(@PathVariable(name = "id") final Long id) {
 
-        var resposta = this.cadastroCozinhaService.buscar(id);
-
-        if (ObjectUtils.isEmpty(resposta)) {
-            return ResponseEntity
-                .notFound()
-                .build();
-        }
-
-        return ResponseEntity
-            .ok()
-            .body(resposta);
+        return this.cadastroCozinhaService.buscar(id)
+            .map(ResponseEntity.ok()::body)
+            .orElseGet(ResponseEntity.notFound()::build);
     }
 
     @PostMapping(
@@ -68,17 +60,17 @@ public class CozinhaController {
     public ResponseEntity<Cozinha> atualizar(@PathVariable(name = "id") final Long id,
                                              @RequestBody Cozinha cozinha) {
 
-        var cozinhaEncontrada = this.cadastroCozinhaService.buscar(id);
-        if (ObjectUtils.isEmpty(cozinhaEncontrada)) {
-            return ResponseEntity.notFound().build();
-        }
+        return this.cadastroCozinhaService.buscar(id)
+            .map(cozinhaEncontrada -> {
+                BeanUtils.copyProperties(cozinha, cozinhaEncontrada, "id");
+                var cozinhaAtualizada = this.cadastroCozinhaService.salvar(cozinhaEncontrada);
 
-        BeanUtils.copyProperties(cozinha, cozinhaEncontrada, "id");
-        var cozinhaAtualizada = this.cadastroCozinhaService.salvar(cozinhaEncontrada);
+                return ResponseEntity
+                    .ok()
+                    .body(cozinhaAtualizada);
 
-        return ResponseEntity
-            .ok()
-            .body(cozinhaAtualizada);
+            })
+            .orElseGet(ResponseEntity.notFound()::build);
     }
 
     @DeleteMapping(path = "/{id}")
