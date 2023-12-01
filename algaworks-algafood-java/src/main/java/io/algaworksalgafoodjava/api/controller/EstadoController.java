@@ -5,6 +5,7 @@ import io.algaworksalgafoodjava.domain.exception.EntidadeNaoEncontradaException;
 import io.algaworksalgafoodjava.domain.model.Estado;
 import io.algaworksalgafoodjava.domain.service.CadastroEstadoService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -34,17 +35,9 @@ public class EstadoController {
     @GetMapping(path = "/{id}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public ResponseEntity<Estado> buscar(@PathVariable(name = "id") final Long id) {
 
-        var resposta = this.cadastroEstadoService.buscar(id);
-
-        if(ObjectUtils.isEmpty(resposta)) {
-            return ResponseEntity
-                .notFound()
-                .build();
-        }
-
-        return ResponseEntity
-            .ok()
-            .body(resposta);
+        return this.cadastroEstadoService.buscar(id)
+            .map(ResponseEntity.ok()::body)
+            .orElseGet(ResponseEntity.notFound()::build);
     }
 
     @PostMapping(
@@ -66,20 +59,18 @@ public class EstadoController {
     )
     public ResponseEntity<Estado> atualizar(@PathVariable(name = "id") final Long id,
                                             @RequestBody Estado estado) {
-        estado.setId(id);
 
-        try {
-            estado = this.cadastroEstadoService.atualizar(estado);
+        return this.cadastroEstadoService.buscar(id)
+            .map(estadoEncontrado -> {
+                BeanUtils.copyProperties(estado, estadoEncontrado, "id");
+                var estadoAtualizado = this.cadastroEstadoService.salvar(estadoEncontrado);
 
-            return ResponseEntity
-                .ok()
-                .body(estado);
+                return ResponseEntity
+                    .ok()
+                    .body(estadoAtualizado);
 
-        } catch (EntidadeNaoEncontradaException ex) {
-            return ResponseEntity
-                .notFound()
-                .build();
-        }
+            })
+            .orElseGet(ResponseEntity.notFound()::build);
     }
 
     @DeleteMapping(path = "/{id}")

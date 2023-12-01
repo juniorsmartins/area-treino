@@ -43,12 +43,10 @@ public class CadastroCidadeService {
         }
 
         var idEstado = cidade.getEstado().getId();
-        var estadoDoBanco = this.estadoRepository.buscar(idEstado);
-        if (ObjectUtils.isEmpty(estadoDoBanco)) {
-            throw new IllegalArgumentException(String.format("Não existe estado com id %s.", idEstado));
-        }
+        var estadoEncontrado = this.estadoRepository.findById(idEstado)
+            .orElseThrow(() -> new IllegalArgumentException(String.format("Não existe estado com id %s.", idEstado)));
 
-        cidadeDoBanco.setEstado(estadoDoBanco);
+        cidadeDoBanco.setEstado(estadoEncontrado);
         BeanUtils.copyProperties(cidade, cidadeDoBanco, "id", "estado");
         return this.cidadeRepository.salvar(cidadeDoBanco);
     }

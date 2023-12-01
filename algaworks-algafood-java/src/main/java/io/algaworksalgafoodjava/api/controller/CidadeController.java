@@ -71,8 +71,8 @@ public class CidadeController {
         consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
         produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}
     )
-    public ResponseEntity<?> atualizar(@PathVariable(name = "id") final Long id,
-                                            @RequestBody Cidade cidade) {
+    public ResponseEntity<?> atualizar(@PathVariable(name = "id") final Long id, @RequestBody Cidade cidade) {
+
         cidade.setId(id);
 
         try {

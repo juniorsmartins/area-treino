@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -20,33 +21,21 @@ public class CadastroEstadoService {
     private final EstadoRepository estadoRepository;
 
     public List<Estado> listar() {
-        return this.estadoRepository.listar();
+        return this.estadoRepository.findAll();
     }
 
-    public Estado buscar(final Long id) {
-        return this.estadoRepository.buscar(id);
+    public Optional<Estado> buscar(final Long id) {
+        return this.estadoRepository.findById(id);
     }
 
     public Estado salvar(Estado estado) {
-        return this.estadoRepository.salvar(estado);
-    }
-
-    public Estado atualizar(Estado estado) {
-
-        var idEstado = estado.getId();
-        var estadoDoBanco = this.estadoRepository.buscar(idEstado);
-        if (ObjectUtils.isEmpty(estadoDoBanco)) {
-            throw new EntidadeNaoEncontradaException(String.format("Não existe estado com id %s.", idEstado));
-        }
-
-        BeanUtils.copyProperties(estado, estadoDoBanco, "id");
-        return this.estadoRepository.salvar(estadoDoBanco);
+        return this.estadoRepository.save(estado);
     }
 
     public void excluir(final Long id) {
 
         try {
-            this.estadoRepository.remover(id);
+            this.estadoRepository.deleteById(id);
 
         } catch (EmptyResultDataAccessException ex) {
             throw new EntidadeNaoEncontradaException(String.format("Estado com id %s não encontrado.", id));
