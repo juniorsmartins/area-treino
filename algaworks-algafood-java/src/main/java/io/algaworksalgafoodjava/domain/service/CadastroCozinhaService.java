@@ -18,21 +18,22 @@ public class CadastroCozinhaService {
     private final CozinhaRepository cozinhaRepository;
 
     public List<Cozinha> listar() {
-        return this.cozinhaRepository.listar();
+        return this.cozinhaRepository.findAll();
     }
 
     public Cozinha buscar(final Long id) {
-        return this.cozinhaRepository.buscar(id);
+        return this.cozinhaRepository.findById(id)
+                .orElseThrow();
     }
 
     public Cozinha salvar(Cozinha cozinha) {
-        return this.cozinhaRepository.salvar(cozinha);
+        return this.cozinhaRepository.save(cozinha);
     }
 
     public void excluir(final Long id) {
 
         try {
-            this.cozinhaRepository.remover(id);
+            this.cozinhaRepository.deleteById(id);
 
         } catch (EmptyResultDataAccessException ex) {
             throw new EntidadeNaoEncontradaException(String.format("Cozinha com id %s não encontrada.", id));

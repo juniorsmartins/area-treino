@@ -38,10 +38,8 @@ public class CadastroRestauranteService {
     public Restaurante salvar(Restaurante restaurante) {
 
         var idCozinha = restaurante.getCozinha().getId();
-        var cozinha = this.cozinhaRepository.buscar(idCozinha);
-        if (ObjectUtils.isEmpty(cozinha)) {
-            throw new EntidadeNaoEncontradaException(String.format("Não existe cozinha com id %s", idCozinha));
-        }
+        var cozinha = this.cozinhaRepository.findById(idCozinha)
+            .orElseThrow(() -> new EntidadeNaoEncontradaException(String.format("Não existe cozinha com id %s", idCozinha)));
 
         restaurante.setCozinha(cozinha);
         return this.restauranteRepository.salvar(restaurante);
@@ -55,10 +53,8 @@ public class CadastroRestauranteService {
         }
 
         var idCozinha = restaurante.getCozinha().getId();
-        var cozinha = this.cozinhaRepository.buscar(idCozinha);
-        if (ObjectUtils.isEmpty(cozinha)) {
-            throw new IllegalArgumentException(String.format("Não existe cozinha com id %s", idCozinha));
-        }
+        var cozinha = this.cozinhaRepository.findById(idCozinha)
+            .orElseThrow(() -> new EntidadeNaoEncontradaException(String.format("Não existe cozinha com id %s", idCozinha)));
 
         restauranteDoBanco.setCozinha(cozinha);
         BeanUtils.copyProperties(restaurante, restauranteDoBanco, "id", "cozinha");
@@ -77,10 +73,9 @@ public class CadastroRestauranteService {
 
         Cozinha cozinha = null;
         if (!ObjectUtils.isEmpty(dadosPraAtualizar.getCozinha().getId())) {
-            cozinha = this.cozinhaRepository.buscar(dadosPraAtualizar.getCozinha().getId());
-            if (ObjectUtils.isEmpty(cozinha)) {
-                throw new IllegalArgumentException(String.format("Não existe cozinha com id %s", dadosPraAtualizar.getCozinha().getId()));
-            }
+            var idCozinha = dadosPraAtualizar.getCozinha().getId();
+            cozinha = this.cozinhaRepository.findById(idCozinha)
+                .orElseThrow(() -> new IllegalArgumentException(String.format("Não existe cozinha com id %s", idCozinha)));
         }
         dadosPraAtualizar.setCozinha(cozinha);
 
