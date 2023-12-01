@@ -18,6 +18,7 @@ import org.springframework.util.ReflectionUtils;
 import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -28,58 +29,59 @@ public class CadastroRestauranteService {
     private final CozinhaRepository cozinhaRepository;
 
     public List<Restaurante> listar() {
-        return this.restauranteRepository.listar();
+        return this.restauranteRepository.findAll();
     }
 
-    public Restaurante buscar(final Long id) {
-        return this.restauranteRepository.buscar(id);
+    public Optional<Restaurante> buscar(final Long id) {
+        return this.restauranteRepository.findById(id);
     }
 
     public Restaurante salvar(Restaurante restaurante) {
 
         var idCozinha = restaurante.getCozinha().getId();
-        var cozinha = this.cozinhaRepository.findById(idCozinha)
+
+        return this.cozinhaRepository.findById(idCozinha)
+            .map(cozinhaEncontrada -> {
+                restaurante.setCozinha(cozinhaEncontrada);
+                return this.restauranteRepository.save(restaurante);
+            })
             .orElseThrow(() -> new EntidadeNaoEncontradaException(String
                 .format("Não existe cozinha com id %s", idCozinha)));
-
-        restaurante.setCozinha(cozinha);
-        return this.restauranteRepository.salvar(restaurante);
     }
 
     public Restaurante atualizar(Restaurante restaurante) {
 
-        var restauranteDoBanco = this.restauranteRepository.buscar(restaurante.getId());
-        if (ObjectUtils.isEmpty(restauranteDoBanco)) {
-            throw new EntidadeNaoEncontradaException(String
-                .format("Não existe restaurante com id %s", restaurante.getId()));
-        }
+        var idRestaurante = restaurante.getId();
+        var restauranteEncontrado = this.restauranteRepository.findById(idRestaurante)
+            .orElseThrow(() -> new EntidadeNaoEncontradaException(String
+                .format("Não existe restaurante com id %s", restaurante.getId())));
 
         var idCozinha = restaurante.getCozinha().getId();
-        var cozinha = this.cozinhaRepository.findById(idCozinha)
+        var cozinhaEncontrada = this.cozinhaRepository.findById(idCozinha)
             .orElseThrow(() -> new IllegalArgumentException(String
                 .format("Não existe cozinha com id %s", idCozinha)));
 
-        restauranteDoBanco.setCozinha(cozinha);
-        BeanUtils.copyProperties(restaurante, restauranteDoBanco, "id", "cozinha");
-        return this.restauranteRepository.salvar(restauranteDoBanco);
+        restauranteEncontrado.setCozinha(cozinhaEncontrada);
+        BeanUtils.copyProperties(restaurante, restauranteEncontrado, "id", "cozinha");
+
+        return this.restauranteRepository.save(restauranteEncontrado);
     }
 
     public Restaurante atualizarParcial(final Long id, Map<String, Object> campos) {
 
-        var restauranteDoBanco = this.restauranteRepository.buscar(id);
-        if (ObjectUtils.isEmpty(restauranteDoBanco)) {
-            throw new EntidadeNaoEncontradaException(String.format("Não existe restaurante com id %s", id));
-        }
+        var restauranteEncontrado = this.restauranteRepository.findById(id)
+            .orElseThrow(() -> new EntidadeNaoEncontradaException(String
+                .format("Não existe restaurante com id %s", id)));
 
         var objectMapper = new ObjectMapper();
         var dadosPraAtualizar = objectMapper.convertValue(campos, Restaurante.class);
 
         Cozinha cozinha = null;
         if (!ObjectUtils.isEmpty(dadosPraAtualizar.getCozinha().getId())) {
+
             var idCozinha = dadosPraAtualizar.getCozinha().getId();
             cozinha = this.cozinhaRepository.findById(idCozinha)
-                .orElseThrow(() -> new IllegalArgumentException(String
-                    .format("Não existe cozinha com id %s", idCozinha)));
+                .orElseThrow(() -> new IllegalArgumentException(String.format("Não existe cozinha com id %s", idCozinha)));
         }
         dadosPraAtualizar.setCozinha(cozinha);
 
@@ -87,16 +89,16 @@ public class CadastroRestauranteService {
             Field field = ReflectionUtils.findField(Restaurante.class, nomePropriedade);
             field.setAccessible(true); // Autoriza acesso a atributos privados - quebra o encapsulamento
             Object novoValor = ReflectionUtils.getField(field, dadosPraAtualizar); // Buscar o valor do campo/field
-            ReflectionUtils.setField(field, restauranteDoBanco, novoValor);
+            ReflectionUtils.setField(field, restauranteEncontrado, novoValor);
         });
 
-        return this.restauranteRepository.salvar(restauranteDoBanco);
+        return this.restauranteRepository.save(restauranteEncontrado);
     }
 
     public void excluir(final Long id) {
 
         try {
-            this.restauranteRepository.remover(id);
+            this.restauranteRepository.deleteById(id);
 
         } catch (EmptyResultDataAccessException ex) {
             throw new EntidadeNaoEncontradaException(String.format("Restaurante com id %s não encontrado.", id));

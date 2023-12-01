@@ -1,49 +1,28 @@
 package io.algaworksalgafoodjava.infrastructure.repository;
 
 import io.algaworksalgafoodjava.domain.model.Restaurante;
-import io.algaworksalgafoodjava.domain.repository.RestauranteRepository;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.ObjectUtils;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.math.BigDecimal;
 import java.util.List;
 
 @Repository
-public class RestauranteRepositoryImpl implements RestauranteRepository {
+public class RestauranteRepositoryImpl {
 
     @PersistenceContext
     private EntityManager entityManager;
 
-    @Override
-    public List<Restaurante> listar() {
-        return this.entityManager.createQuery("from Restaurante", Restaurante.class)
+    public List<Restaurante> find(String nome, BigDecimal taxaFreteInicial, BigDecimal taxaFretefinal) {
+
+        var jpql = "from Restaurante where nome like :nome and taxaFrete between :taxaInicial and :taxaFinal";
+
+        return this.entityManager.createQuery(jpql, Restaurante.class)
+            .setParameter("nome", "%" + nome + "%")
+            .setParameter("taxaInicial", taxaFreteInicial)
+            .setParameter("taxaFinal", taxaFretefinal)
             .getResultList();
-    }
-
-    @Override
-    public Restaurante buscar(final Long id) {
-        return this.entityManager.find(Restaurante.class, id);
-    }
-
-    @Transactional
-    @Override
-    public Restaurante salvar(Restaurante restaurante) {
-        return this.entityManager.merge(restaurante);
-    }
-
-    @Transactional
-    @Override
-    public void remover(final Long id) {
-        var restaurante = this.buscar(id);
-
-        if (ObjectUtils.isEmpty(restaurante)) {
-            throw new EmptyResultDataAccessException(1);
-        }
-
-        this.entityManager.remove(restaurante);
     }
 }
 
