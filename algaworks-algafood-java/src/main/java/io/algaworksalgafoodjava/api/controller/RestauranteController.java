@@ -35,17 +35,9 @@ public class RestauranteController {
     @GetMapping(path = "/{id}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public ResponseEntity<Restaurante> buscar(@PathVariable(name = "id") final Long id) {
 
-        var resposta = this.cadastroRestauranteService.buscar(id);
-
-        if (ObjectUtils.isEmpty(resposta)) {
-            return ResponseEntity
-                .notFound()
-                .build();
-        }
-
-        return ResponseEntity
-            .ok()
-            .body(resposta);
+        return this.cadastroRestauranteService.buscar(id)
+            .map(ResponseEntity.ok()::body)
+            .orElseGet(ResponseEntity.notFound()::build);
     }
 
     @PostMapping(
