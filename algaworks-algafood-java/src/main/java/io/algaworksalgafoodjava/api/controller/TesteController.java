@@ -47,8 +47,7 @@ public class TesteController {
     @GetMapping(path = "/fabrica-specification")
     public List<Restaurante> consultaPorFabricaDeSpecification(@RequestParam(name = "nome", required = true) String nome) {
 
-        return this.restauranteRepository.findAll(RestauranteFabricaSpecification.comFreteGratis()
-            .and(RestauranteFabricaSpecification.comNomeSemelhante(nome)));
+        return this.restauranteRepository.consultaComFreteGratis(nome);
     }
 }
 

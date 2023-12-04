@@ -1,7 +1,11 @@
 package io.algaworksalgafoodjava.infrastructure.repository;
 
 import io.algaworksalgafoodjava.domain.model.Restaurante;
+import io.algaworksalgafoodjava.domain.repository.RestauranteRepository;
 import io.algaworksalgafoodjava.domain.repository.RestauranteRepositoryQueries;
+import io.algaworksalgafoodjava.infrastructure.repository.spec.RestauranteFabricaSpecification;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
@@ -23,6 +27,9 @@ public class RestauranteRepositoryImpl implements RestauranteRepositoryQueries {
 
     @PersistenceContext
     private EntityManager entityManager;
+
+    @Autowired @Lazy
+    private RestauranteRepository restauranteRepository;
 
     @Override
     public List<Restaurante> consultaDinamicaComCriteria(String nome, BigDecimal taxaFreteInicial, BigDecimal taxaFretefinal) {
@@ -80,6 +87,13 @@ public class RestauranteRepositoryImpl implements RestauranteRepositoryQueries {
         parametros.forEach(typedQuery::setParameter);
 
         return typedQuery.getResultList();
+    }
+
+    @Override
+    public List<Restaurante> consultaComFreteGratis(String nome) {
+
+        return this.restauranteRepository.findAll(RestauranteFabricaSpecification.comFreteGratis()
+            .and(RestauranteFabricaSpecification.comNomeSemelhante(nome)));
     }
 }
 
