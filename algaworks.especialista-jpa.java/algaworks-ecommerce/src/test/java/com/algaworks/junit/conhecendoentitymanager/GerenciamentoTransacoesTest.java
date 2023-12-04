@@ -21,18 +21,18 @@ class GerenciamentoTransacoesTest extends EntityManagerTest {
         }
     }
 
-//    @Test
-//    void abrirFecharCancelarTransacao2() {
-//
-//        try {
-//            super.entityManager.getTransaction().begin();
-//            this.metodoDoNegocio();
-//            super.entityManager.getTransaction().commit();
-//        } catch (Exception e) {
-//            super.entityManager.getTransaction().rollback();
-//            throw e;
-//        }
-//    }
+    @Test
+    void testarRollback() { // Nada é salvo no banco
+
+        try {
+            super.entityManager.getTransaction().begin();
+            this.metodoDoNegocio();
+            super.entityManager.getTransaction().commit();
+        } catch (Exception e) {
+            super.entityManager.getTransaction().rollback();
+            System.out.println("\n----- Exceção Lançada ----- : " + e.getMessage());
+        }
+    }
 
     private void metodoDoNegocio() {
         var pedido = super.entityManager.find(Pedido.class, 1);
@@ -40,6 +40,28 @@ class GerenciamentoTransacoesTest extends EntityManagerTest {
 
         if (pedido.getPagamentoCartao() == null) {
             throw new RuntimeException("Pedido ainda não pago.");
+        }
+    }
+
+    @Test
+    void testarFlush() { // Salvará no banco, mas dará Rollback e retirará do banco
+
+        try {
+            super.entityManager.getTransaction().begin();
+
+            var pedido = super.entityManager.find(Pedido.class, 1);
+            pedido.setStatus(StatusPedidoEnum.PAGO);
+
+            super.entityManager.flush();
+
+            if (pedido.getPagamentoCartao() == null) {
+                throw new RuntimeException("Pedido ainda não pago.");
+            }
+
+            super.entityManager.getTransaction().commit();
+        } catch (Exception e) {
+            super.entityManager.getTransaction().rollback();
+            System.out.println("\n----- Exceção Lançada ----- : " + e.getMessage());
         }
     }
 }
