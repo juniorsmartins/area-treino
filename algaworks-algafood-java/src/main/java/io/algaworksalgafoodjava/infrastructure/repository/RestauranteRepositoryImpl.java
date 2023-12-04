@@ -12,8 +12,10 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 @Repository
 public class RestauranteRepositoryImpl {
@@ -27,11 +29,21 @@ public class RestauranteRepositoryImpl {
         CriteriaQuery<Restaurante> criteria = builder.createQuery(Restaurante.class); // O CriteriaQuery é um construtor de cláusulas de consulta
         Root<Restaurante> root = criteria.from(Restaurante.class);
 
-        Predicate nomePredicate = builder.like(root.get("nome"), "%" + nome + "%");
-        Predicate taxaInicialPredicate = builder.greaterThanOrEqualTo(root.get("taxaFrete"), taxaFreteInicial);
-        Predicate taxaFinalPredicate = builder.lessThanOrEqualTo(root.get("taxaFrete"), taxaFretefinal);
+        var predicates = new ArrayList<Predicate>();
 
-        criteria.where(nomePredicate, taxaInicialPredicate, taxaFinalPredicate);
+        if (StringUtils.hasText(nome)) {
+            predicates.add(builder.like(root.get("nome"), "%" + nome + "%"));
+        }
+
+        if (Objects.nonNull(taxaFreteInicial)) {
+            predicates.add(builder.greaterThanOrEqualTo(root.get("taxaFrete"), taxaFreteInicial));
+        }
+
+        if (Objects.nonNull(taxaFretefinal)) {
+            predicates.add(builder.lessThanOrEqualTo(root.get("taxaFrete"), taxaFretefinal));
+        }
+
+        criteria.where(predicates.toArray(new Predicate[0]));
 
         TypedQuery<Restaurante> typedQuery = this.entityManager.createQuery(criteria);
 
