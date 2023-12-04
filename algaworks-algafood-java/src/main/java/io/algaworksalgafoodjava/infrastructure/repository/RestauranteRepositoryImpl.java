@@ -50,7 +50,7 @@ public class RestauranteRepositoryImpl {
         return typedQuery.getResultList();
     }
 
-    public List<Restaurante> consultaDinamicaComJpql(String nome, BigDecimal taxaFreteInicial, BigDecimal taxaFretefinal) {
+    public List<Restaurante> consultaDinamicaComJpql(String nome, BigDecimal taxaFreteInicial, BigDecimal taxaFreteFinal) {
 
         var jpql = new StringBuilder();
         jpql.append("from Restaurante where 0 = 0 ");
@@ -67,9 +67,9 @@ public class RestauranteRepositoryImpl {
             parametros.put("taxaInicial", taxaFreteInicial);
         }
 
-        if (taxaFretefinal != null) {
-            jpql.append("and taxaFrete <= :taxadinal");
-            parametros.put("taxaFinal", taxaFretefinal);
+        if (taxaFreteFinal != null) {
+            jpql.append("and taxaFrete <= :taxaFinal");
+            parametros.put("taxaFinal", taxaFreteFinal);
         }
 
         var typedQuery = this.entityManager.createQuery(jpql.toString(), Restaurante.class);
