@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "/api/v1/testes")
@@ -48,6 +49,12 @@ public class TesteController {
     public List<Restaurante> consultaPorFabricaDeSpecification(@RequestParam(name = "nome", required = true) String nome) {
 
         return this.restauranteRepository.consultaComFreteGratis(nome);
+    }
+
+    @GetMapping(path = "/custom-jpa-repository")
+    public Optional<Restaurante> consultaPorCustomJpaRepository() {
+
+        return this.restauranteRepository.buscarPrimeiro();
     }
 }
 
