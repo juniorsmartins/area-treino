@@ -59,3 +59,5 @@ Rsrc/test/java/com/algaworks/junit/relacionamentos/RelacionamentosOneToOneTest.j
 Vsrc/test/java/com/algaworks/junit/conhecendoentitymanager/EstadosECicloDeVidaTest.java,0/8/0833a87aacce7c161acc528d3868972bba5180f9
 …
 Usrc/test/java/com/algaworks/junit/conhecendoentitymanager/CachePrimeiroNivelTest.java,8/4/84bf507fedac32c9df63526e58816f43d8e373c4
+Š
+Zsrc/test/java/com/algaworks/junit/conhecendoentitymanager/GerenciamentoTransacoesTest.java,8/8/88c3b99901162bba28798efb808053cfecb9e992
