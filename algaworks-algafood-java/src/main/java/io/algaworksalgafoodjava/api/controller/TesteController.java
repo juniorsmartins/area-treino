@@ -4,6 +4,7 @@ import io.algaworksalgafoodjava.domain.model.Restaurante;
 import io.algaworksalgafoodjava.domain.repository.RestauranteRepository;
 import io.algaworksalgafoodjava.infrastructure.repository.spec.RestauranteComFreteGratisSpec;
 import io.algaworksalgafoodjava.infrastructure.repository.spec.RestauranteComNomeSemelhanteSpec;
+import io.algaworksalgafoodjava.infrastructure.repository.spec.RestauranteFabricaSpecification;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -41,6 +42,13 @@ public class TesteController {
         var comNomeSemelhante = new RestauranteComNomeSemelhanteSpec(nome);
 
         return this.restauranteRepository.findAll(comFreteGratis.and(comNomeSemelhante));
+    }
+
+    @GetMapping(path = "/fabrica-specification")
+    public List<Restaurante> consultaPorFabricaDeSpecification(@RequestParam(name = "nome", required = true) String nome) {
+
+        return this.restauranteRepository.findAll(RestauranteFabricaSpecification.comFreteGratis()
+            .and(RestauranteFabricaSpecification.comNomeSemelhante(nome)));
     }
 }
 
