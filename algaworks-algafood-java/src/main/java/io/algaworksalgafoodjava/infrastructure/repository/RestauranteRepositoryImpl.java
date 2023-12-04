@@ -1,6 +1,7 @@
 package io.algaworksalgafoodjava.infrastructure.repository;
 
 import io.algaworksalgafoodjava.domain.model.Restaurante;
+import io.algaworksalgafoodjava.domain.repository.RestauranteRepositoryQueries;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
@@ -18,11 +19,12 @@ import java.util.List;
 import java.util.Objects;
 
 @Repository
-public class RestauranteRepositoryImpl {
+public class RestauranteRepositoryImpl implements RestauranteRepositoryQueries {
 
     @PersistenceContext
     private EntityManager entityManager;
 
+    @Override
     public List<Restaurante> consultaDinamicaComCriteria(String nome, BigDecimal taxaFreteInicial, BigDecimal taxaFretefinal) {
 
         CriteriaBuilder builder = this.entityManager.getCriteriaBuilder(); // O CriteriaBuilder é uma fábrica para construir elementos de consulta, como o próprio criteria.
@@ -50,6 +52,7 @@ public class RestauranteRepositoryImpl {
         return typedQuery.getResultList();
     }
 
+    @Override
     public List<Restaurante> consultaDinamicaComJpql(String nome, BigDecimal taxaFreteInicial, BigDecimal taxaFreteFinal) {
 
         var jpql = new StringBuilder();
