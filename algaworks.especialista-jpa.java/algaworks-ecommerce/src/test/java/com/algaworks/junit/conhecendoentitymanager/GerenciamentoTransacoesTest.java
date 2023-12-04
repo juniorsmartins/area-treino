@@ -20,5 +20,27 @@ class GerenciamentoTransacoesTest extends EntityManagerTest {
             super.entityManager.getTransaction().rollback();
         }
     }
+
+//    @Test
+//    void abrirFecharCancelarTransacao2() {
+//
+//        try {
+//            super.entityManager.getTransaction().begin();
+//            this.metodoDoNegocio();
+//            super.entityManager.getTransaction().commit();
+//        } catch (Exception e) {
+//            super.entityManager.getTransaction().rollback();
+//            throw e;
+//        }
+//    }
+
+    private void metodoDoNegocio() {
+        var pedido = super.entityManager.find(Pedido.class, 1);
+        pedido.setStatus(StatusPedidoEnum.PAGO);
+
+        if (pedido.getPagamentoCartao() == null) {
+            throw new RuntimeException("Pedido ainda não pago.");
+        }
+    }
 }
 
