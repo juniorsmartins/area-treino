@@ -61,3 +61,5 @@ Vsrc/test/java/com/algaworks/junit/conhecendoentitymanager/EstadosECicloDeVidaTe
 Usrc/test/java/com/algaworks/junit/conhecendoentitymanager/CachePrimeiroNivelTest.java,8/4/84bf507fedac32c9df63526e58816f43d8e373c4
 Š
 Zsrc/test/java/com/algaworks/junit/conhecendoentitymanager/GerenciamentoTransacoesTest.java,8/8/88c3b99901162bba28798efb808053cfecb9e992
+‰
+Ysrc/test/java/com/algaworks/junit/conhecendoentitymanager/ContextoDePersistenciaTest.java,5/6/56a90ce0b95d1a8fb871ed2a98595e5731d35f6e
