@@ -57,3 +57,5 @@ Tsrc/test/java/com/algaworks/junit/relacionamentos/RelacionamentosManyToManyTest
 Rsrc/test/java/com/algaworks/junit/relacionamentos/RelacionamentosOneToOneTest.java,d/7/d74abfea49769b8ee22bc5c64e1d27c010d2d75f
 †
 Vsrc/test/java/com/algaworks/junit/conhecendoentitymanager/EstadosECicloDeVidaTest.java,0/8/0833a87aacce7c161acc528d3868972bba5180f9
+…
+Usrc/test/java/com/algaworks/junit/conhecendoentitymanager/CachePrimeiroNivelTest.java,8/4/84bf507fedac32c9df63526e58816f43d8e373c4
