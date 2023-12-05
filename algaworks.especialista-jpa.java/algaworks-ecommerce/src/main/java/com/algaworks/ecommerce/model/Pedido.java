@@ -1,5 +1,6 @@
 package com.algaworks.ecommerce.model;
 
+import com.algaworks.ecommerce.listener.GenericoListener;
 import com.algaworks.ecommerce.listener.GerarNotaFiscalListener;
 import com.algaworks.ecommerce.model.enums.StatusPedidoEnum;
 import jakarta.persistence.*;
@@ -20,7 +21,7 @@ import java.util.List;
 @Setter
 @ToString
 @EqualsAndHashCode(of = {"id"})
-@EntityListeners({ GerarNotaFiscalListener.class })
+@EntityListeners({ GerarNotaFiscalListener.class, GenericoListener.class })
 public final class Pedido implements Serializable {
 
     @Serial

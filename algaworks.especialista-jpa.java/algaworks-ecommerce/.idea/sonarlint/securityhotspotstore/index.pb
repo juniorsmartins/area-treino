@@ -71,3 +71,5 @@ t
 Dsrc/main/java/com/algaworks/ecommerce/service/NotaFiscalService.java,2/a/2a6d6a9142d05c0b5955a29050e82c496d79db9f
 {
 Ksrc/test/java/com/algaworks/junit/conhecendoentitymanager/ListenerTest.java,a/2/a2cd293d764156dc1c29c3240d104dce4aebfcaa
+t
+Dsrc/main/java/com/algaworks/ecommerce/listener/GenericoListener.java,1/0/104ec295fbf30988abafcfe2bb5cc6ae655bc825
