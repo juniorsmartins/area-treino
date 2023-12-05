@@ -2,12 +2,20 @@ package com.algaworks.junit.conhecendoentitymanager;
 
 import com.algaworks.ecommerce.model.Cliente;
 import com.algaworks.ecommerce.model.Pedido;
+import com.algaworks.ecommerce.model.Produto;
 import com.algaworks.ecommerce.model.enums.StatusPedidoEnum;
 import com.algaworks.junit.EntityManagerTest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 class ListenerTest extends EntityManagerTest {
+
+    @Test
+    void carregarEntidadesListener() {
+
+        var produto = super.entityManager.find(Produto.class, 1);
+        var pedido = super.entityManager.find(Pedido.class, 1);
+    }
 
     @Test
     void acionarListener() {

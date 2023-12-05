@@ -5,7 +5,7 @@ import jakarta.persistence.PostLoad;
 public class GenericoListener {
 
     @PostLoad
-    public void logar(Object obj) {
+    public void logCarregamento(Object obj) {
         System.out.println("\n\nEntidade " + obj.getClass().getSimpleName() + " foi carregada.\n\n");
     }
 }
