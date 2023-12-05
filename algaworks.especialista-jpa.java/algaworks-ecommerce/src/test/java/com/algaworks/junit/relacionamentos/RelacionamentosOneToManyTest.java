@@ -19,7 +19,7 @@ class RelacionamentosOneToManyTest extends EntityManagerTest {
 
         var pedido = Pedido.builder()
             .status(StatusPedidoEnum.AGUARDANDO)
-            .dataPedido(LocalDateTime.now())
+            .dataCriacao(LocalDateTime.now())
             .cliente(cliente)
             .total(BigDecimal.TEN)
             .build();

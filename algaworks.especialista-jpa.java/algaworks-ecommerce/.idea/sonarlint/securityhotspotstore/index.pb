@@ -63,3 +63,5 @@ Usrc/test/java/com/algaworks/junit/conhecendoentitymanager/CachePrimeiroNivelTes
 Zsrc/test/java/com/algaworks/junit/conhecendoentitymanager/GerenciamentoTransacoesTest.java,8/8/88c3b99901162bba28798efb808053cfecb9e992
 ‰
 Ysrc/test/java/com/algaworks/junit/conhecendoentitymanager/ContextoDePersistenciaTest.java,5/6/56a90ce0b95d1a8fb871ed2a98595e5731d35f6e
+|
+Lsrc/test/java/com/algaworks/junit/conhecendoentitymanager/CallbacksTest.java,a/4/a4a73b9ed678bd78b50b5112970d172b75b73206

@@ -28,8 +28,11 @@ public final class Pedido implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "data_pedido")
-    private LocalDateTime dataPedido;
+    @Column(name = "data_criacao")
+    private LocalDateTime dataCriacao;
+
+    @Column(name = "data_ultima_atualizacao")
+    private LocalDateTime dataUltimaAtualizacao;
 
     @Column(name = "data_conclusao")
     private LocalDateTime dataConclusao;
@@ -54,5 +57,15 @@ public final class Pedido implements Serializable {
 
     @OneToOne(mappedBy = "pedido")
     private PagamentoCartao pagamentoCartao;
+
+    @PrePersist // Callback
+    public void aoPersistir() {
+        this.dataCriacao = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    public void aoAtualizar() {
+        this.dataUltimaAtualizacao = LocalDateTime.now();
+    }
 }
 

@@ -3,7 +3,6 @@ package com.algaworks.junit.mapeamentobasico;
 import com.algaworks.ecommerce.model.Cliente;
 import com.algaworks.ecommerce.model.EnderecoEntregaPedido;
 import com.algaworks.ecommerce.model.Pedido;
-import com.algaworks.ecommerce.model.enums.SexoClienteEnum;
 import com.algaworks.ecommerce.model.enums.StatusPedidoEnum;
 import com.algaworks.junit.EntityManagerTest;
 import org.junit.jupiter.api.Assertions;
@@ -30,7 +29,6 @@ class MapeamentoObjetoEmbutidoTest extends EntityManagerTest {
             .build();
 
         var pedido = Pedido.builder()
-            .dataPedido(LocalDateTime.now())
             .status(StatusPedidoEnum.AGUARDANDO)
             .total(BigDecimal.valueOf(1000))
             .enderecoEntrega(enderecoEntrega)
