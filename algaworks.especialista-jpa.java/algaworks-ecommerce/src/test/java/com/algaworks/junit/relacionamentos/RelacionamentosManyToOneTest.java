@@ -21,7 +21,7 @@ class RelacionamentosManyToOneTest extends EntityManagerTest {
 
         var pedido = Pedido.builder()
             .status(StatusPedidoEnum.AGUARDANDO)
-            .dataPedido(LocalDateTime.now())
+            .dataCriacao(LocalDateTime.now())
             .cliente(cliente)
             .total(BigDecimal.TEN)
             .build();
@@ -46,7 +46,7 @@ class RelacionamentosManyToOneTest extends EntityManagerTest {
         var pedido = Pedido.builder()
             .cliente(cliente)
             .total(BigDecimal.ONE)
-            .dataPedido(LocalDateTime.now())
+            .dataCriacao(LocalDateTime.now())
             .dataConclusao(LocalDateTime.now().plusDays(1))
             .status(StatusPedidoEnum.AGUARDANDO)
             .build();

@@ -1,5 +1,7 @@
 package com.algaworks.ecommerce.model;
 
+import com.algaworks.ecommerce.listener.GenericoListener;
+import com.algaworks.ecommerce.listener.GerarNotaFiscalListener;
 import com.algaworks.ecommerce.model.enums.StatusPedidoEnum;
 import jakarta.persistence.*;
 import lombok.*;
@@ -19,6 +21,7 @@ import java.util.List;
 @Setter
 @ToString
 @EqualsAndHashCode(of = {"id"})
+@EntityListeners({ GerarNotaFiscalListener.class, GenericoListener.class })
 public final class Pedido implements Serializable {
 
     @Serial
@@ -28,8 +31,11 @@ public final class Pedido implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "data_pedido")
-    private LocalDateTime dataPedido;
+    @Column(name = "data_criacao")
+    private LocalDateTime dataCriacao;
+
+    @Column(name = "data_ultima_atualizacao")
+    private LocalDateTime dataUltimaAtualizacao;
 
     @Column(name = "data_conclusao")
     private LocalDateTime dataConclusao;
@@ -54,5 +60,31 @@ public final class Pedido implements Serializable {
 
     @OneToOne(mappedBy = "pedido")
     private PagamentoCartao pagamentoCartao;
+
+    public boolean isPago() {
+        return StatusPedidoEnum.PAGO.equals(status);
+    }
+
+    @PrePersist // Callback
+    public void aoPersistir() {
+        this.dataCriacao = LocalDateTime.now();
+        this.calcularTotal();
+    }
+
+    @PreUpdate
+    public void aoAtualizar() {
+        this.dataUltimaAtualizacao = LocalDateTime.now();
+        this.calcularTotal();
+    }
+
+//    @PrePersist
+//    @PreUpdate
+    public void calcularTotal() {
+        if (itensPedido != null) {
+            this.total = itensPedido.stream()
+                .map(ItemPedido::getPrecoProduto)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+        }
+    }
 }
 
