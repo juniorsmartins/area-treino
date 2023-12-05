@@ -65,3 +65,9 @@ Zsrc/test/java/com/algaworks/junit/conhecendoentitymanager/GerenciamentoTransaco
 Ysrc/test/java/com/algaworks/junit/conhecendoentitymanager/ContextoDePersistenciaTest.java,5/6/56a90ce0b95d1a8fb871ed2a98595e5731d35f6e
 |
 Lsrc/test/java/com/algaworks/junit/conhecendoentitymanager/CallbacksTest.java,a/4/a4a73b9ed678bd78b50b5112970d172b75b73206
+{
+Ksrc/main/java/com/algaworks/ecommerce/listener/GerarNotaFiscalListener.java,c/b/cbd385e3c581939f3fcdbfcbd7b09ce3cffac30d
+t
+Dsrc/main/java/com/algaworks/ecommerce/service/NotaFiscalService.java,2/a/2a6d6a9142d05c0b5955a29050e82c496d79db9f
+{
+Ksrc/test/java/com/algaworks/junit/conhecendoentitymanager/ListenerTest.java,a/2/a2cd293d764156dc1c29c3240d104dce4aebfcaa
