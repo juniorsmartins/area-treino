@@ -9,7 +9,7 @@ insert into clientes(id, nome) values(6, 'Ward Cunningham');
 
 insert into pedidos(id, cliente_id, data_criacao, data_conclusao, total, status) values(1, 6, NOW(), NOW(), 10, 'AGUARDANDO');
 
-insert into itens_pedido(id, pedido_id, produto_id, preco_produto, quantidade) values(1, 1, 1, 28.82, 2);
+insert into itens_pedido(pedido_id, produto_id, preco_produto, quantidade) values(1, 1, 28.82, 2);
 
 insert into categorias(id, nome) values(1, 'Eletrônicos');
 
