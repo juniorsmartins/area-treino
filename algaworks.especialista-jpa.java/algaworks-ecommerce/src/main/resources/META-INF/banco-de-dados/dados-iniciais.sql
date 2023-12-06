@@ -1,6 +1,6 @@
-insert into produtos(id, data_criacao, nome, descricao, preco) values(1, NOW(), 'Kindle', 'Ovo de chocolate com brinde dentro.', 499);
-insert into produtos(id, data_criacao, nome, descricao, preco) values(3, NOW(), 'Criando Microsserviços', 'Livro de Sam Newman sobre arquitetura de software', 225.8);
-insert into produtos(id, data_criacao, nome, descricao, preco) values(4, NOW(), 'Spring Data Jpa', 'Curso de especialista', 552.85);
+insert into produtos(id, data_criacao, nome, descricao, preco) values(1, date_sub(sysdate(), interval 7 day), 'Kindle', 'Ovo de chocolate com brinde dentro.', 499);
+insert into produtos(id, data_criacao, nome, descricao, preco) values(3, date_sub(sysdate(), interval 3 day), 'Criando Microsserviços', 'Livro de Sam Newman sobre arquitetura de software', 225.8);
+insert into produtos(id, data_criacao, nome, descricao, preco) values(4, date_sub(sysdate(), interval 1 day), 'Spring Data Jpa', 'Curso de especialista', 552.85);
 
 insert into clientes(id, nome) values(3, 'Eric Evans');
 insert into clientes(id, nome) values(4, 'Jeff Sutherland');
