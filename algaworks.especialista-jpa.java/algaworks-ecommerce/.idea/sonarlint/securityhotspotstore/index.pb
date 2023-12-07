@@ -81,3 +81,5 @@ Lsrc/main/java/com/algaworks/ecommerce/model/chave_composta/ItemPedidoId.java,7
 Ksrc/test/java/com/algaworks/junit/mapeamentoavancado/ChaveCompostaTest.java,6/7/679768b8dced2558e60228b94e6b07090d228d75
 t
 Dsrc/test/java/com/algaworks/junit/mapeamentoavancado/MapsIdTest.java,1/6/168bebe39c6cff060bbd857c278bf89cd8a27c43
+…
+Usrc/test/java/com/algaworks/junit/mapeamentoavancado/PropriedadesTransientesTest.java,d/a/da2783cb93e42e7f42f6c6d7b94884f3211d7d94

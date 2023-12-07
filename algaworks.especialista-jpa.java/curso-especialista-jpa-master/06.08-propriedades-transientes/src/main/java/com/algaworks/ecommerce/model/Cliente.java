@@ -1,27 +1,20 @@
 package com.algaworks.ecommerce.model;
 
-import com.algaworks.ecommerce.model.enums.SexoClienteEnum;
-import jakarta.persistence.*;
-import lombok.*;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
-import java.io.Serial;
-import java.io.Serializable;
+import javax.persistence.*;
 import java.util.List;
 
-@Entity
-@Table(name = "clientes")
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Setter
-@ToString
-@EqualsAndHashCode(of = {"id"})
-public final class Cliente implements Serializable {
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@Entity
+@Table(name = "cliente")
+public class Cliente {
 
-    @Serial
-    private static final long serialVersionUID = 1L;
-
+    @EqualsAndHashCode.Include
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -32,13 +25,13 @@ public final class Cliente implements Serializable {
     private String primeiroNome;
 
     @Enumerated(EnumType.STRING)
-    private SexoClienteEnum sexo;
+    private SexoCliente sexo;
 
     @OneToMany(mappedBy = "cliente")
     private List<Pedido> pedidos;
 
     @PostLoad
-    public void configurarPrimeiroNome() {
+    public void configurarPrimeiroNome(){
         if (nome != null && !nome.isBlank()) {
             int index = nome.indexOf(" ");
             if (index > -1) {
@@ -47,4 +40,3 @@ public final class Cliente implements Serializable {
         }
     }
 }
-
