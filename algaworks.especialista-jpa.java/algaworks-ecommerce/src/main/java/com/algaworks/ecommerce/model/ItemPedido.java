@@ -25,12 +25,14 @@ public final class ItemPedido implements Serializable {
     @EmbeddedId // Meu ID (chave-composta) incorporada
     private ItemPedidoId id;
 
+    @MapsId("pedidoId") // Nome que está no ItemPedidoId
     @ManyToOne(optional = false)
-    @JoinColumn(name = "pedido_id", insertable = false, updatable = false) // Mesmo nome do id - obrigatório o insertable e updatable false
+    @JoinColumn(name = "pedido_id")
     private Pedido pedido;
 
+    @MapsId("produtoId") // Nome que está no ItemPedidoId
     @ManyToOne(optional = false)
-    @JoinColumn(name = "produto_id", insertable = false, updatable = false) // Mesmo nome do id - obrigatório o insertable e updatable false
+    @JoinColumn(name = "produto_id")
     private Produto produto;
 
     @Column(name = "preco_produto")
