@@ -1,10 +1,14 @@
 package com.algaworks.ecommerce.model.chave_composta;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Embeddable;
+import jakarta.persistence.Id;
 import lombok.*;
 
 import java.io.Serial;
 import java.io.Serializable;
 
+@Embeddable // Incorporar em outra classe
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -15,8 +19,10 @@ public class ItemPedidoId implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    private Integer pedidoId; // Igual está na classe ItemPedido
+    @Column(name = "pedido_id")
+    private Integer pedidoId;
 
-    private Integer produtoId; // Igual está na classe ItemPedido
+    @Column(name = "produto_id")
+    private Integer produtoId;
 }
 

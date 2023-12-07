@@ -33,10 +33,11 @@ class ChaveCompostaTest extends EntityManagerTest {
         super.entityManager.flush();
 
         var itemPedido = ItemPedido.builder()
+                .id(new ItemPedidoId(pedido.getId(), produto.getId())) // Chave-composta com Embeddable/EmbeddedId
                 .pedido(pedido)
-                .pedidoId(pedido.getId())
+//                .pedidoId(pedido.getId()) // Chave-composta com IdClass
                 .produto(produto)
-                .produtoId(produto.getId())
+//                .produtoId(produto.getId()) // Chave-composta com IdClass
                 .precoProduto(produto.getPreco())
                 .quantidade(1)
                 .build();
