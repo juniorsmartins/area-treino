@@ -41,8 +41,6 @@ class RelacionamentosManyToOneTest extends EntityManagerTest {
     @Test
     void verificarRelacionamentoItemPedido() {
 
-        this.entityManager.getTransaction().begin();
-
         var cliente = this.entityManager.find(Cliente.class, 4);
         var produto = this.entityManager.find(Produto.class, 4);
 
@@ -54,11 +52,8 @@ class RelacionamentosManyToOneTest extends EntityManagerTest {
             .status(StatusPedidoEnum.AGUARDANDO)
             .build();
 
-        this.entityManager.persist(pedido);
-        super.entityManager.flush();
-
         var itemPedido = ItemPedido.builder()
-            .id(new ItemPedidoId(pedido.getId(), produto.getId())) // Chave-composta com Embeddable/EmbeddedId
+            .id(new ItemPedidoId()) // Chave-composta com Embeddable/EmbeddedId
             .pedido(pedido)
 //            .pedidoId(pedido.getId()) // Chave-composta com IdClass
             .produto(produto)
@@ -67,8 +62,9 @@ class RelacionamentosManyToOneTest extends EntityManagerTest {
             .quantidade(4)
             .build();
 
+        this.entityManager.getTransaction().begin();
+        this.entityManager.persist(pedido);
         this.entityManager.persist(itemPedido);
-
         this.entityManager.getTransaction().commit();
 
         this.entityManager.clear();

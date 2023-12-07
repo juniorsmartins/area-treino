@@ -49,5 +49,11 @@ public final class Produto implements Serializable {
 
     @OneToOne(mappedBy = "produto")
     private Estoque estoque;
+
+    @ElementCollection
+    @CollectionTable(name = "produto_tag", // Nomea a tabela
+        joinColumns = @JoinColumn(name = "produto_id")) // Define que o ID de produto estará nessa tabela
+    @Column(name = "tag") // Define o nome da coluna na tabela que receberá o item da lista
+    private List<String> tags;
 }
 
