@@ -2,7 +2,6 @@ package com.algaworks.ecommerce.model.chave_composta;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
-import jakarta.persistence.Id;
 import lombok.*;
 
 import java.io.Serial;
