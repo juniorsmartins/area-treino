@@ -22,9 +22,10 @@ public final class PagamentoCartao implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "pedido_id")
     private Integer id;
 
+    @MapsId
     @OneToOne(optional = false)
     @JoinColumn(name = "pedido_id")
     private Pedido pedido;

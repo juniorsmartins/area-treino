@@ -16,7 +16,7 @@ class ChaveCompostaTest extends EntityManagerTest {
 
     @Test
     void salvarItem() {
-        super.entityManager.getTransaction().begin();
+
 
         var cliente = super.entityManager.find(Cliente.class, 3);
         var produto = super.entityManager.find(Produto.class, 1);
@@ -28,12 +28,8 @@ class ChaveCompostaTest extends EntityManagerTest {
                 .total(produto.getPreco())
                 .build();
 
-        super.entityManager.persist(pedido);
-
-        super.entityManager.flush();
-
         var itemPedido = ItemPedido.builder()
-                .id(new ItemPedidoId(pedido.getId(), produto.getId())) // Chave-composta com Embeddable/EmbeddedId
+                .id(new ItemPedidoId()) // Chave-composta com Embeddable/EmbeddedId
                 .pedido(pedido)
 //                .pedidoId(pedido.getId()) // Chave-composta com IdClass
                 .produto(produto)
@@ -42,8 +38,9 @@ class ChaveCompostaTest extends EntityManagerTest {
                 .quantidade(1)
                 .build();
 
+        super.entityManager.getTransaction().begin();
+        super.entityManager.persist(pedido);
         super.entityManager.persist(itemPedido);
-
         super.entityManager.getTransaction().commit();
 
         super.entityManager.clear();
