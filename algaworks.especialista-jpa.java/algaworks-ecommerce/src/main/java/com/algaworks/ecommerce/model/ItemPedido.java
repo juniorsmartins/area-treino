@@ -9,7 +9,6 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 
 @Entity
-@IdClass(ItemPedidoId.class)
 @Table(name = "itens_pedido")
 @Builder
 @NoArgsConstructor
@@ -17,26 +16,23 @@ import java.math.BigDecimal;
 @Getter
 @Setter
 @ToString
-@EqualsAndHashCode(of = {"pedidoId", "produtoId"})
+@EqualsAndHashCode(of = {"id"})
 public final class ItemPedido implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
 
-    @Id
-    @Column(name = "pedido_id") // O nome precisa ser o mesmo do relacionamento mais abaixo
-    private Integer pedidoId;
+    @EmbeddedId // Meu ID (chave-composta) incorporada
+    private ItemPedidoId id;
 
-    @Id
-    @Column(name = "produto_id") // O nome precisa ser o mesmo do relacionamento mais abaixo
-    private Integer produtoId;
-
+    @MapsId("pedidoId") // Nome que está no ItemPedidoId
     @ManyToOne(optional = false)
-    @JoinColumn(name = "pedido_id", insertable = false, updatable = false) // Mesmo nome do id - obrigatório o insertable e updatable false
+    @JoinColumn(name = "pedido_id")
     private Pedido pedido;
 
+    @MapsId("produtoId") // Nome que está no ItemPedidoId
     @ManyToOne(optional = false)
-    @JoinColumn(name = "produto_id", insertable = false, updatable = false) // Mesmo nome do id - obrigatório o insertable e updatable false
+    @JoinColumn(name = "produto_id")
     private Produto produto;
 
     @Column(name = "preco_produto")
