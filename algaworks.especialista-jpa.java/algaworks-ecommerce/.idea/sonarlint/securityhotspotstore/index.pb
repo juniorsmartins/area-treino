@@ -83,3 +83,5 @@ t
 Dsrc/test/java/com/algaworks/junit/mapeamentoavancado/MapsIdTest.java,1/6/168bebe39c6cff060bbd857c278bf89cd8a27c43
 …
 Usrc/test/java/com/algaworks/junit/mapeamentoavancado/PropriedadesTransientesTest.java,d/a/da2783cb93e42e7f42f6c6d7b94884f3211d7d94
+
+Osrc/test/java/com/algaworks/junit/mapeamentoavancado/ElementCollectionTest.java,3/5/356fec634a6b967bce5b4d38887859382e8f8868
