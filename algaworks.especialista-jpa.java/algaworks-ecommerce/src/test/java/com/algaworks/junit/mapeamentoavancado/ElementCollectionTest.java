@@ -1,5 +1,6 @@
 package com.algaworks.junit.mapeamentoavancado;
 
+import com.algaworks.ecommerce.model.Atributo;
 import com.algaworks.ecommerce.model.Produto;
 import com.algaworks.junit.EntityManagerTest;
 import org.junit.jupiter.api.Assertions;
@@ -24,6 +25,35 @@ class ElementCollectionTest extends EntityManagerTest {
         var produtoVerificado = super.entityManager.find(Produto.class, produto.getId());
         Assertions.assertNotNull(produtoVerificado);
         Assertions.assertEquals(2, produtoVerificado.getTags().size());
+    }
+
+    @Test
+    void aplicarAtributos() {
+
+        super.entityManager.getTransaction().begin();
+
+        var produto = super.entityManager.find(Produto.class, 3);
+
+        Assertions.assertTrue(produto.getAtributos().isEmpty());
+
+        var atributo1 = Atributo.builder()
+                .nome("Cor")
+                .valor("Branca")
+                .build();
+
+        var atributo2 = Atributo.builder()
+                .nome("Quantia de Páginas")
+                .valor("650")
+                .build();
+
+        produto.setAtributos(List.of(atributo1, atributo2));
+
+        super.entityManager.getTransaction().commit();
+
+        super.entityManager.clear();
+
+        var produtoVerificado = super.entityManager.find(Produto.class, produto.getId());
+        Assertions.assertFalse(produtoVerificado.getAtributos().isEmpty());
     }
 }
 
