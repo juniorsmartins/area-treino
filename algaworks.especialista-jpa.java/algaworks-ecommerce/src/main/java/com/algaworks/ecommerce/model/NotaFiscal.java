@@ -1,5 +1,6 @@
 package com.algaworks.ecommerce.model;
 
+import com.algaworks.ecommerce.listener.GenericoListener;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -17,6 +18,7 @@ import java.util.Date;
 @Setter
 @ToString
 @EqualsAndHashCode(of = {"id"})
+@EntityListeners({ GenericoListener.class })
 public final class NotaFiscal implements Serializable {
 
     @Serial

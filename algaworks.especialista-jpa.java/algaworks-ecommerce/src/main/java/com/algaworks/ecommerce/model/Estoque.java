@@ -1,5 +1,6 @@
 package com.algaworks.ecommerce.model;
 
+import com.algaworks.ecommerce.listener.GenericoListener;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -15,6 +16,7 @@ import java.io.Serializable;
 @Setter
 @ToString
 @EqualsAndHashCode(of = {"id"})
+@EntityListeners({ GenericoListener.class })
 public final class Estoque implements Serializable {
 
     @Serial
