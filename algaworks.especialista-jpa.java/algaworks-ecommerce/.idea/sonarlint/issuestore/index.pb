@@ -101,3 +101,5 @@ t
 Dsrc/main/java/com/algaworks/ecommerce/model/EntidadeBaseInteger.java,c/7/c7da5d7d344b6b4a5e903f6969ab94f45a5be9b2
 u
 Esrc/test/java/com/algaworks/junit/mapeamentoavancado/HerancaTest.java,c/7/c7ae4c11e82cff75f9b2a3f22309b16c06bc03e8
+j
+:src/main/java/com/algaworks/ecommerce/model/Pagamento.java,f/1/f1ed35d049665bc4b8ef2aa53bf265de15b01129

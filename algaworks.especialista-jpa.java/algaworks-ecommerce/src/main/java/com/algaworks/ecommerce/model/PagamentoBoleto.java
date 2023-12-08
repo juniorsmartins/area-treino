@@ -21,9 +21,6 @@ public final class PagamentoBoleto extends EntidadeBaseInteger implements Serial
     @Serial
     private static final long serialVersionUID = 1L;
 
-//    @Column(name = "pedido_id")
-//    private Integer pedido;
-
     @Enumerated(EnumType.STRING)
     private StatusPagamentoEnum status;
 

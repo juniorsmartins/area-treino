@@ -14,16 +14,12 @@ import java.io.Serializable;
 @AllArgsConstructor
 @Getter
 @Setter
-@ToString
-@EqualsAndHashCode(of = {"id"})
-public final class PagamentoCartao implements Serializable {
+@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
+public final class PagamentoCartao extends EntidadeBaseInteger implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
-
-    @Id
-    @Column(name = "pedido_id")
-    private Integer id;
 
     @MapsId
     @OneToOne(optional = false)
