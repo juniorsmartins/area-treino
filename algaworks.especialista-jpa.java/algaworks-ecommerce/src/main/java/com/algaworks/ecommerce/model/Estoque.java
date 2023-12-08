@@ -14,10 +14,10 @@ import java.io.Serializable;
 @AllArgsConstructor
 @Getter
 @Setter
-@ToString
-@EqualsAndHashCode(of = {"id"})
+@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
 @EntityListeners({ GenericoListener.class })
-public final class Estoque implements Serializable {
+public final class Estoque extends EntidadeBaseInteger implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;

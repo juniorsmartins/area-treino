@@ -18,16 +18,13 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @Setter
-@ToString
+@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
 @EntityListeners({ GenericoListener.class })
-public final class Produto implements Serializable {
+public final class Produto extends EntidadeBaseInteger implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
 
     @Column(name = "data_criacao", updatable = false)
     private LocalDateTime dataCriacao;

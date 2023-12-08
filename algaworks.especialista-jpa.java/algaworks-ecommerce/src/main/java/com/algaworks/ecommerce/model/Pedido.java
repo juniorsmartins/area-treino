@@ -19,17 +19,13 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @Setter
-@ToString
-@EqualsAndHashCode(of = {"id"})
+@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
 @EntityListeners({ GerarNotaFiscalListener.class, GenericoListener.class })
-public final class Pedido implements Serializable {
+public final class Pedido extends EntidadeBaseInteger implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
 
     @Column(name = "data_criacao", updatable = false)
     private LocalDateTime dataCriacao;
