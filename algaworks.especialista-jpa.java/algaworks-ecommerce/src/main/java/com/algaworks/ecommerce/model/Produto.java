@@ -55,5 +55,11 @@ public final class Produto implements Serializable {
         joinColumns = @JoinColumn(name = "produto_id")) // Define que o ID de produto estará nessa tabela
     @Column(name = "tag") // Define o nome da coluna na tabela que receberá o item da lista
     private List<String> tags;
+
+    @ElementCollection
+    @CollectionTable(name = "produto_atributo",
+        joinColumns = @JoinColumn(name = "produto_id")
+    )
+    private List<Atributo> atributos;
 }
 
