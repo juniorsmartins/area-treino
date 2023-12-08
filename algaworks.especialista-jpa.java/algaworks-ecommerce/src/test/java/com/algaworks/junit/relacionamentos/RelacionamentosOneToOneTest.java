@@ -9,8 +9,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.time.Instant;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Date;
 
 class RelacionamentosOneToOneTest extends EntityManagerTest {
@@ -19,13 +17,12 @@ class RelacionamentosOneToOneTest extends EntityManagerTest {
     void verificarRelacionamentoPagamentoCartaoPedido() {
 
         var pedido = this.entityManager.find(Pedido.class, 1);
-        Assertions.assertNull(pedido.getPagamentoCartao());
+        Assertions.assertNull(pedido.getPagamento());
 
-        var pagamentoCartao = PagamentoCartao.builder()
-            .numero("1234")
-            .status(StatusPagamentoEnum.PROCESSANDO)
-            .pedido(pedido)
-            .build();
+        var pagamentoCartao = new PagamentoCartao();
+        pagamentoCartao.setNumeroCartao("1234");
+        pagamentoCartao.setStatus(StatusPagamentoEnum.PROCESSANDO);
+        pagamentoCartao.setPedido(pedido);
 
         this.entityManager.getTransaction().begin();
         this.entityManager.persist(pagamentoCartao);

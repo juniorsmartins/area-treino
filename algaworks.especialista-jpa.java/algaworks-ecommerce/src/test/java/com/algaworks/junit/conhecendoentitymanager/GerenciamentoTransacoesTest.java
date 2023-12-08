@@ -14,7 +14,7 @@ class GerenciamentoTransacoesTest extends EntityManagerTest {
         super.entityManager.getTransaction().begin();
         pedido.setStatus(StatusPedidoEnum.PAGO);
 
-        if (pedido.getPagamentoCartao() != null) {
+        if (pedido.getPagamento() != null) {
             super.entityManager.getTransaction().commit();
         } else {
             super.entityManager.getTransaction().rollback();
@@ -38,7 +38,7 @@ class GerenciamentoTransacoesTest extends EntityManagerTest {
         var pedido = super.entityManager.find(Pedido.class, 1);
         pedido.setStatus(StatusPedidoEnum.PAGO);
 
-        if (pedido.getPagamentoCartao() == null) {
+        if (pedido.getPagamento() == null) {
             throw new RuntimeException("Pedido ainda não pago.");
         }
     }
@@ -54,7 +54,7 @@ class GerenciamentoTransacoesTest extends EntityManagerTest {
 
             super.entityManager.flush();
 
-            if (pedido.getPagamentoCartao() == null) {
+            if (pedido.getPagamento() == null) {
                 throw new RuntimeException("Pedido ainda não pago.");
             }
 

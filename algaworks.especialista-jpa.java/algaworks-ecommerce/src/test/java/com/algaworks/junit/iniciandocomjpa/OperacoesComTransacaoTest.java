@@ -43,12 +43,11 @@ public class OperacoesComTransacaoTest extends EntityManagerTest {
         var produtoPraVerificar = this.entityManager.find(Produto.class, produtoPersist.getId());
         Assertions.assertNotNull(produtoPraVerificar);
 
-        var produtoMerge = Produto.builder()
-            .id(6)
-            .nome("Notebook Dell XPS-9320")
-            .descricao("O processador mais rápido.")
-            .preco(BigDecimal.valueOf(11450))
-            .build();
+        var produtoMerge = new Produto();
+        produtoMerge.setId(6);
+        produtoMerge.setNome("Notebook Dell XPS-9320");
+        produtoMerge.setDescricao("O processador mais rápido.");
+        produtoMerge.setPreco(BigDecimal.valueOf(11450));
 
         this.entityManager.getTransaction().begin();
         produtoMerge = this.entityManager.merge(produtoMerge); // É preciso capturar o retorno do Merge se quiser fazer alteração posterior.
@@ -63,12 +62,12 @@ public class OperacoesComTransacaoTest extends EntityManagerTest {
 
     @Test
     void inserirObjetoComMerge() {
-        var produto = Produto.builder()
-            .id(4)
-            .nome("Microfone Sony")
-            .descricao("A melhor qualidade de som.")
-            .preco(BigDecimal.valueOf(1050))
-            .build();
+
+        var produto = new Produto();
+        produto.setId(4);
+        produto.setNome("Microfone Sony");
+        produto.setDescricao("A melhor qualidade de som.");
+        produto.setPreco(BigDecimal.valueOf(1050));
 
         this.entityManager.getTransaction().begin();
         this.entityManager.merge(produto);
@@ -97,12 +96,12 @@ public class OperacoesComTransacaoTest extends EntityManagerTest {
 
     @Test
     void atualizarObjeto() {
-        var produto = Produto.builder()
-            .id(1)
-            .nome("Kindle Paperwhite")
-            .descricao("Novo Kindle")
-            .preco(BigDecimal.valueOf(591.67))
-            .build();
+
+        var produto = new Produto();
+        produto.setId(1);
+        produto.setNome("Kindle Paperwhite");
+        produto.setDescricao("Novo Kindle");
+        produto.setPreco(BigDecimal.valueOf(591.67));
 
         this.entityManager.getTransaction().begin();
         this.entityManager.merge(produto); // Se algum campo do produto estiver nulo, esse valor nulo substituirá o valor que estiver no banco

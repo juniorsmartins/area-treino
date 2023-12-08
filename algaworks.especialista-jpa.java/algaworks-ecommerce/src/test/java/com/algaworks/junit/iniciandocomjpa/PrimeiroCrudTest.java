@@ -9,10 +9,10 @@ class PrimeiroCrudTest extends EntityManagerTest {
 
     @Test
     void atualizarCliente() {
-        var cliente = Cliente.builder()
-            .id(5)
-            .nome("Ron Atual Jeffries")
-            .build();
+
+        var cliente = new Cliente();
+        cliente.setId(5);
+        cliente.setNome("Ron Atual Jeffries");
 
         this.entityManager.getTransaction().begin();
         this.entityManager.merge(cliente);
@@ -50,10 +50,9 @@ class PrimeiroCrudTest extends EntityManagerTest {
     @Test
     void inserirClienteComMerge() {
 
-        var cliente = Cliente.builder()
-            .id(5)
-            .nome("Robert Martin")
-            .build();
+        var cliente = new Cliente();
+        cliente.setId(5);
+        cliente.setNome("Robert Martin");
 
         this.entityManager.getTransaction().begin();
         this.entityManager.merge(cliente);

@@ -3,6 +3,7 @@ package com.algaworks.ecommerce.model;
 import com.algaworks.ecommerce.listener.GenericoListener;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.Length;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -37,7 +38,9 @@ public final class NotaFiscal implements Serializable {
 //    )
     private Pedido pedido;
 
-    private String xml;
+    @Lob
+    @Column(length = 1000)
+    private byte[] xml;
 
     @Column(name = "data_emissao")
     private Date dataEmissao;

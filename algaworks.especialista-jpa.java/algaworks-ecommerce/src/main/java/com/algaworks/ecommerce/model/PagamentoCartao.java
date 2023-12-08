@@ -1,38 +1,29 @@
 package com.algaworks.ecommerce.model;
 
-import com.algaworks.ecommerce.model.enums.StatusPagamentoEnum;
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.DiscriminatorValue;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 import lombok.*;
 
 import java.io.Serial;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "pagamentos_cartao")
+@DiscriminatorValue("Cartao")
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-@ToString
-@EqualsAndHashCode(of = {"id"})
-public final class PagamentoCartao implements Serializable {
+@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
+public final class PagamentoCartao extends Pagamento implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
 
-    @Id
-    @Column(name = "pedido_id")
-    private Integer id;
-
-    @MapsId
-    @OneToOne(optional = false)
-    @JoinColumn(name = "pedido_id")
-    private Pedido pedido;
-
-    private String numero;
-
-    @Enumerated(EnumType.STRING)
-    private StatusPagamentoEnum status;
+    @Column(name = "numero_cartao")
+    private String numeroCartao;
 }
 

@@ -3,6 +3,7 @@ package com.algaworks.ecommerce.model;
 import com.algaworks.ecommerce.listener.GenericoListener;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.Length;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -17,16 +18,13 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @Setter
-@ToString
+@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
 @EntityListeners({ GenericoListener.class })
-public final class Produto implements Serializable {
+public final class Produto extends EntidadeBaseInteger implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
 
     @Column(name = "data_criacao", updatable = false)
     private LocalDateTime dataCriacao;
@@ -61,5 +59,9 @@ public final class Produto implements Serializable {
         joinColumns = @JoinColumn(name = "produto_id")
     )
     private List<Atributo> atributos;
+
+    @Lob
+    @Column(length = Length.LOB_DEFAULT)
+    private byte[] foto;
 }
 
