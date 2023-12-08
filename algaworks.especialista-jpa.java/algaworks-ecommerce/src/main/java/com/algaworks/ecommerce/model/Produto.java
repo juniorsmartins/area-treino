@@ -3,6 +3,7 @@ package com.algaworks.ecommerce.model;
 import com.algaworks.ecommerce.listener.GenericoListener;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.Length;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -61,5 +62,9 @@ public final class Produto implements Serializable {
         joinColumns = @JoinColumn(name = "produto_id")
     )
     private List<Atributo> atributos;
+
+    @Lob
+    @Column(length = Length.LOB_DEFAULT)
+    private byte[] foto;
 }
 

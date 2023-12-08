@@ -93,3 +93,5 @@ Nsrc/test/java/com/algaworks/junit/mapeamentoavancado/SalvandoArquivosTest.java
 ,src/test/java/com/algaworks/junit/Uteis.java,d/f/df058f9854221b2b72b4b0c7c20304ce86311b49
 a
 1src/test/java/com/algaworks/junit/Utilitario.java,b/3/b3db6e2f45d50143e90a8c954c60d2087dbfdab9
+‚
+Rsrc/test/java/com/algaworks/junit/mapeamentoavancado/SalvarArquivoProdutoTest.java,d/c/dcb4de7f379dada80e951300d312432ddd37e894
