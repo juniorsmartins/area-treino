@@ -1,5 +1,6 @@
 package com.algaworks.ecommerce.model;
 
+import com.algaworks.ecommerce.listener.GenericoListener;
 import com.algaworks.ecommerce.model.enums.SexoClienteEnum;
 import jakarta.persistence.*;
 import lombok.*;
@@ -17,6 +18,7 @@ import java.util.List;
 @Setter
 @ToString
 @EqualsAndHashCode(of = {"id"})
+@EntityListeners({ GenericoListener.class })
 public final class Cliente implements Serializable {
 
     @Serial
