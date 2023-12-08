@@ -97,3 +97,7 @@ a
 Rsrc/test/java/com/algaworks/junit/mapeamentoavancado/SalvarArquivoProdutoTest.java,d/c/dcb4de7f379dada80e951300d312432ddd37e894
 |
 Lsrc/test/java/com/algaworks/junit/mapeamentoavancado/SecondaryTableTest.java,9/5/95f9ce25fd1b65c3fa6ab78d9809246e4557a0da
+t
+Dsrc/main/java/com/algaworks/ecommerce/model/EntidadeBaseInteger.java,c/7/c7da5d7d344b6b4a5e903f6969ab94f45a5be9b2
+u
+Esrc/test/java/com/algaworks/junit/mapeamentoavancado/HerancaTest.java,c/7/c7ae4c11e82cff75f9b2a3f22309b16c06bc03e8
