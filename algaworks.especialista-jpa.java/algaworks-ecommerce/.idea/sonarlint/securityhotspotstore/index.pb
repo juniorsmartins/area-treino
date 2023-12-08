@@ -87,3 +87,9 @@ Usrc/test/java/com/algaworks/junit/mapeamentoavancado/PropriedadesTransientesTes
 Osrc/test/java/com/algaworks/junit/mapeamentoavancado/ElementCollectionTest.java,3/5/356fec634a6b967bce5b4d38887859382e8f8868
 i
 9src/main/java/com/algaworks/ecommerce/model/Atributo.java,f/b/fb6f551c111220586abe6501c1d891d0e253167a
+~
+Nsrc/test/java/com/algaworks/junit/mapeamentoavancado/SalvandoArquivosTest.java,5/7/570aef432389500f8b7880a8130d9473c81b7132
+\
+,src/test/java/com/algaworks/junit/Uteis.java,d/f/df058f9854221b2b72b4b0c7c20304ce86311b49
+a
+1src/test/java/com/algaworks/junit/Utilitario.java,b/3/b3db6e2f45d50143e90a8c954c60d2087dbfdab9
