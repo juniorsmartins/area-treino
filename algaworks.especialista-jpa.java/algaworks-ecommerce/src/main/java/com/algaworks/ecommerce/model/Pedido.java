@@ -55,7 +55,7 @@ public final class Pedido extends EntidadeBaseInteger implements Serializable {
     private NotaFiscal notaFiscal;
 
     @OneToOne(mappedBy = "pedido")
-    private PagamentoCartao pagamentoCartao;
+    private Pagamento pagamento;
 
     public boolean isPago() {
         return StatusPedidoEnum.PAGO.equals(status);

@@ -16,8 +16,8 @@ import java.io.Serializable;
 @Setter
 @ToString
 @EqualsAndHashCode(of = {"id"})
-public sealed class EntidadeBaseInteger implements Serializable permits Cliente, Categoria, Estoque,
-        PagamentoBoleto, PagamentoCartao, Pedido, Produto {
+public sealed class EntidadeBaseInteger implements Serializable permits Cliente, Categoria, Estoque, Pagamento,
+        Pedido, Produto {
 
     @Serial
     private static final long serialVersionUID = 1L;

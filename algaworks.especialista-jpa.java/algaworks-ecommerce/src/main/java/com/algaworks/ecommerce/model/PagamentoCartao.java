@@ -1,7 +1,8 @@
 package com.algaworks.ecommerce.model;
 
-import com.algaworks.ecommerce.model.enums.StatusPagamentoEnum;
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 import lombok.*;
 
 import java.io.Serial;
@@ -16,19 +17,12 @@ import java.io.Serializable;
 @Setter
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
-public final class PagamentoCartao extends EntidadeBaseInteger implements Serializable {
+public final class PagamentoCartao extends Pagamento implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
 
-    @MapsId
-    @OneToOne(optional = false)
-    @JoinColumn(name = "pedido_id")
-    private Pedido pedido;
-
-    private String numero;
-
-    @Enumerated(EnumType.STRING)
-    private StatusPagamentoEnum status;
+    @Column(name = "numero_cartao")
+    private String numeroCartao;
 }
 
