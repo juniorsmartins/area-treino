@@ -11,7 +11,9 @@ import java.io.Serial;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "pagamento")
+@Table(name = "pagamentos")
+@DiscriminatorColumn(name = "tipo_pagamento", discriminatorType = DiscriminatorType.STRING)
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @Getter
 @Setter
 @ToString(callSuper = true)
