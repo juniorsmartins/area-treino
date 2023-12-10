@@ -11,7 +11,9 @@ import java.io.Serial;
 import java.io.Serializable;
 
 @Entity
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@Table(name = "pagamentos")
+@DiscriminatorColumn(name = "tipo_pagamento", discriminatorType = DiscriminatorType.STRING)
+@Inheritance(strategy = InheritanceType.JOINED)
 @Getter
 @Setter
 @ToString(callSuper = true)
