@@ -13,7 +13,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "pagamentos")
 @DiscriminatorColumn(name = "tipo_pagamento", discriminatorType = DiscriminatorType.STRING)
-@Inheritance(strategy = InheritanceType.JOINED)
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @Getter
 @Setter
 @ToString(callSuper = true)
