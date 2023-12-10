@@ -10,7 +10,8 @@ import java.io.Serial;
 import java.io.Serializable;
 
 @Entity
-@DiscriminatorValue("Boleto")
+@Table(name = "pagamentos_boleto")
+@DiscriminatorValue("boleto")
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor

@@ -13,7 +13,8 @@ insert into itens_pedido(pedido_id, produto_id, preco_produto, quantidade) value
 insert into pedidos(id, cliente_id, data_criacao, data_conclusao, total, status) values(2, 6, NOW(), NOW(), 499.0, 'AGUARDANDO');
 insert into itens_pedido(pedido_id, produto_id, preco_produto, quantidade) values(2, 1, 499, 1);
 
-insert into pagamento (pedido_id, status, numero_cartao, tipo_pagamento) values(2, 'PROCESSANDO', '123', 'Cartao')
+insert into pagamentos(pedido_id, status, numero_cartao, tipo_pagamento) values(1, 'PROCESSANDO', '99999999', 'cartao');
+insert into pagamentos(pedido_id, status, codigo_barras, tipo_pagamento) values(2, 'PROCESSANDO', '12345678', 'boleto');
 
 insert into categorias(id, nome) values(1, 'Eletrônicos');
 
