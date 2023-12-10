@@ -1,7 +1,6 @@
 package com.algaworks.ecommerce.model;
 
 import jakarta.persistence.Column;
-import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import lombok.*;
@@ -10,7 +9,7 @@ import java.io.Serial;
 import java.io.Serializable;
 
 @Entity
-@DiscriminatorValue("Boleto")
+@Table(name = "pagamentos_boleto")
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
