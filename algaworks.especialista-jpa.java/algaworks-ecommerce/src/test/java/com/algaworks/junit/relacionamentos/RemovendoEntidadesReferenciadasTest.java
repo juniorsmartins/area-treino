@@ -11,9 +11,10 @@ class RemovendoEntidadesReferenciadasTest extends EntityManagerTest {
     void verificarRemocaoDeEntidadesReferenciadas() {
 
         var pedido = this.entityManager.find(Pedido.class, 1);
+        var itensPedido = pedido.getItensPedido();
 
         this.entityManager.getTransaction().begin();
-        pedido.getItensPedido().forEach(this.entityManager::remove);
+        itensPedido.forEach(super.entityManager::remove);
         this.entityManager.remove(pedido);
         this.entityManager.getTransaction().commit();
 

@@ -12,6 +12,7 @@ insert into cliente_detalhe(cliente_id, sexo, data_nascimento) values (3, 'MASCU
 insert into cliente_detalhe(cliente_id, sexo, data_nascimento) values (4, 'MASCULINO', date_sub(sysdate(), interval 6000 day));
 insert into cliente_detalhe(cliente_id, sexo, data_nascimento) values (5, 'MASCULINO', date_sub(sysdate(), interval 7000 day));
 insert into cliente_detalhe(cliente_id, sexo, data_nascimento) values (6, 'MASCULINO', date_sub(sysdate(), interval 10000 day));
+insert into cliente_detalhe(cliente_id, sexo, data_nascimento) values (7, 'MASCULINO', date_sub(sysdate(), interval 15000 day));
 
 insert into pedidos(id, cliente_id, data_criacao, data_conclusao, total, status) values(1, 6, date_sub(sysdate(), interval 5 day), NOW(), 998.0, 'AGUARDANDO');
 insert into itens_pedido(pedido_id, produto_id, preco_produto, quantidade) values(1, 1, 499, 2);

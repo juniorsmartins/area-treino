@@ -8,6 +8,7 @@ import com.algaworks.junit.EntityManagerTest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
 import java.time.Instant;
 import java.util.Date;
 
@@ -20,7 +21,7 @@ class RelacionamentosOneToOneTest extends EntityManagerTest {
         Assertions.assertNull(pedido.getPagamento());
 
         var pagamentoCartao = new PagamentoCartao();
-        pagamentoCartao.setNumeroCartao("1234");
+        pagamentoCartao.setNumeroCartao("1234345");
         pagamentoCartao.setStatus(StatusPagamentoEnum.PROCESSANDO);
         pagamentoCartao.setPedido(pedido);
 
@@ -31,18 +32,18 @@ class RelacionamentosOneToOneTest extends EntityManagerTest {
         this.entityManager.clear();
 
         var pagamentoCartaoVerificar = this.entityManager.find(PagamentoCartao.class, pagamentoCartao.getId());
-        Assertions.assertNotNull(pagamentoCartaoVerificar);
         Assertions.assertNotNull(pagamentoCartaoVerificar.getPedido());
     }
 
     @Test
-    void verificarRelacionamentoNotaFiscalPedido() {
+    void verificarRelacionamentoNotaFiscalPedido() throws IOException {
 
-        var pedido = this.entityManager.find(Pedido.class, 1);
+        var pedido = this.entityManager.find(Pedido.class, 3);
         Assertions.assertNull(pedido.getNotaFiscal());
 
         var notaFiscal = NotaFiscal.builder()
             .pedido(pedido)
+            .xml(carregarNotaFiscal())
             .dataEmissao(Date.from(Instant.now()))
             .build();
 
@@ -57,8 +58,14 @@ class RelacionamentosOneToOneTest extends EntityManagerTest {
         Assertions.assertNotNull(notaFiscalVerificar.getPedido());
 
         var pedidoVerificar = this.entityManager.find(Pedido.class, 1);
-        Assertions.assertNotNull(pedidoVerificar);
         Assertions.assertNotNull(pedidoVerificar.getNotaFiscal());
+    }
+
+    private static byte[] carregarNotaFiscal() throws IOException {
+
+        try(var resposta = RelacionamentosOneToOneTest.class.getResourceAsStream("/ArquivoPdfParaTeste.pdf")) {
+            return resposta.readAllBytes();
+        }
     }
 }
 

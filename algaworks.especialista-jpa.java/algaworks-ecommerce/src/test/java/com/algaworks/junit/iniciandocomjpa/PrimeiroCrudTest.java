@@ -36,6 +36,11 @@ class PrimeiroCrudTest extends EntityManagerTest {
         var pedidos = cliente.getPedidos();
 
         this.entityManager.getTransaction().begin();
+        pedidos.forEach(pedido -> {
+            var itensPedido = pedido.getItensPedido();
+            itensPedido.forEach(super.entityManager::remove);
+            super.entityManager.remove(pedido);
+        });
         this.entityManager.remove(cliente);
         this.entityManager.getTransaction().commit();
 

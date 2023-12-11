@@ -20,7 +20,7 @@ class MapeamentoObjetoEmbutidoTest extends EntityManagerTest {
 
         var enderecoEntrega = EnderecoEntregaPedido.builder()
             .cep("78000000")
-            .estado("Bahia")
+            .estado("BH")
             .cidade("Salvador")
             .bairro("Trem Fumaça")
             .logradouro("Avenida Bohemia")
