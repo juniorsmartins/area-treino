@@ -35,9 +35,10 @@ public final class ItemPedido implements Serializable {
     @JoinColumn(name = "produto_id")
     private Produto produto;
 
-    @Column(name = "preco_produto")
+    @Column(name = "preco_produto", precision = 19, scale = 2, nullable = false)
     private BigDecimal precoProduto;
 
+    @Column(name = "quantidade", nullable = false)
     private Integer quantidade;
 }
 

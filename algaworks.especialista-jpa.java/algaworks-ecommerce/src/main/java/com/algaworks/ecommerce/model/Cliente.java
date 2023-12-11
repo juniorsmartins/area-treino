@@ -12,8 +12,10 @@ import java.util.List;
 import java.util.Map;
 
 @Entity
-@Table(name = "clientes", uniqueConstraints = { @UniqueConstraint(name = "unq_cpf", columnNames = {"cpf"}) },
-        indexes = { @Index(name = "idx_nome", columnList = "nome")})
+@Table(name = "clientes",
+       uniqueConstraints = { @UniqueConstraint(name = "unq_cpf", columnNames = {"cpf"}) },
+       indexes = { @Index(name = "idx_nome", columnList = "nome")}
+)
 @SecondaryTable(name = "cliente_detalhe", pkJoinColumns = @PrimaryKeyJoinColumn(name = "cliente_id"))
 @Builder
 @NoArgsConstructor
@@ -28,15 +30,17 @@ public final class Cliente extends EntidadeBaseInteger implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
+    @Column(name = "nome", length = 100, nullable = false)
     private String nome;
 
+    @Column(name = "cpf", length = 14, nullable = false)
     private String cpf;
 
     @Transient
     private String primeiroNome;
 
-    @Column(table = "cliente_detalhe")
     @Enumerated(EnumType.STRING)
+    @Column(name = "sexo", length = 30, nullable = false, table = "cliente_detalhe")
     private SexoClienteEnum sexo;
 
     @Column(name = "data_nascimento", table = "cliente_detalhe")

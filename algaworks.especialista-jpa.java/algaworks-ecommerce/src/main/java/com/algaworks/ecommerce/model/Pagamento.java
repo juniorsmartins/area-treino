@@ -29,6 +29,7 @@ public abstract non-sealed class Pagamento extends EntidadeBaseInteger implement
     private Pedido pedido;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "status", length = 30, nullable = false)
     private StatusPagamentoEnum status;
 }
 

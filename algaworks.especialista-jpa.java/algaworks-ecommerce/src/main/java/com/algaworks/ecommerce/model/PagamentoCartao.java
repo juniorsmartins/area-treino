@@ -24,7 +24,7 @@ public final class PagamentoCartao extends Pagamento implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    @Column(name = "numero_cartao")
+    @Column(name = "numero_cartao", length = 50, nullable = false)
     private String numeroCartao;
 }
 

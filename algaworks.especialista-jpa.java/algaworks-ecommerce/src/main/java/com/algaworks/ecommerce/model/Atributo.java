@@ -18,7 +18,7 @@ public final class Atributo implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    @Column(name = "nome")
+    @Column(name = "nome", length = 100, nullable = false)
     private String nome;
 
     @Column(name = "valor")
