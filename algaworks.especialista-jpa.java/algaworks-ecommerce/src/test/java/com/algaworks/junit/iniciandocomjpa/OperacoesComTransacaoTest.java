@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 public class OperacoesComTransacaoTest extends EntityManagerTest {
 
@@ -31,6 +32,7 @@ public class OperacoesComTransacaoTest extends EntityManagerTest {
             .nome("Smartphone One Plus")
             .descricao("O processador mais rápido.")
             .preco(BigDecimal.valueOf(2450))
+            .dataCriacao(LocalDateTime.now())
             .build();
 
         this.entityManager.getTransaction().begin();
@@ -67,6 +69,7 @@ public class OperacoesComTransacaoTest extends EntityManagerTest {
         produto.setId(4);
         produto.setNome("Microfone Sony");
         produto.setDescricao("A melhor qualidade de som.");
+        produto.setDataCriacao(LocalDateTime.now());
         produto.setPreco(BigDecimal.valueOf(1050));
 
         this.entityManager.getTransaction().begin();
@@ -135,6 +138,7 @@ public class OperacoesComTransacaoTest extends EntityManagerTest {
             .nome("Câmera Canon")
             .descricao("A melhor definição para suas fotos.")
             .preco(BigDecimal.valueOf(5000))
+            .dataCriacao(LocalDateTime.now())
             .build();
 
         this.entityManager.getTransaction().begin();

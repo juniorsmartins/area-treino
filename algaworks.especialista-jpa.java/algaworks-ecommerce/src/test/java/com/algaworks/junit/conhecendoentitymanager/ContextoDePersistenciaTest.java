@@ -5,6 +5,7 @@ import com.algaworks.junit.EntityManagerTest;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 class ContextoDePersistenciaTest extends EntityManagerTest {
 
@@ -13,10 +14,13 @@ class ContextoDePersistenciaTest extends EntityManagerTest {
 
         super.entityManager.getTransaction().begin();
 
-        var produto = super.entityManager.find(Produto.class, 1);
-        produto.setPreco(BigDecimal.TWO); // Update
+        var produto1 = super.entityManager.find(Produto.class, 1);
+        produto1.setPreco(BigDecimal.TWO); // Update
+        produto1.setDataCriacao(LocalDateTime.now());
+
         var produto2 = new Produto();
         produto2.setNome("Caneca de café");
+        produto2.setDataCriacao(LocalDateTime.now());
         super.entityManager.merge(produto2); // Salva
 
         super.entityManager.flush();

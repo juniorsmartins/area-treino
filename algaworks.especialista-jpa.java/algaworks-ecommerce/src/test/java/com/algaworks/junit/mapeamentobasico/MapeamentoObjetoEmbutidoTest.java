@@ -32,7 +32,9 @@ class MapeamentoObjetoEmbutidoTest extends EntityManagerTest {
             .status(StatusPedidoEnum.AGUARDANDO)
             .total(BigDecimal.valueOf(1000))
             .enderecoEntrega(enderecoEntrega)
+            .dataCriacao(LocalDateTime.now())
             .cliente(cliente)
+            .dataConclusao(LocalDateTime.now().plusDays(2))
             .build();
 
         this.entityManager.getTransaction().begin();

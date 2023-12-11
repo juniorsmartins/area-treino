@@ -10,6 +10,8 @@ class EstadosECicloDeVidaTest extends EntityManagerTest {
     void analisarEstados() {
 
         var categoriaNovo = new Categoria(); // Estado transient
+        categoriaNovo.setNome("Eletrônicos");
+
         var categoriaNovaGerenciada = this.entityManager.merge(categoriaNovo); // O retorno é Estado gerenciado
 
         var categoriaGerenciado = this.entityManager.find(Categoria.class, 1); // Estado gerenciado

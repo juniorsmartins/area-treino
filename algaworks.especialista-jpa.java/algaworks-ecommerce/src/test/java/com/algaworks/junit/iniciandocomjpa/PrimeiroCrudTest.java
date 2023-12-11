@@ -1,6 +1,7 @@
 package com.algaworks.junit.iniciandocomjpa;
 
 import com.algaworks.ecommerce.model.Cliente;
+import com.algaworks.ecommerce.model.enums.SexoClienteEnum;
 import com.algaworks.junit.EntityManagerTest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -13,6 +14,8 @@ class PrimeiroCrudTest extends EntityManagerTest {
         var cliente = new Cliente();
         cliente.setId(5);
         cliente.setNome("Ron Atual Jeffries");
+        cliente.setCpf("99999999999");
+        cliente.setSexo(SexoClienteEnum.MASCULINO);
 
         this.entityManager.getTransaction().begin();
         this.entityManager.merge(cliente);
@@ -70,6 +73,8 @@ class PrimeiroCrudTest extends EntityManagerTest {
 
         var cliente = Cliente.builder()
             .nome("Martin Fowler")
+            .cpf("76789832145")
+            .sexo(SexoClienteEnum.MASCULINO)
             .build();
 
         this.entityManager.getTransaction().begin();

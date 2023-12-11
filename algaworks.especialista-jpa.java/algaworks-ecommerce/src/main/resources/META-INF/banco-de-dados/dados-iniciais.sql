@@ -2,10 +2,10 @@ insert into produtos(id, data_criacao, nome, descricao, preco) values(1, date_su
 insert into produtos(id, data_criacao, nome, descricao, preco) values(3, date_sub(sysdate(), interval 3 day), 'Criando Microsserviços', 'Livro de Sam Newman sobre arquitetura de software', 225.8);
 insert into produtos(id, data_criacao, nome, descricao, preco) values(4, date_sub(sysdate(), interval 1 day), 'Spring Data Jpa', 'Curso de especialista', 552.85);
 
-insert into clientes(id, nome) values(3, 'Eric Evans');
-insert into clientes(id, nome) values(4, 'Jeff Sutherland');
-insert into clientes(id, nome) values(5, 'Ron Jeffries');
-insert into clientes(id, nome) values(6, 'Ward Cunningham');
+insert into clientes(id, nome, cpf, sexo) values(3, 'Eric Evans - Blue Book', '99988877799', 'MASCULINO');
+insert into clientes(id, nome, cpf, sexo) values(4, 'Jeff Sutherland - Scrum', '77788877799', 'MASCULINO');
+insert into clientes(id, nome, cpf, sexo) values(5, 'Ron Jeffries - Ágil', '66688877799', 'MASCULINO');
+insert into clientes(id, nome, cpf, sexo) values(6, 'Ward Cunningham - Ágil', '88888877799', 'MASCULINO');
 
 insert into pedidos(id, cliente_id, data_criacao, data_conclusao, total, status) values(1, 6, NOW(), NOW(), 998.0, 'AGUARDANDO');
 insert into itens_pedido(pedido_id, produto_id, preco_produto, quantidade) values(1, 1, 499, 2);
@@ -16,5 +16,5 @@ insert into itens_pedido(pedido_id, produto_id, preco_produto, quantidade) value
 insert into pagamentos(pedido_id, status, numero_cartao, tipo_pagamento) values(1, 'PROCESSANDO', '99999999', 'cartao');
 insert into pagamentos(pedido_id, status, codigo_barras, tipo_pagamento) values(2, 'PROCESSANDO', '12345678', 'boleto');
 
-insert into categorias(id, nome) values(1, 'Eletrônicos');
+insert into categorias(id, nome) values(1, 'Eletroeletrônicos');
 
