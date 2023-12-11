@@ -24,7 +24,7 @@ class SalvandoArquivosTest extends EntityManagerTest {
     @Test
     void salvarXmlNota() throws IOException {
 
-        var pedido = super.entityManager.find(Pedido.class, 1);
+        var pedido = super.entityManager.find(Pedido.class, 3);
 
         var notaFiscal = NotaFiscal.builder()
                 .pedido(pedido)

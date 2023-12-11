@@ -50,6 +50,7 @@ public class OperacoesComTransacaoTest extends EntityManagerTest {
         produtoMerge.setNome("Notebook Dell XPS-9320");
         produtoMerge.setDescricao("O processador mais rápido.");
         produtoMerge.setPreco(BigDecimal.valueOf(11450));
+        produtoMerge.setDataCriacao(LocalDateTime.now());
 
         this.entityManager.getTransaction().begin();
         produtoMerge = this.entityManager.merge(produtoMerge); // É preciso capturar o retorno do Merge se quiser fazer alteração posterior.

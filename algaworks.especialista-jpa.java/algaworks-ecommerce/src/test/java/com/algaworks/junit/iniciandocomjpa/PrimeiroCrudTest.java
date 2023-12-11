@@ -31,13 +31,15 @@ class PrimeiroCrudTest extends EntityManagerTest {
 
     @Test
     void removerCliente() {
-        var cliente = this.entityManager.find(Cliente.class, 4);
+        var cliente = this.entityManager.find(Cliente.class, 7);
+
+        var pedidos = cliente.getPedidos();
 
         this.entityManager.getTransaction().begin();
         this.entityManager.remove(cliente);
         this.entityManager.getTransaction().commit();
 
-        var clientePraVerificar = this.entityManager.find(Cliente.class, 4);
+        var clientePraVerificar = this.entityManager.find(Cliente.class, 7);
         Assertions.assertNull(clientePraVerificar);
     }
 
@@ -47,7 +49,7 @@ class PrimeiroCrudTest extends EntityManagerTest {
 
         Assertions.assertNotNull(cliente);
         Assertions.assertEquals(3, cliente.getId());
-        Assertions.assertEquals("Eric Evans", cliente.getNome());
+        Assertions.assertEquals("Eric Evans - Blue Book", cliente.getNome());
     }
 
     @Test
@@ -55,7 +57,9 @@ class PrimeiroCrudTest extends EntityManagerTest {
 
         var cliente = new Cliente();
         cliente.setId(5);
-        cliente.setNome("Robert Martin");
+        cliente.setNome("Robert Mestre Martin");
+        cliente.setCpf("88665896");
+        cliente.setSexo(SexoClienteEnum.MASCULINO);
 
         this.entityManager.getTransaction().begin();
         this.entityManager.merge(cliente);

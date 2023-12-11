@@ -30,10 +30,10 @@ class MapeamentoObjetoEmbutidoTest extends EntityManagerTest {
 
         var pedido = Pedido.builder()
             .status(StatusPedidoEnum.AGUARDANDO)
-            .total(BigDecimal.valueOf(1000))
+            .total(BigDecimal.TEN)
             .enderecoEntrega(enderecoEntrega)
-            .dataCriacao(LocalDateTime.now())
             .cliente(cliente)
+            .dataCriacao(LocalDateTime.now())
             .dataConclusao(LocalDateTime.now().plusDays(2))
             .build();
 
@@ -44,8 +44,6 @@ class MapeamentoObjetoEmbutidoTest extends EntityManagerTest {
         this.entityManager.clear();
 
         var pedidoVerificacao = this.entityManager.find(Pedido.class, pedido.getId());
-        Assertions.assertNotNull(pedidoVerificacao);
-        Assertions.assertNotNull(pedidoVerificacao.getEnderecoEntrega());
         Assertions.assertNotNull(pedidoVerificacao.getEnderecoEntrega().getCep());
     }
 }

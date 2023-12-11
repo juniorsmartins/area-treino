@@ -24,7 +24,7 @@ public final class PagamentoBoleto extends Pagamento implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    @Column(name = "codigo_barras", length = 100, nullable = false)
+    @Column(name = "codigo_barras", length = 100)
     private String codigoBarras;
 }
 
