@@ -12,7 +12,8 @@ import java.util.List;
 import java.util.Map;
 
 @Entity
-@Table(name = "clientes")
+@Table(name = "clientes", uniqueConstraints = { @UniqueConstraint(name = "unq_cpf", columnNames = {"cpf"}) },
+        indexes = { @Index(name = "idx_nome", columnList = "nome")})
 @SecondaryTable(name = "cliente_detalhe", pkJoinColumns = @PrimaryKeyJoinColumn(name = "cliente_id"))
 @Builder
 @NoArgsConstructor
@@ -28,6 +29,8 @@ public final class Cliente extends EntidadeBaseInteger implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private String nome;
+
+    private String cpf;
 
     @Transient
     private String primeiroNome;

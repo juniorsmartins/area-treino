@@ -8,7 +8,8 @@ import java.io.Serializable;
 import java.util.List;
 
 @Entity
-@Table(name = "categorias")
+@Table(name = "categorias", uniqueConstraints = { @UniqueConstraint(name = "unq_nome", columnNames = "nome") },
+    indexes = { @Index(name = "idx_nome", columnList = "nome") })
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
