@@ -8,6 +8,9 @@ import com.algaworks.junit.EntityManagerTest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+
 class ListenerTest extends EntityManagerTest {
 
     @Test
@@ -24,6 +27,8 @@ class ListenerTest extends EntityManagerTest {
 
         var pedido = new Pedido();
         pedido.setCliente(cliente);
+        pedido.setTotal(BigDecimal.TEN);
+        pedido.setDataCriacao(LocalDateTime.now());
         pedido.setStatus(StatusPedidoEnum.AGUARDANDO);
 
         super.entityManager.getTransaction().begin();

@@ -13,6 +13,7 @@ class MapeandoEnumeracoesTest extends EntityManagerTest {
 
         var cliente = Cliente.builder()
             .nome("José Mineiro")
+            .cpf("11123456789")
             .sexo(SexoClienteEnum.MASCULINO)
             .build();
 

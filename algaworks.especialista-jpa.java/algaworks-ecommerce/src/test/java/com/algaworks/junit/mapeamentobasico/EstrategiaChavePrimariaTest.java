@@ -11,7 +11,7 @@ class EstrategiaChavePrimariaTest extends EntityManagerTest {
     void testarEstrategiaChave() {
 
         var categoria = Categoria.builder()
-            .nome("Eletrônicos")
+            .nome("Calçados")
             .build();
 
         this.entityManager.getTransaction().begin();

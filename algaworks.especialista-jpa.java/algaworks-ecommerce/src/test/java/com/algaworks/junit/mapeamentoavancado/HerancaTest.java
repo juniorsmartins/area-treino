@@ -10,6 +10,7 @@ import com.algaworks.junit.EntityManagerTest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
 import java.util.List;
 
 class HerancaTest extends EntityManagerTest {
@@ -19,7 +20,9 @@ class HerancaTest extends EntityManagerTest {
 
         var cliente = Cliente.builder()
                 .nome("Andy Hunt")
+                .cpf("65665665")
                 .sexo(SexoClienteEnum.MASCULINO)
+                .dataNascimento(LocalDate.now().minusYears(30))
                 .build();
 
         super.entityManager.getTransaction().begin();
@@ -44,7 +47,7 @@ class HerancaTest extends EntityManagerTest {
     @Test
     void incluirPagamentoPedido() {
 
-        var pedido = super.entityManager.find(Pedido.class, 1);
+        var pedido = super.entityManager.find(Pedido.class, 3);
 
         var pagamentoCartao = new PagamentoCartao();
         pagamentoCartao.setPedido(pedido);

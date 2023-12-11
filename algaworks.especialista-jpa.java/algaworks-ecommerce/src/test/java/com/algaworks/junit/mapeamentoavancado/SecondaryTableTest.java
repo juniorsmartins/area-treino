@@ -17,6 +17,7 @@ class SecondaryTableTest extends EntityManagerTest {
                 .nome("Ward Cunningham")
                 .sexo(SexoClienteEnum.MASCULINO)
                 .dataNascimento(LocalDate.of(1990, 1, 1))
+                .cpf("88877712343")
                 .build();
 
         super.entityManager.getTransaction().begin();

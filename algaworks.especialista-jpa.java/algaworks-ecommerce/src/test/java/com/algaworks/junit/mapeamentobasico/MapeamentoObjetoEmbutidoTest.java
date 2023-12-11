@@ -20,7 +20,7 @@ class MapeamentoObjetoEmbutidoTest extends EntityManagerTest {
 
         var enderecoEntrega = EnderecoEntregaPedido.builder()
             .cep("78000000")
-            .estado("Bahia")
+            .estado("BH")
             .cidade("Salvador")
             .bairro("Trem Fumaça")
             .logradouro("Avenida Bohemia")
@@ -30,9 +30,11 @@ class MapeamentoObjetoEmbutidoTest extends EntityManagerTest {
 
         var pedido = Pedido.builder()
             .status(StatusPedidoEnum.AGUARDANDO)
-            .total(BigDecimal.valueOf(1000))
+            .total(BigDecimal.TEN)
             .enderecoEntrega(enderecoEntrega)
             .cliente(cliente)
+            .dataCriacao(LocalDateTime.now())
+            .dataConclusao(LocalDateTime.now().plusDays(2))
             .build();
 
         this.entityManager.getTransaction().begin();
@@ -42,8 +44,6 @@ class MapeamentoObjetoEmbutidoTest extends EntityManagerTest {
         this.entityManager.clear();
 
         var pedidoVerificacao = this.entityManager.find(Pedido.class, pedido.getId());
-        Assertions.assertNotNull(pedidoVerificacao);
-        Assertions.assertNotNull(pedidoVerificacao.getEnderecoEntrega());
         Assertions.assertNotNull(pedidoVerificacao.getEnderecoEntrega().getCep());
     }
 }

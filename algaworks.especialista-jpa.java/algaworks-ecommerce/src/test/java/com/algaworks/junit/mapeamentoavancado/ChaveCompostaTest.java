@@ -17,7 +17,6 @@ class ChaveCompostaTest extends EntityManagerTest {
     @Test
     void salvarItem() {
 
-
         var cliente = super.entityManager.find(Cliente.class, 3);
         var produto = super.entityManager.find(Produto.class, 1);
 
