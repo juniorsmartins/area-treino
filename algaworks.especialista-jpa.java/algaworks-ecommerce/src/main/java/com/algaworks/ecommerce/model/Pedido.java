@@ -27,7 +27,7 @@ public final class Pedido extends EntidadeBaseInteger implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    @Column(name = "data_criacao", updatable = false)
+    @Column(name = "data_criacao", nullable = false, updatable = false)
     private LocalDateTime dataCriacao;
 
     @Column(name = "data_ultima_atualizacao", insertable = false)
@@ -36,8 +36,10 @@ public final class Pedido extends EntidadeBaseInteger implements Serializable {
     @Column(name = "data_conclusao")
     private LocalDateTime dataConclusao;
 
+    @Column(precision = 19, scale = 2, nullable = false)
     private BigDecimal total;
 
+    @Column(name = "status", length = 30, nullable = false)
     @Enumerated(EnumType.STRING)
     private StatusPedidoEnum status;
 

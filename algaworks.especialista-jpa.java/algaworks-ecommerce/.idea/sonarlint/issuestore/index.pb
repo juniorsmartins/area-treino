@@ -99,3 +99,5 @@ u
 Esrc/test/java/com/algaworks/junit/mapeamentoavancado/HerancaTest.java,c/7/c7ae4c11e82cff75f9b2a3f22309b16c06bc03e8
 j
 :src/main/java/com/algaworks/ecommerce/model/Pagamento.java,f/1/f1ed35d049665bc4b8ef2aa53bf265de15b01129
+b
+2src/test/java/com/algaworks/junit/ddl/DDLTest.java,2/2/22fecbd86fd30ab5c89ea2d070925a8452b662fd

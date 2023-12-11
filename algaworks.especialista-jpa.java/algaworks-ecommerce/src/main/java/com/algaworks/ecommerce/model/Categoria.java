@@ -8,7 +8,10 @@ import java.io.Serializable;
 import java.util.List;
 
 @Entity
-@Table(name = "categorias")
+@Table(name = "categorias",
+       uniqueConstraints = { @UniqueConstraint(name = "unq_nome", columnNames = "nome") },
+       indexes = { @Index(name = "idx_nome", columnList = "nome") }
+)
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -21,6 +24,7 @@ public final class Categoria extends EntidadeBaseInteger implements Serializable
     @Serial
     private static final long serialVersionUID = 1L;
 
+    @Column(name = "nome", length = 100, nullable = false)
     private String nome;
 
     @ManyToOne // Lado Owner
