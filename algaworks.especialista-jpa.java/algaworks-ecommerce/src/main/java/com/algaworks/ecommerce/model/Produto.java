@@ -38,7 +38,8 @@ public final class Produto extends EntidadeBaseInteger implements Serializable {
     @Column(name = "nome", length = 100, nullable = false)
     private String nome;
 
-    @Column(columnDefinition = "varchar(275) default 'descrição'")
+    @Lob
+    @Column(name = "descricao")
     private String descricao;
 
     @Column(precision = 19, scale = 2)
