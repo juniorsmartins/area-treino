@@ -28,7 +28,7 @@ public final class Categoria extends EntidadeBaseInteger implements Serializable
     private String nome;
 
     @ManyToOne // Lado Owner
-    @JoinColumn(name = "categoria_pai_id")
+    @JoinColumn(name = "categoria_pai_id", foreignKey = @ForeignKey(name = "fk_categoria_categoria_pai"))
     private Categoria categoriaPai;
 
     @OneToMany(mappedBy = "categoriaPai") // Lado Non-Owning

@@ -57,7 +57,7 @@ public final class Produto extends EntidadeBaseInteger implements Serializable {
 
     @ElementCollection
     @CollectionTable(name = "produto_tag", // Nomea a tabela
-        joinColumns = @JoinColumn(name = "produto_id")) // Define que o ID de produto estará nessa tabela
+        joinColumns = @JoinColumn(name = "produto_id", foreignKey = @ForeignKey(name = "fk_produto_produto_tag"))) // Define que o ID de produto estará nessa tabela
     @Column(name = "tag", length = 50, nullable = false) // Define o nome da coluna na tabela que receberá o item da lista
     private List<String> tags;
 

@@ -31,7 +31,7 @@ public final class NotaFiscal implements Serializable {
 
     @MapsId
     @OneToOne(optional = false)
-    @JoinColumn(name = "pedido_id")
+    @JoinColumn(name = "pedido_id", nullable = false, foreignKey = @ForeignKey(name = "fk_nota_fiscal_pedido"))
 //    @JoinTable(name = "pedido_nota_fiscal_id",
 //        joinColumns = @JoinColumn(name = "nota_fiscal_id", unique = true),
 //        inverseJoinColumns = @JoinColumn(name = "pedido_id", unique = true)
