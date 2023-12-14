@@ -1,5 +1,6 @@
 package io.algaworksalgafoodjava.domain.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -37,11 +38,12 @@ public final class Restaurante implements Serializable {
     @JoinColumn(name = "cozinha_id", nullable = false)
     private Cozinha cozinha;
 
+    @JsonIgnore
     @ManyToMany
     @JoinTable(name = "restaurantes_formas_pagamento",
-        joinColumns = @JoinColumn(name = "restaurante_id", referencedColumnName = "id",
+        joinColumns = @JoinColumn(name = "restaurante_id", nullable = false, referencedColumnName = "id",
                 foreignKey = @ForeignKey(name = "fk_restaurantes_formas_pagamento_restaurante")),
-        inverseJoinColumns = @JoinColumn(name = "forma_pagamento_id", referencedColumnName = "id",
+        inverseJoinColumns = @JoinColumn(name = "forma_pagamento_id", nullable = false, referencedColumnName = "id",
                 foreignKey = @ForeignKey(name = "fk_restaurantes_formas_pagamento_formas_pagamento"))
     )
     private List<FormaPagamento> formasPagamento;
