@@ -31,7 +31,8 @@ public final class Restaurante implements Serializable {
     @Column(name = "taxa_frete", precision = 10, scale = 2, nullable = false)
     private BigDecimal taxaFrete;
 
-    @ManyToOne
+    // Mandante Owner
+    @ManyToOne(optional = false)
     @JoinColumn(name = "cozinha_id", nullable = false)
     private Cozinha cozinha;
 }
