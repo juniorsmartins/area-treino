@@ -62,7 +62,7 @@ public class CadastroRestauranteService {
                 .format("Não existe cozinha com id %s", idCozinha)));
 
         restauranteEncontrado.setCozinha(cozinhaEncontrada);
-        BeanUtils.copyProperties(restaurante, restauranteEncontrado, "id", "cozinha");
+        BeanUtils.copyProperties(restaurante, restauranteEncontrado, "id", "cozinha", "formasPagamento");
 
         return this.restauranteRepository.save(restauranteEncontrado);
     }
