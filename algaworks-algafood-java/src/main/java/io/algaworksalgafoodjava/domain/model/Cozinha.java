@@ -1,10 +1,13 @@
 package io.algaworksalgafoodjava.domain.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
+import org.springframework.context.annotation.Lazy;
 
 import javax.persistence.*;
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table(name = "cozinhas")
@@ -26,5 +29,10 @@ public final class Cozinha implements Serializable {
 
     @Column(name = "nome", length = 50, unique = true, nullable = false)
     private String nome;
+
+//    @Lazy
+    @JsonIgnore
+    @OneToMany(mappedBy = "cozinha")
+    private List<Restaurante> restaurantes;
 }
 
