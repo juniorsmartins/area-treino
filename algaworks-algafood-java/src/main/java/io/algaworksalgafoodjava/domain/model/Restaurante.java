@@ -6,6 +6,7 @@ import javax.persistence.*;
 import java.io.Serial;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.List;
 
 @Entity
 @Table(name = "restaurantes")
@@ -35,5 +36,14 @@ public final class Restaurante implements Serializable {
     @ManyToOne(optional = false)
     @JoinColumn(name = "cozinha_id", nullable = false)
     private Cozinha cozinha;
+
+    @ManyToMany
+    @JoinTable(name = "restaurantes_formas_pagamento",
+        joinColumns = @JoinColumn(name = "restaurante_id", referencedColumnName = "id",
+                foreignKey = @ForeignKey(name = "fk_restaurantes_formas_pagamento_restaurante")),
+        inverseJoinColumns = @JoinColumn(name = "forma_pagamento_id", referencedColumnName = "id",
+                foreignKey = @ForeignKey(name = "fk_restaurantes_formas_pagamento_formas_pagamento"))
+    )
+    private List<FormaPagamento> formasPagamento;
 }
 
