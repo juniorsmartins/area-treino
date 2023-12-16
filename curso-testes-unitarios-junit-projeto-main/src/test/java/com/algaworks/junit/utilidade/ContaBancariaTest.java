@@ -1,6 +1,7 @@
 package com.algaworks.junit.utilidade;
 
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.function.Executable;
 
 import java.math.BigDecimal;
 
@@ -9,60 +10,124 @@ import static org.junit.jupiter.api.Assertions.*;
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 class ContaBancariaTest {
 
-    @Test
-    void deve_Retornar_Conta_Bancaria_Quando_Criar_Com_Valor_Valido() {
-        var valorNegativoInvalido = -10;
+    @Nested
+    class Saldo {
+        @Test
+        void deve_Retornar_Conta_Bancaria_Quando_Criar_Com_Valor_Valido_Zero() {
+            var saldoInicial = BigDecimal.ZERO;
+            var conta = new ContaBancaria(saldoInicial);
+            Assertions.assertEquals(conta.saldo(), saldoInicial);
+        }
 
-        var conta = new ContaBancaria(BigDecimal.ZERO);
-        Assertions.assertTrue(conta.saldo().equals(BigDecimal.ZERO));
+        @Test
+        void deve_Retornar_Conta_Bancaria_Quando_Criar_Com_Valor_Valido_Dez() {
+            var saldoInicial = BigDecimal.TEN;
+            var conta = new ContaBancaria(saldoInicial);
+            Assertions.assertEquals(conta.saldo(), saldoInicial);
+        }
 
-        conta = new ContaBancaria(BigDecimal.TEN);
-        Assertions.assertTrue(conta.saldo().equals(BigDecimal.TEN));
+        @Test
+        void deve_Retornar_Conta_Bancaria_Quando_Criar_Com_Valor_Valido_Negativo() {
+            var valorNegativoValido = BigDecimal.valueOf(-10);
+            var conta = new ContaBancaria(valorNegativoValido);
+            Assertions.assertEquals(conta.saldo(), valorNegativoValido);
+        }
 
-        conta = new ContaBancaria(BigDecimal.valueOf(valorNegativoInvalido));
-        Assertions.assertTrue(conta.saldo().equals(BigDecimal.valueOf(valorNegativoInvalido)));
+        @Test
+        void deve_Lancar_Illegal_Exception_Ao_Criar_Com_Valor_Nulo() {
+
+            Assertions.assertThrows(IllegalArgumentException.class, () -> new ContaBancaria(null));
+        }
     }
 
-    @Test
-    void deve_Lancar_Illegal_Exception_Ao_Criar_Com_Valor_Nulo() {
+    @Nested
+    class Saque {
+        @Test
+        void deve_Retornar_O_Valor_Sacado() {
 
-        Assertions.assertThrows(IllegalArgumentException.class, () -> new ContaBancaria(null));
+            var conta = new ContaBancaria(BigDecimal.TEN);
+            var valorSacado = conta.saque(BigDecimal.ONE);
+
+            Assertions.assertEquals(BigDecimal.ONE, valorSacado);
+        }
+
+        @Test
+        void deve_Subtrair_Valor_Sacado() {
+            var saldoDescontado = BigDecimal.valueOf(9);
+
+            var conta = new ContaBancaria(BigDecimal.TEN);
+            conta.saque(BigDecimal.ONE);
+
+            Assertions.assertEquals(saldoDescontado, conta.saldo());
+        }
+
+        @Test
+        void deve_Lancar_Illegal_Argument_Exception_Ao_Sacar_Com_Valor_Inválido() {
+            var valorNegativoInvalido = BigDecimal.valueOf(-5);
+
+            var conta = new ContaBancaria(BigDecimal.TEN);
+            Assertions.assertThrows(IllegalArgumentException.class, () -> conta.saque(null));
+            Assertions.assertThrows(IllegalArgumentException.class, () -> conta.saque(BigDecimal.ZERO));
+            Assertions.assertThrows(IllegalArgumentException.class, () -> conta.saque(valorNegativoInvalido));
+        }
+
+        @Test
+        void deveLancarRuntimeExceptionAoSacarComSaldoInsuficiente() {
+
+            var conta = new ContaBancaria(BigDecimal.ONE);
+            Assertions.assertThrows(RuntimeException.class, () -> conta.saque(BigDecimal.TEN));
+        }
     }
 
-    @Test
-    void deve_Retornar_O_Valor_Sacado() {
+    @Nested
+    class Deposito {
+        @Test
+        void dadoValorPositivo_QuandoDepositar_EntaoRetornarSaldoAtual() {
+            var saldoInicial = BigDecimal.ONE;
+            var valorPositivo = BigDecimal.TEN;
 
-        var conta = new ContaBancaria(BigDecimal.TEN);
-        var valorSacado = conta.saque(BigDecimal.ONE);
+            var conta = new ContaBancaria(saldoInicial);
+            conta.deposito(valorPositivo);
 
-        Assertions.assertEquals(BigDecimal.ONE, valorSacado);
-    }
+            var saldoAtual = saldoInicial.add(valorPositivo);
 
-    @Test
-    void deve_Subtrair_Valor_Sacado() {
-        var saldoDescontado = 9;
+            Assertions.assertEquals(saldoAtual, conta.saldo());
+        }
 
-        var conta = new ContaBancaria(BigDecimal.TEN);
-        conta.saque(BigDecimal.ONE);
+        @Test
+        void dadoValorNulo_QuandoDepositar_EntaoLancarIllegalArgumentException() {
+            var saldoInicial = BigDecimal.ONE;
 
-        Assertions.assertEquals(BigDecimal.valueOf(saldoDescontado), conta.saldo());
-    }
+            var conta = new ContaBancaria(saldoInicial);
 
-    @Test
-    void deve_Lancar_Illegal_Argument_Exception_Ao_Sacar_Com_Valor_Inválido() {
-        var valorNegativoInvalido = -5;
+            Executable acao = () -> conta.deposito(null);
 
-        var conta = new ContaBancaria(BigDecimal.TEN);
-        Assertions.assertThrows(IllegalArgumentException.class, () -> conta.saque(null));
-        Assertions.assertThrows(IllegalArgumentException.class, () -> conta.saque(BigDecimal.ZERO));
-        Assertions.assertThrows(IllegalArgumentException.class, () -> conta.saque(BigDecimal.valueOf(valorNegativoInvalido)));
-    }
+            Assertions.assertThrows(IllegalArgumentException.class, acao);
+        }
 
-    @Test
-    void deveLancarRuntimeExceptionAoSacarComSaldoInsuficiente() {
+        @Test
+        void dadoValorZerado_QuandoDepositar_EntaoLancarIllegalArgumentException() {
+            var saldoInicial = BigDecimal.ONE;
+            var valorZerado = BigDecimal.ZERO;
 
-        var conta = new ContaBancaria(BigDecimal.ONE);
-        Assertions.assertThrows(RuntimeException.class, () -> conta.saque(BigDecimal.TEN));
+            var conta = new ContaBancaria(saldoInicial);
+
+            Executable acao = () -> conta.deposito(valorZerado);
+
+            Assertions.assertThrows(IllegalArgumentException.class, acao);
+        }
+
+        @Test
+        void dadoValorNegativo_QuandoDepositar_EntaoLancarIllegalArgumentException() {
+            var saldoInicial = BigDecimal.ONE;
+            var valorNegativo = BigDecimal.valueOf(-5);
+
+            var conta = new ContaBancaria(saldoInicial);
+
+            Executable acao = () -> conta.deposito(valorNegativo);
+
+            Assertions.assertThrows(IllegalArgumentException.class, acao);
+        }
     }
 }
 
