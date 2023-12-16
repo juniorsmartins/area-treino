@@ -72,7 +72,8 @@ class SaudacaoUtilTest {
     }
 
     @Test
-    void deveLancarException() {
+    @DisplayName("Exceção por Horário Negativo")
+    void dadoUmHorarioNegativo_QuandoSaudar_EntaoLancarIllegalArgumentException() {
         var horaNegativaInvalida = -10;
 
         Executable executavel = () -> SaudacaoUtil.saudar(horaNegativaInvalida);
@@ -82,7 +83,8 @@ class SaudacaoUtilTest {
     }
 
     @Test
-    void naoDeveLancarExcecao() {
+    @DisplayName("Nao Lançar Exceção com Horário Zerado")
+    void dadoUmHorarioZerado_QuandoSaudar_EntaoNaoDeveLancarExcecao() {
         var horaValida = 0;
         Executable acaoExecutavel = () -> SaudacaoUtil.saudar(horaValida);
         Assertions.assertDoesNotThrow(acaoExecutavel);
