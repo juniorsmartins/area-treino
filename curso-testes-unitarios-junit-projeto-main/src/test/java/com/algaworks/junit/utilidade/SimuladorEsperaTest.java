@@ -6,8 +6,6 @@ import org.junit.jupiter.api.Test;
 
 import java.time.Duration;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 @DisplayName("Testes de Simulação de Espera")
 class SimuladorEsperaTest {
 

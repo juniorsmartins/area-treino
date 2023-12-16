@@ -41,7 +41,8 @@ class ContaBancariaBddTest {
         @Test
         @DisplayName("Lançar Exceção ao Criar Conta com Saldo Nulo.")
         void dadoValorNulo_QuandoCriarContaBancaria_EntaoRetornarIllegalArgumentException() {
-            Assertions.assertThrows(IllegalArgumentException.class, () -> new ContaBancaria(null));
+            Executable acao = () -> new ContaBancaria(null);
+            Assertions.assertThrows(IllegalArgumentException.class, acao);
         }
     }
 
