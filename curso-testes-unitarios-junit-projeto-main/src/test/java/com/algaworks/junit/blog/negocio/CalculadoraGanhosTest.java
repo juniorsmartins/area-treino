@@ -45,26 +45,57 @@ class CalculadoraGanhosTest {
         System.out.println("Executa uma vez depois de cada teste.");
     }
 
-    @Test
-    @DisplayName("Calcular Valor, com bônus, por Palavra, por Texto e total")
-    void dadoValoresValidos_QuandoCalcularGanhosComBonusDeDez_EntaoRetornarValorPorPalavraAndTextoAndTotal() {
-        Ganhos ganhos = calculadora.calcular(post);
+    @Nested
+    class CalcularComBonus {
 
-        Assertions.assertEquals(BigDecimal.valueOf(45), ganhos.getTotalGanho());
-        Assertions.assertEquals(7, ganhos.getQuantidadePalavras());
-        Assertions.assertEquals(autor.getValorPagoPorPalavra(), ganhos.getValorPagoPorPalavra());
+        @Test
+        @DisplayName("Calcular Valor Total, com bônus.")
+        void dadoValorValido_QuandoCalcularGanhoComBonus_EntaoRetornarValorTotal() {
+            Ganhos ganhos = calculadora.calcular(post);
+            Assertions.assertEquals(BigDecimal.valueOf(45), ganhos.getTotalGanho());
+        }
+
+        @Test
+        @DisplayName("Calcular Valor por Palavra, com bônus.")
+        void dadoValorValido_QuandoCalcularGanhoComBonus_EntaoRetornarValorPorPalavra() {
+            Ganhos ganhos = calculadora.calcular(post);
+            Assertions.assertEquals(autor.getValorPagoPorPalavra(), ganhos.getValorPagoPorPalavra());
+        }
+
+        @Test
+        @DisplayName("Calcular Quantidade de Palavras")
+        void dadoValorValido_QuandoCalcularGanhoComBonus_EntaoRetornarQuantidadeDePalavras() {
+            Ganhos ganhos = calculadora.calcular(post);
+            Assertions.assertEquals(7, ganhos.getQuantidadePalavras());
+        }
     }
 
-    @Test
-    @DisplayName("Calcular Valor, sem bônus, por Palavra, por Texto e total")
-    void dadoValoresValidos_QuandoCalcularGanhosSemBonus_EntaoRetornarValorPorPalavraAndTextoAndTotal() {
-        autor.setPremium(false);
+    @Nested
+    class CalcularSemBonus {
 
-        Ganhos ganhos = calculadora.calcular(post);
+        @Test
+        @DisplayName("Calcular Valor Total, sem bônus.")
+        void dadoValorValido_QuandoCalcularGanhoSemBonus_EntaoRetornarValorTotal() {
+            autor.setPremium(false);
+            Ganhos ganhos = calculadora.calcular(post);
+            Assertions.assertEquals(BigDecimal.valueOf(35), ganhos.getTotalGanho());
+        }
 
-        Assertions.assertEquals(BigDecimal.valueOf(35), ganhos.getTotalGanho());
-        Assertions.assertEquals(7, ganhos.getQuantidadePalavras());
-        Assertions.assertEquals(autor.getValorPagoPorPalavra(), ganhos.getValorPagoPorPalavra());
+        @Test
+        @DisplayName("Calcular Valor Por Palavra, sem bônus.")
+        void dadoValorValido_QuandoCalcularGanhoSemBonus_EntaoRetornarValorPorPalavra() {
+            autor.setPremium(false);
+            Ganhos ganhos = calculadora.calcular(post);
+            Assertions.assertEquals(autor.getValorPagoPorPalavra(), ganhos.getValorPagoPorPalavra());
+        }
+
+        @Test
+        @DisplayName("Calcular Quantidade de Palavras.")
+        void dadoValorValido_QuandoCalcularGanhoSemBonus_EntaoRetornarQuantidadeDePalavras() {
+            autor.setPremium(false);
+            Ganhos ganhos = calculadora.calcular(post);
+            Assertions.assertEquals(7, ganhos.getQuantidadePalavras());
+        }
     }
 }
 
