@@ -1,10 +1,12 @@
 package com.algaworks.junit.utilidade;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@DisplayName("Testes de Pessoa")
 class PessoaTest {
 
     @Test
