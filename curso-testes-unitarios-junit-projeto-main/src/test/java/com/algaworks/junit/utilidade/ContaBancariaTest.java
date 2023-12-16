@@ -1,16 +1,16 @@
 package com.algaworks.junit.utilidade;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import java.math.BigDecimal;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 class ContaBancariaTest {
 
     @Test
-    void deveRetornarContaBancariaQuandoCriarComValorValido() {
+    void deve_Retornar_Conta_Bancaria_Quando_Criar_Com_Valor_Valido() {
         var valorNegativoInvalido = -10;
 
         var conta = new ContaBancaria(BigDecimal.ZERO);
@@ -24,13 +24,13 @@ class ContaBancariaTest {
     }
 
     @Test
-    void deveLancarIllegalExceptionAoCriarComValorNulo() {
+    void deve_Lancar_Illegal_Exception_Ao_Criar_Com_Valor_Nulo() {
 
         Assertions.assertThrows(IllegalArgumentException.class, () -> new ContaBancaria(null));
     }
 
     @Test
-    void deveRetornarOValorSacado() {
+    void deve_Retornar_O_Valor_Sacado() {
 
         var conta = new ContaBancaria(BigDecimal.TEN);
         var valorSacado = conta.saque(BigDecimal.ONE);
@@ -39,7 +39,7 @@ class ContaBancariaTest {
     }
 
     @Test
-    void deveSubtrairValorSacado() {
+    void deve_Subtrair_Valor_Sacado() {
         var saldoDescontado = 9;
 
         var conta = new ContaBancaria(BigDecimal.TEN);
@@ -49,7 +49,7 @@ class ContaBancariaTest {
     }
 
     @Test
-    void deveLancarIllegalArgumentExceptionAoSacarComValorInválido() {
+    void deve_Lancar_Illegal_Argument_Exception_Ao_Sacar_Com_Valor_Inválido() {
         var valorNegativoInvalido = -5;
 
         var conta = new ContaBancaria(BigDecimal.TEN);

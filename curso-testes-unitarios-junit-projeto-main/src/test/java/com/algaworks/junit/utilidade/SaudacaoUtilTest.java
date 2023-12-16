@@ -1,14 +1,12 @@
 package com.algaworks.junit.utilidade;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Assumptions;
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
 import org.junit.jupiter.api.function.Executable;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@DisplayName("Testes de Saudações")
 class SaudacaoUtilTest {
 
     public static final String SAUDACAO_BOM_DIA = "Bom dia";
@@ -16,50 +14,58 @@ class SaudacaoUtilTest {
     public static final String SAUDACAO_BOA_NOITE = "Boa noite";
     public static final String SAUDACAO_INCORRETA = "Saudação Incorreta!";
 
+    // Princípio First
     @Test
-    void saudar() {
-        var horaBomDia = 9;
+    @DisplayName("Deve saudar com Bom Dia")
+    void dadoUmHorario_QuandoSaudar_EntaoRetornarBomDia() { // Nomenclatura BDD
+        var horaBomDia = 9; // Padrão Triple A
         String saudacao = SaudacaoUtil.saudar(horaBomDia);
         Assertions.assertEquals(SAUDACAO_BOM_DIA, saudacao, SAUDACAO_INCORRETA);
     }
 
     @Test
-    void deveTestarLimitesMinimoDaCondicaoBomDia() {
+    @DisplayName("Limite Mínimo de Bom Dia!")
+    void dadoUmHorarioLimiteInferior_QuandoSaudar_EntaoRetornarBomDia() {
         var horaLimiteInferior = 0;
         String saudacao = SaudacaoUtil.saudar(horaLimiteInferior);
         Assertions.assertEquals(SAUDACAO_BOM_DIA, saudacao, SAUDACAO_INCORRETA);
     }
 
     @Test
-    void deveTestarLimitesMaximoDaCondicaoBomDia() {
+    @DisplayName("Limite Máximo de Bom Dia!")
+    void dadoUmHorarioLimiteMaximo_QuandoSaudar_EntaoRetornarBomDia() {
         var horaLimiteSuperior = 11;
         var saudacao = SaudacaoUtil.saudar(horaLimiteSuperior);
         Assertions.assertEquals(SAUDACAO_BOM_DIA, saudacao, SAUDACAO_INCORRETA);
     }
 
     @Test
-    void deveTestarLimitesMinimoDaCondicaoBoaTarde() {
+    @DisplayName("Limite Mínimo de Boa Tarde!")
+    void dadoUmHorarioLimiteMinimo_QuandoSaudar_EntaoRetornarBoaTarde() {
         var horaLimiteInferior = 12;
         String saudacao = SaudacaoUtil.saudar(horaLimiteInferior);
         Assertions.assertEquals(SAUDACAO_BOA_TARDE, saudacao, SAUDACAO_INCORRETA);
     }
 
     @Test
-    void deveTestarLimitesMaximoDaCondicaoBoaTarde() {
+    @DisplayName("Limite Máximo de Boa Tarde!")
+    void dadoUmHorarioLimiteMaximo_QuandoSaudar_EntaoRetornarBoaTarde() {
         var horaLimiteSuperior = 17;
         var saudacao = SaudacaoUtil.saudar(horaLimiteSuperior);
         Assertions.assertEquals(SAUDACAO_BOA_TARDE, saudacao, SAUDACAO_INCORRETA);
     }
 
     @Test
-    void deveTestarLimitesMinimoDaCondicaoBoaNoite() {
+    @DisplayName("Limite Mínimo de Boa Noite!")
+    void dadoUmHorarioMininmo_QuandoSaudar_EntaoRetornarBoaNoite() {
         var horaLimiteInferior = 18;
         String saudacao = SaudacaoUtil.saudar(horaLimiteInferior);
         Assertions.assertEquals(SAUDACAO_BOA_NOITE, saudacao, SAUDACAO_INCORRETA);
     }
 
     @Test
-    void deveTestarLimitesMaximoDaCondicaoBoaNoite() {
+    @DisplayName("Limite Máximo de Boa Noite!")
+    void dadoUmHorarioLimiteMaximo_QuandoSaudar_EntaoRetornarBoaNoite() {
         var horaLimiteSuperior = 23;
         var saudacao = SaudacaoUtil.saudar(horaLimiteSuperior);
         Assertions.assertEquals(SAUDACAO_BOA_NOITE, saudacao, SAUDACAO_INCORRETA);

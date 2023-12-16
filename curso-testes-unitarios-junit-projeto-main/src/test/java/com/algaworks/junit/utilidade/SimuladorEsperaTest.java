@@ -1,12 +1,14 @@
 package com.algaworks.junit.utilidade;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.time.Duration;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@DisplayName("Testes de Simulação de Espera")
 class SimuladorEsperaTest {
 
     @Test
