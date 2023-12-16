@@ -11,6 +11,7 @@ class ContaBancariaTest {
 
     @Test
     void deveRetornarContaBancariaQuandoCriarComValorValido() {
+        var valorNegativoInvalido = -10;
 
         var conta = new ContaBancaria(BigDecimal.ZERO);
         Assertions.assertTrue(conta.saldo().equals(BigDecimal.ZERO));
@@ -18,8 +19,8 @@ class ContaBancariaTest {
         conta = new ContaBancaria(BigDecimal.TEN);
         Assertions.assertTrue(conta.saldo().equals(BigDecimal.TEN));
 
-        conta = new ContaBancaria(BigDecimal.valueOf(-10));
-        Assertions.assertTrue(conta.saldo().equals(BigDecimal.valueOf(-10)));
+        conta = new ContaBancaria(BigDecimal.valueOf(valorNegativoInvalido));
+        Assertions.assertTrue(conta.saldo().equals(BigDecimal.valueOf(valorNegativoInvalido)));
     }
 
     @Test
@@ -39,20 +40,22 @@ class ContaBancariaTest {
 
     @Test
     void deveSubtrairValorSacado() {
+        var saldoDescontado = 9;
 
         var conta = new ContaBancaria(BigDecimal.TEN);
         conta.saque(BigDecimal.ONE);
 
-        Assertions.assertEquals(BigDecimal.valueOf(9), conta.saldo());
+        Assertions.assertEquals(BigDecimal.valueOf(saldoDescontado), conta.saldo());
     }
 
     @Test
     void deveLancarIllegalArgumentExceptionAoSacarComValorInválido() {
+        var valorNegativoInvalido = -5;
 
         var conta = new ContaBancaria(BigDecimal.TEN);
         Assertions.assertThrows(IllegalArgumentException.class, () -> conta.saque(null));
         Assertions.assertThrows(IllegalArgumentException.class, () -> conta.saque(BigDecimal.ZERO));
-        Assertions.assertThrows(IllegalArgumentException.class, () -> conta.saque(BigDecimal.valueOf(-5)));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> conta.saque(BigDecimal.valueOf(valorNegativoInvalido)));
     }
 
     @Test

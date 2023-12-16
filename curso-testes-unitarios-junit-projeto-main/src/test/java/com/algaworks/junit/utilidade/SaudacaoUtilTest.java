@@ -5,59 +5,68 @@ import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
+import org.junit.jupiter.api.function.Executable;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class SaudacaoUtilTest {
 
+    public static final String SAUDACAO_INCORRETA = "Saudação Incorreta!";
+
     @Test
     void saudar() {
-
-        String saudacao = SaudacaoUtil.saudar(9);
-
-        Assertions.assertEquals("Bom dia", saudacao, "Saudação Incorreta!");
+        var saudacaoBomDia = "Bom dia";
+        var horaBomDia = 9;
+        String saudacao = SaudacaoUtil.saudar(horaBomDia);
+        Assertions.assertEquals(saudacaoBomDia, saudacao, SAUDACAO_INCORRETA);
     }
 
     @Test
     void deveTestarLimitesMinimoAndMaximoDaCondicaoBomDia() {
+        var saudacaoCorreta = "Bom dia";
 
-        String saudacao = SaudacaoUtil.saudar(0);
+        var horaLimiteInferior = 0;
+        String saudacao = SaudacaoUtil.saudar(horaLimiteInferior);
+        Assertions.assertEquals(saudacaoCorreta, saudacao, SAUDACAO_INCORRETA);
 
-        Assertions.assertEquals("Bom dia", saudacao, "Saudação Incorreta!");
-
-        saudacao = SaudacaoUtil.saudar(11);
-
-        Assertions.assertEquals("Bom dia", saudacao, "Saudação Incorreta!");
+        var horaLimiteSuperior = 11;
+        saudacao = SaudacaoUtil.saudar(horaLimiteSuperior);
+        Assertions.assertEquals(saudacaoCorreta, saudacao, SAUDACAO_INCORRETA);
     }
 
     @Test
     void deveTestarLimitesMinimoAndMaximoDaCondicaoBoaTarde() {
+        var saudacaoCorreta = "Boa tarde";
 
-        String saudacao = SaudacaoUtil.saudar(12);
+        var horaLimiteInferior = 12;
+        String saudacao = SaudacaoUtil.saudar(horaLimiteInferior);
+        Assertions.assertEquals(saudacaoCorreta, saudacao, SAUDACAO_INCORRETA);
 
-        Assertions.assertEquals("Boa tarde", saudacao, "Saudação Incorreta!");
-
-        saudacao = SaudacaoUtil.saudar(17);
-
-        Assertions.assertEquals("Boa tarde", saudacao, "Saudação Incorreta!");
+        var horaLimiteSuperior = 17;
+        saudacao = SaudacaoUtil.saudar(horaLimiteSuperior);
+        Assertions.assertEquals(saudacaoCorreta, saudacao, SAUDACAO_INCORRETA);
     }
 
     @Test
     void deveTestarLimitesMinimoAndMaximoDaCondicaoBoaNoite() {
+        var saudacaoCorreta = "Boa noite";
 
-        String saudacao = SaudacaoUtil.saudar(18);
+        var horaLimiteInferior = 18;
+        String saudacao = SaudacaoUtil.saudar(horaLimiteInferior);
+        Assertions.assertEquals(saudacaoCorreta, saudacao, SAUDACAO_INCORRETA);
 
-        Assertions.assertEquals("Boa noite", saudacao, "Saudação Incorreta!");
-
-        saudacao = SaudacaoUtil.saudar(23);
-
-        Assertions.assertEquals("Boa noite", saudacao, "Saudação Incorreta!");
+        var horaLimiteSuperior = 23;
+        saudacao = SaudacaoUtil.saudar(horaLimiteSuperior);
+        Assertions.assertEquals(saudacaoCorreta, saudacao, SAUDACAO_INCORRETA);
     }
 
     @Test
     void deveLancarException() {
+        var horaNegativaInvalida = -10;
 
-        IllegalArgumentException excecao = assertThrows(IllegalArgumentException.class, () -> SaudacaoUtil.saudar(-10));
+        Executable executavel = () -> SaudacaoUtil.saudar(horaNegativaInvalida);
+
+        IllegalArgumentException excecao = assertThrows(IllegalArgumentException.class, executavel);
         Assertions.assertEquals("Hora inválida", excecao.getMessage());
     }
 
