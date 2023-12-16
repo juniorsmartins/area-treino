@@ -19,6 +19,42 @@ class SaudacaoUtilTest {
     }
 
     @Test
+    void deveTestarLimitesMinimoAndMaximoDaCondicaoBomDia() {
+
+        String saudacao = SaudacaoUtil.saudar(0);
+
+        Assertions.assertEquals("Bom dia", saudacao, "Saudação Incorreta!");
+
+        saudacao = SaudacaoUtil.saudar(11);
+
+        Assertions.assertEquals("Bom dia", saudacao, "Saudação Incorreta!");
+    }
+
+    @Test
+    void deveTestarLimitesMinimoAndMaximoDaCondicaoBoaTarde() {
+
+        String saudacao = SaudacaoUtil.saudar(12);
+
+        Assertions.assertEquals("Boa tarde", saudacao, "Saudação Incorreta!");
+
+        saudacao = SaudacaoUtil.saudar(17);
+
+        Assertions.assertEquals("Boa tarde", saudacao, "Saudação Incorreta!");
+    }
+
+    @Test
+    void deveTestarLimitesMinimoAndMaximoDaCondicaoBoaNoite() {
+
+        String saudacao = SaudacaoUtil.saudar(18);
+
+        Assertions.assertEquals("Boa noite", saudacao, "Saudação Incorreta!");
+
+        saudacao = SaudacaoUtil.saudar(23);
+
+        Assertions.assertEquals("Boa noite", saudacao, "Saudação Incorreta!");
+    }
+
+    @Test
     void deveLancarException() {
 
         IllegalArgumentException excecao = assertThrows(IllegalArgumentException.class, () -> SaudacaoUtil.saudar(-10));
