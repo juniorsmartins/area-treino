@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 class ContaBancariaBddTest {
 
     @Nested
-    @DisplayName("Testes de Saldo")
+    @DisplayName("Testes Saldo")
     class Saldo {
 
         private ContaBancaria conta;
@@ -47,7 +47,7 @@ class ContaBancariaBddTest {
     }
 
     @Nested
-    @DisplayName("Testes de Saque")
+    @DisplayName("Testes Saque")
     class Saque {
 
         private ContaBancaria conta;
@@ -104,7 +104,7 @@ class ContaBancariaBddTest {
     }
 
     @Nested
-    @DisplayName("Testes de Depósito")
+    @DisplayName("Testes Depósito")
     class Deposito {
 
         private ContaBancaria conta;
