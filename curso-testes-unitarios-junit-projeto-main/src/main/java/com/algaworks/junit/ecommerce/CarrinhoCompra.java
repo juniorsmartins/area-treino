@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 public class CarrinhoCompra {
 
@@ -24,7 +23,13 @@ public class CarrinhoCompra {
 
 	public List<ItemCarrinhoCompra> getItens() {
 		//TODO deve retornar uma nova lista para que a antiga não seja alterada
-		return null;
+
+		List<ItemCarrinhoCompra> listaCopiada = new ArrayList<>();
+
+		this.itens.forEach(item ->
+			listaCopiada.add(new ItemCarrinhoCompra(item.getProduto(), item.getQuantidade())));
+
+		return listaCopiada;
 	}
 
 	public Cliente getCliente() {
@@ -57,7 +62,11 @@ public class CarrinhoCompra {
 
     public BigDecimal getValorTotal() {
 		//TODO implementar soma do valor total de todos itens
-		return null;
+
+		return this.itens.stream()
+				.map(item -> item.getProduto().getValor()
+						.multiply(BigDecimal.valueOf(item.getQuantidade())))
+				.reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
 	public int getQuantidadeTotalDeProdutos() {

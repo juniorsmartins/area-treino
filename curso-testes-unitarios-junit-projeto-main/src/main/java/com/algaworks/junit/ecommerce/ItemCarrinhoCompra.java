@@ -37,7 +37,7 @@ public class ItemCarrinhoCompra {
         this.quantidade += quantidade;
     }
 
-    public void subtrairQuantidade(int quantidade) {
+    public void subtrairQuantidaxde(int quantidade) {
         if (quantidade <= 0) {
             throw new IllegalArgumentException();
         }
