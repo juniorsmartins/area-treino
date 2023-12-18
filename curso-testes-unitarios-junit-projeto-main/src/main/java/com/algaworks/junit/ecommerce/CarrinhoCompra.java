@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class CarrinhoCompra {
 
@@ -40,6 +41,26 @@ public class CarrinhoCompra {
 		//TODO parâmetros não podem ser nulos, deve retornar uma exception
 		//TODO quantidade não pode ser menor que 1
 		//TODO deve incrementar a quantidade caso o produto já exista
+		if (produto == null) {
+			throw new NullPointerException();
+		}
+
+		if (quantidade < 1) {
+			throw new RuntimeException();
+		}
+
+		AtomicBoolean operacaoNaoRealizada = new AtomicBoolean(true);
+		this.itens.forEach(item -> {
+			if (item.getProduto().equals(produto)) {
+				item.adicionarQuantidade(quantidade);
+				operacaoNaoRealizada.set(false);
+			}
+		});
+
+		if (operacaoNaoRealizada.get()) {
+			var novoItem = new ItemCarrinhoCompra(produto, quantidade);
+			this.itens.add(novoItem);
+		}
 	}
 
 	public void removerProduto(Produto produto) {
