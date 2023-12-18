@@ -43,7 +43,7 @@ class CarrinhoCompraTest {
 
         @Test
         @DisplayName("getTotalValor() - lista de dois itens com uma quantidade cada.")
-        void dadoGetTotalValor_QuandoConsultarListaComDoisItensComUmaQuantidadeCada_EntaoRetornarValorTotal() {
+        void dadoGetTotalValor_QuandoConsultarDoisItensComUmaQuantidadeCada_EntaoRetornar12100() {
             var carrinhoCompra = new CarrinhoCompra(cliente, List.of(item1, item2));
             var valorTotal = carrinhoCompra.getValorTotal();
             Assertions.assertEquals(BigDecimal.valueOf(12100), valorTotal);
@@ -51,11 +51,28 @@ class CarrinhoCompraTest {
 
         @Test
         @DisplayName("getTotalValor() - lista de dois itens com uma e três quantidades.")
-        void dadoGetValorTotal_QuandoConsultarValorTotalDosItens_EntaoRetornarBigDecimalComSomarDosPrecos() {
+        void dadoGetValorTotal_QuandoConsultarDoisItensComUmaAndTresQuantidades_EntaoRetornarBigDecimalCom12300() {
             item2.adicionarQuantidade(2); // Acrescentou dois mouses - agora são três por 100 reais cada
             var carrinhoCompra = new CarrinhoCompra(cliente, List.of(item1, item2));
             var valorTotal = carrinhoCompra.getValorTotal();
             Assertions.assertEquals(BigDecimal.valueOf(12300), valorTotal);
+        }
+
+        @Test
+        @DisplayName("getQuantidadeTotalDeProdutos() - lista de dois itens com uma quantidade cada.")
+        void dadoGetQuantidadeTotalDeProdutos_QuandoSomarDoisItensComUmaQuantidadeCada_EntaoRetornarDois() {
+            var carrinhoCompra = new CarrinhoCompra(cliente, List.of(item1, item2));
+            var quantidadeTotal = carrinhoCompra.getQuantidadeTotalDeProdutos();
+            Assertions.assertEquals(2, quantidadeTotal);
+        }
+
+        @Test
+        @DisplayName("getQuantidadeTotalDeProdutos() - lista de dois itens com uma e três quantidades.")
+        void dadoGetQuantidadeTotalDeProdutos_QuandoSomarDoisItensComUmaAndTresQuantidades_EntaoRetornarQuatro() {
+            item2.adicionarQuantidade(2);
+            var carrinhoCompra = new CarrinhoCompra(cliente, List.of(item1, item2));
+            var quantidadeTotal = carrinhoCompra.getQuantidadeTotalDeProdutos();
+            Assertions.assertEquals(4, quantidadeTotal);
         }
     }
 }

@@ -72,7 +72,10 @@ public class CarrinhoCompra {
 	public int getQuantidadeTotalDeProdutos() {
 		//TODO retorna quantidade total de itens no carrinho
 		//TODO Exemplo em um carrinho com 2 itens, com a quantidade 2 e 3 para cada item respectivamente, deve retornar 5
-		return 0;
+
+		return this.itens.stream()
+				.map(ItemCarrinhoCompra::getQuantidade)
+				.reduce(0, Integer::sum);
 	}
 
 	public void esvaziar() {
