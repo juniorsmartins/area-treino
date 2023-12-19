@@ -67,6 +67,15 @@ public class CarrinhoCompra {
 		//TODO parâmetro não pode ser nulo, deve retornar uma exception
 		//TODO caso o produto não exista, deve retornar uma exception
 		//TODO deve remover o produto independente da quantidade
+		if (produto == null) {
+			throw new NullPointerException();
+		}
+
+		this.itens.stream()
+				.filter(item -> item.getProduto().equals(produto))
+				.findFirst()
+				.map(itens::remove)
+				.orElseThrow(RuntimeException::new);
 	}
 
 	public void aumentarQuantidadeProduto(Produto produto) {

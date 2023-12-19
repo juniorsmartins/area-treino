@@ -9,6 +9,8 @@ import java.util.List;
 @DisplayName("Carrinho de Compras")
 class CarrinhoCompraTest {
 
+    private Produto produto2;
+
     private ItemCarrinhoCompra item2;
 
     private List<ItemCarrinhoCompra> listaOriginal;
@@ -19,7 +21,7 @@ class CarrinhoCompraTest {
     void criarCenarioGlobal() {
         var cliente  = new Cliente(1L, "Kent Beck");
         var produto1 = new Produto(1L, "Notebook", "Dell XPS-9320", BigDecimal.valueOf(12000));
-        var produto2 = new Produto(2L, "Mouse Optico", "Cor preta e sem fio", BigDecimal.valueOf(100));
+        produto2 = new Produto(2L, "Mouse Optico", "Cor preta e sem fio", BigDecimal.valueOf(100));
         var item1 = new ItemCarrinhoCompra(produto1, 1);
         item2 = new ItemCarrinhoCompra(produto2, 1);
         listaOriginal = List.of(item1, item2);
@@ -71,8 +73,8 @@ class CarrinhoCompraTest {
     }
 
     @Nested
-    @DisplayName("Métodos de Coleção")
-    class MetodosDeColecao {
+    @DisplayName("Método Adicionar")
+    class MetodoAdicionar {
 
         @Test
         @DisplayName("adicionarProduto - item novo")
@@ -120,6 +122,43 @@ class CarrinhoCompraTest {
         void dadoParametroQuantidadeNegativaInvalida_QuandoAdicionarProduto_EntaoLancarException() {
             var produto = new Produto(4L, "WebCam", "Cor cinza", BigDecimal.valueOf(1400));
             Executable acao = () -> carrinhoCompra.adicionarProduto(produto, -1);
+            Assertions.assertThrows(RuntimeException.class, acao);
+        }
+    }
+
+    @Nested
+    @DisplayName("Método Remover")
+    class MetodoRemover {
+
+        @Test
+        @DisplayName("removerProduto - subtrair produto de lista original.")
+        void dadoParametroProdutoValido_QuandoChamarRemoverEmListaComDoisProdutos_EntaoRetornarListaComUmProduto() {
+            carrinhoCompra.removerProduto(produto2);
+            var listaCopiada = carrinhoCompra.getItens();
+            Assertions.assertEquals(1, listaCopiada.size());
+        }
+
+        @Test
+        @DisplayName("removerProduto - subtrair produto da lista original, mesmo com muita quantidade.")
+        void dadoParametroProdutoValido_QuandoChamarRemoverEmListaComDoisProdutos_EntaoRetornarListaComUmProdutoMesmoComMuitaQuantidadeDaqueleProduto() {
+            item2.adicionarQuantidade(10);
+            carrinhoCompra.removerProduto(produto2);
+            var listaCopiada = carrinhoCompra.getItens();
+            Assertions.assertEquals(1, listaCopiada.size());
+        }
+
+        @Test
+        @DisplayName("removerProduto - lançar exceção por produto nulo.")
+        void dadoParametroProdutoNulo_QuandoChamarRemover_EntaoLancarNullPointerException() {
+            Executable acao = () -> carrinhoCompra.removerProduto(null);
+            Assertions.assertThrows(NullPointerException.class, acao);
+        }
+
+        @Test
+        @DisplayName("removerProduto - lançar exceção por produto inexistente na lista.")
+        void dadoParametroProdutoInexistenteNaLista_QuandoChamarRemoverEmListaComDoisProdutos_EntaoLancarRuntimeException() {
+            var produtoInexistente = new Produto(6L, "Teclado", "Modelo Gamer 1234", BigDecimal.valueOf(350));
+            Executable acao = () -> carrinhoCompra.removerProduto(produtoInexistente);
             Assertions.assertThrows(RuntimeException.class, acao);
         }
     }
