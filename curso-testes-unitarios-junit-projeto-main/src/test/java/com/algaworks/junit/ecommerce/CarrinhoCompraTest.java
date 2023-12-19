@@ -162,5 +162,33 @@ class CarrinhoCompraTest {
             Assertions.assertThrows(RuntimeException.class, acao);
         }
     }
+
+    @Nested
+    @DisplayName("Método AumentarQuantidadeProduto")
+    class AumentarQuantidadeProduto {
+
+        @Test
+        @DisplayName("aumentarQuantidadeProduto - aumentar quantidade de produto na lista.")
+        void dadoProdutoValido_QuandoAumentarQuantidadeDeProdutoExistente_EntaoRetornarListaComDoisItensMaisAcrescimoDeUmaQuantidade() {
+            carrinhoCompra.aumentarQuantidadeProduto(produto2);
+            var listaCopiada = carrinhoCompra.getItens();
+            Assertions.assertEquals(2, listaCopiada.get(1).getQuantidade());
+        }
+
+        @Test
+        @DisplayName("aumentarQuantidadeProduto - exception por produto nulo.")
+        void dadoProdutoNulo_QuandoAumentarQuantidadeDeProduto_EntaoLancarNullPointerException() {
+            Executable acao = () -> carrinhoCompra.aumentarQuantidadeProduto(null);
+            Assertions.assertThrows(NullPointerException.class, acao);
+        }
+
+        @Test
+        @DisplayName("aumentarQuantidadeProduto - exception por produto inexistente.")
+        void dadoProdutoInexistente_QuandoAumentarQuantidadeDeProduto_EntaoLancarRuntimeException() {
+            var produtoInexistente = new Produto(7L, "No-Break", "Modelo 24 horas", BigDecimal.valueOf(4350));
+            Executable acao = () -> carrinhoCompra.aumentarQuantidadeProduto(produtoInexistente);
+            Assertions.assertThrows(RuntimeException.class, acao);
+        }
+    }
 }
 
