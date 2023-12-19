@@ -5,9 +5,7 @@ import com.algaworks.junit.blog.modelo.Editor;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.function.Executable;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
+import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.math.BigDecimal;
@@ -15,6 +13,9 @@ import java.math.BigDecimal;
 @DisplayName("Cadastro Editor com Mock")
 @ExtendWith(MockitoExtension.class)
 class CadastroEditorComMockTest {
+
+    @Captor
+    private ArgumentCaptor<Mensagem> mensagemArgumentCaptor;
 
     @Mock
     private ArmazenamentoEditor armazenamentoEditor;
@@ -25,12 +26,11 @@ class CadastroEditorComMockTest {
     @InjectMocks
     private CadastroEditor cadastroEditor;
 
-    private Editor editor;
+    @Spy
+    private Editor editor = new Editor(null, "Kent Beck", "beck@email.com", BigDecimal.TEN, true);
 
     @BeforeEach
     void init() {
-        editor = new Editor(null, "Kent Beck", "beck@email.com", BigDecimal.TEN, true);
-
 //        Mockito.when(armazenamentoEditor.salvar(Mockito.any()))
 //                .thenReturn(new Editor(1L, "Kent Beck", "beck@email.com", BigDecimal.TEN, true));
 
@@ -66,12 +66,31 @@ class CadastroEditorComMockTest {
 
         @Test
         @Order(3)
-        @DisplayName("cadastrarEditor - lançar exceção e não enviar email.")
-        void dadoEditorValido_QuandoCriar_EntaoLancarExceptionAndNaoEnviarEmail() {
+        @DisplayName("cadastrarEditor - não enviar email quando lançar exception.")
+        void dadoEditorValido_QuandoCriarComExcecaoForcada_EntaoNaoEnviarEmailAoLancarException() {
             Mockito.when(armazenamentoEditor.salvar(editor)).thenThrow(new RuntimeException());
             Executable acao = () -> cadastroEditor.criar(editor);
             Assertions.assertThrows(RuntimeException.class, acao);
             Mockito.verify(gerenciadorEnvioEmail, Mockito.never()).enviarEmail(Mockito.any());
+        }
+
+        @Test
+        @Order(4)
+        @DisplayName("cadastrarEditor - enviar email para o editor.")
+        void dadoEditorValido_QuandoCriar_EntaoEnviarEmailComDestinoAoEditor() {
+            var editorSalvo = cadastroEditor.criar(editor);
+            Mockito.verify(gerenciadorEnvioEmail).enviarEmail(mensagemArgumentCaptor.capture());
+            var mensagemPassada = mensagemArgumentCaptor.getValue();
+            Assertions.assertEquals(editorSalvo.getEmail(), mensagemPassada.getDestinatario());
+        }
+
+        @Test
+        @Order(5)
+        @DisplayName("cadastrarEditor - verificar unicidade de email.")
+        void dadoEditorValido_QuandoCriar_EntaoVerificarSeEmailEhUnico() {
+//            var editorSpy = Mockito.spy(editor);
+            cadastroEditor.criar(editor);
+            Mockito.verify(editor, Mockito.atLeast(1)).getEmail(); // Verifica se foi chamado ao menos 1 vez
         }
     }
 }
