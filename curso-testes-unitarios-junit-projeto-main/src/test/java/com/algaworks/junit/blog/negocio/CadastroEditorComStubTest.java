@@ -7,8 +7,8 @@ import org.junit.jupiter.api.function.Executable;
 
 import java.math.BigDecimal;
 
-@DisplayName("Cadastro de Editor")
-class CadastroEditorTest {
+@DisplayName("Cadastro de Editor com Stub")
+class CadastroEditorComStubTest {
 
     private CadastroEditor cadastroEditor;
 
