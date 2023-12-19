@@ -1,6 +1,7 @@
 package com.algaworks.junit.blog.negocio;
 
 import com.algaworks.junit.blog.armazenamento.ArmazenamentoEditor;
+import com.algaworks.junit.blog.exception.RegraNegocioException;
 import com.algaworks.junit.blog.modelo.Editor;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -9,6 +10,7 @@ import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.math.BigDecimal;
+import java.util.Optional;
 
 @DisplayName("Cadastro Editor com Mock")
 @ExtendWith(MockitoExtension.class)
@@ -91,6 +93,30 @@ class CadastroEditorComMockTest {
 //            var editorSpy = Mockito.spy(editor);
             cadastroEditor.criar(editor);
             Mockito.verify(editor, Mockito.atLeast(1)).getEmail(); // Verifica se foi chamado ao menos 1 vez
+        }
+
+        @Test
+        @Order(6)
+        @DisplayName("cadastrarEditor - garantir retorno para duas ações de criar e lançar exception na segunda.")
+        void dadoEditorComEmailExistente_QuandoCriar_EntaoLancarException() {
+            Mockito.when(armazenamentoEditor.encontrarPorEmail("beck@email.com"))
+                    .thenReturn(Optional.empty())
+                    .thenReturn(Optional.of(editor));
+
+            var editorComEmailExistente = new Editor(null, "Kent Beck", "beck@email.com", BigDecimal.TEN, true);
+            cadastroEditor.criar(editor);
+            Executable acao = () -> cadastroEditor.criar(editorComEmailExistente);
+            Assertions.assertThrows(RegraNegocioException.class, acao);
+        }
+
+        @Test
+        @Order(7)
+        @DisplayName("cadastrarEditor - enviar email apenas após salvar (garantir ordem dos métodos).")
+        void dadoEditorValido_QuandoCriar_EntaoVerificarEnvioDeEmailPosteriorAoSalvar() {
+            cadastroEditor.criar(editor);
+            var inOrder = Mockito.inOrder(armazenamentoEditor, gerenciadorEnvioEmail);
+            inOrder.verify(armazenamentoEditor, Mockito.times(1)).salvar(editor);
+            inOrder.verify(gerenciadorEnvioEmail, Mockito.times(1)).enviarEmail(Mockito.any());
         }
     }
 }
