@@ -138,6 +138,7 @@ public class CarrinhoCompra {
 
 	public void esvaziar() {
 		//TODO deve remover todos os itens
+		this.itens.clear();
 	}
 
 	@Override

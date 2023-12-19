@@ -229,5 +229,18 @@ class CarrinhoCompraTest {
             Assertions.assertThrows(RuntimeException.class, acao);
         }
     }
+
+    @Nested
+    @DisplayName("Método Esvaziar")
+    class MetodoEsvaziar {
+
+        @Test
+        @DisplayName("esvaziar - remover todos os itens da lista.")
+        void dadoPedidoParaEsvaziar_QuandoHouverListaComDoisItens_EntaoRetornarListaVazia() {
+            carrinhoCompra.esvaziar();
+            var listaCopiada = carrinhoCompra.getItens();
+            Assertions.assertTrue(listaCopiada.isEmpty());
+        }
+    }
 }
 
