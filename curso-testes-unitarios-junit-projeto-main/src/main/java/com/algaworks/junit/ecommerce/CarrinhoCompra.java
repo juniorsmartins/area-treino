@@ -41,9 +41,7 @@ public class CarrinhoCompra {
 		//TODO parâmetros não podem ser nulos, deve retornar uma exception
 		//TODO quantidade não pode ser menor que 1
 		//TODO deve incrementar a quantidade caso o produto já exista
-		if (produto == null) {
-			throw new NullPointerException();
-		}
+		Objects.requireNonNull(produto);
 
 		if (quantidade < 1) {
 			throw new RuntimeException();
@@ -67,9 +65,7 @@ public class CarrinhoCompra {
 		//TODO parâmetro não pode ser nulo, deve retornar uma exception
 		//TODO caso o produto não exista, deve retornar uma exception
 		//TODO deve remover o produto independente da quantidade
-		if (produto == null) {
-			throw new NullPointerException();
-		}
+		Objects.requireNonNull(produto);
 
 		this.itens.stream()
 				.filter(item -> item.getProduto().equals(produto))
@@ -82,9 +78,7 @@ public class CarrinhoCompra {
 		//TODO parâmetro não pode ser nulo, deve retornar uma exception
 		//TODO caso o produto não exista, deve retornar uma exception
 		//TODO deve aumentar em um quantidade do produto
-		if (produto == null) {
-			throw new NullPointerException();
-		}
+		Objects.requireNonNull(produto);
 
 		this.itens.stream()
 				.filter(item -> item.getProduto().equals(produto))
@@ -100,9 +94,7 @@ public class CarrinhoCompra {
 		//TODO parâmetro não pode ser nulo, deve retornar uma exception
 		//TODO caso o produto não exista, deve retornar uma exception
 		//TODO deve diminuir em um quantidade do produto, caso tenha apenas um produto, deve remover da lista
-		if (produto == null) {
-			throw new NullPointerException();
-		}
+		Objects.requireNonNull(produto);
 
 		this.itens.stream()
 				.filter(item -> item.getProduto().equals(produto))
