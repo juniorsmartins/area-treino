@@ -100,6 +100,22 @@ public class CarrinhoCompra {
 		//TODO parâmetro não pode ser nulo, deve retornar uma exception
 		//TODO caso o produto não exista, deve retornar uma exception
 		//TODO deve diminuir em um quantidade do produto, caso tenha apenas um produto, deve remover da lista
+		if (produto == null) {
+			throw new NullPointerException();
+		}
+
+		this.itens.stream()
+				.filter(item -> item.getProduto().equals(produto))
+				.findFirst()
+				.map(item -> {
+					if (item.getQuantidade() > 1) {
+						item.subtrairQuantidade(1);
+					} else {
+						itens.remove(item);
+					}
+					return itens;
+				})
+				.orElseThrow(RuntimeException::new);
 	}
 
     public BigDecimal getValorTotal() {

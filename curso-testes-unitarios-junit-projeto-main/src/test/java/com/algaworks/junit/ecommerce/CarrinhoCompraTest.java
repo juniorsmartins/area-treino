@@ -190,5 +190,44 @@ class CarrinhoCompraTest {
             Assertions.assertThrows(RuntimeException.class, acao);
         }
     }
+
+    @Nested
+    @DisplayName("Método DiminuirQuantidadeProduto")
+    class DiminuirQuantidadeProduto {
+
+        @Test
+        @DisplayName("diminuirQuantidadeProduto - diminuir item da lista.")
+        void dadoProdutoValido_QuandoDiminuirQuantidadeDoProdutoComUmItem_EntaoRetornarListaComUmItem() {
+            carrinhoCompra.diminuirQuantidadeProduto(produto2);
+            var listaCopiada = carrinhoCompra.getItens();
+            Assertions.assertEquals(1, listaCopiada.size());
+        }
+
+        @Test
+        @DisplayName("diminuirQuantidadeProduto - diminuir quantidade do item da lista.")
+        void dadoProdutoValido_QuandoDiminuirQuantidadeDoProdutoComDoisItens_EntaoRetornarListaComDoisItensMasQuantidadeUm() {
+            item2.adicionarQuantidade(1);
+            carrinhoCompra.diminuirQuantidadeProduto(produto2);
+            var listaCopiada = carrinhoCompra.getItens();
+            Assertions.assertEquals(2, listaCopiada.size());
+            Assertions.assertEquals(1, listaCopiada.get(0).getQuantidade());
+            Assertions.assertEquals(1, listaCopiada.get(1).getQuantidade());
+        }
+
+        @Test
+        @DisplayName("diminuirQuantidadeProduto - lançar exceção por produto nulo.")
+        void dadoProdutoNulo_QuandoDininuirQuantidadeDoProduto_EntaoLancarNullPointerException() {
+            Executable acao = () -> carrinhoCompra.diminuirQuantidadeProduto(null);
+            Assertions.assertThrows(NullPointerException.class, acao);
+        }
+
+        @Test
+        @DisplayName("diminuirQuantidadeProduto - lançar exceção por produto inexistente.")
+        void dadoProdutoInexistente_QuandoDiminuirQuantidadeDoProduto_EntaoLancarRuntimeException() {
+            var produtoInexistente = new Produto(8L, "Filtro", "Modelo com três fusis", BigDecimal.valueOf(450));
+            Executable acao = () -> carrinhoCompra.diminuirQuantidadeProduto(produtoInexistente);
+            Assertions.assertThrows(RuntimeException.class, acao);
+        }
+    }
 }
 
