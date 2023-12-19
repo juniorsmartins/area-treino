@@ -44,30 +44,16 @@ public class Produto {
 		}
 	}
 
-//	@Override
-//	public boolean equals(Object o) {
-//		if (this == o) return true;
-//		if (o == null || getClass() != o.getClass()) return false;
-//		Produto produto = (Produto) o;
-//		return Objects.equals(id, produto.id) && Objects.equals(nome, produto.nome) && Objects.equals(descricao, produto.descricao) && Objects.equals(valor, produto.valor);
-//	}
-
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
 		Produto produto = (Produto) o;
-		return Objects.equals(getId(), produto.getId());
+		return Objects.equals(id, produto.id) && Objects.equals(nome, produto.nome) && Objects.equals(descricao, produto.descricao) && Objects.equals(valor, produto.valor);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(getId());
+		return Objects.hash(id, nome, descricao, valor);
 	}
-
-
-//	@Override
-//	public int hashCode() {
-//		return Objects.hash(id, nome, descricao, valor);
-//	}
 }
