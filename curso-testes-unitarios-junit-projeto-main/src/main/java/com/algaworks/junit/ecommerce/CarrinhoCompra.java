@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class CarrinhoCompra {
 
@@ -40,24 +41,81 @@ public class CarrinhoCompra {
 		//TODO parâmetros não podem ser nulos, deve retornar uma exception
 		//TODO quantidade não pode ser menor que 1
 		//TODO deve incrementar a quantidade caso o produto já exista
+		if (produto == null) {
+			throw new NullPointerException();
+		}
+
+		if (quantidade < 1) {
+			throw new RuntimeException();
+		}
+
+		AtomicBoolean operacaoNaoRealizada = new AtomicBoolean(true);
+		this.itens.forEach(item -> {
+			if (item.getProduto().equals(produto)) {
+				item.adicionarQuantidade(quantidade);
+				operacaoNaoRealizada.set(false);
+			}
+		});
+
+		if (operacaoNaoRealizada.get()) {
+			var novoItem = new ItemCarrinhoCompra(produto, quantidade);
+			this.itens.add(novoItem);
+		}
 	}
 
 	public void removerProduto(Produto produto) {
 		//TODO parâmetro não pode ser nulo, deve retornar uma exception
 		//TODO caso o produto não exista, deve retornar uma exception
 		//TODO deve remover o produto independente da quantidade
+		if (produto == null) {
+			throw new NullPointerException();
+		}
+
+		this.itens.stream()
+				.filter(item -> item.getProduto().equals(produto))
+				.findFirst()
+				.map(itens::remove)
+				.orElseThrow(RuntimeException::new);
 	}
 
 	public void aumentarQuantidadeProduto(Produto produto) {
 		//TODO parâmetro não pode ser nulo, deve retornar uma exception
 		//TODO caso o produto não exista, deve retornar uma exception
 		//TODO deve aumentar em um quantidade do produto
+		if (produto == null) {
+			throw new NullPointerException();
+		}
+
+		this.itens.stream()
+				.filter(item -> item.getProduto().equals(produto))
+				.findFirst()
+				.map(item -> {
+					item.adicionarQuantidade(1);
+					return item;
+				})
+				.orElseThrow(RuntimeException::new);
 	}
 
     public void diminuirQuantidadeProduto(Produto produto) {
 		//TODO parâmetro não pode ser nulo, deve retornar uma exception
 		//TODO caso o produto não exista, deve retornar uma exception
 		//TODO deve diminuir em um quantidade do produto, caso tenha apenas um produto, deve remover da lista
+		if (produto == null) {
+			throw new NullPointerException();
+		}
+
+		this.itens.stream()
+				.filter(item -> item.getProduto().equals(produto))
+				.findFirst()
+				.map(item -> {
+					if (item.getQuantidade() > 1) {
+						item.subtrairQuantidade(1);
+					} else {
+						itens.remove(item);
+					}
+					return itens;
+				})
+				.orElseThrow(RuntimeException::new);
 	}
 
     public BigDecimal getValorTotal() {
@@ -80,6 +138,7 @@ public class CarrinhoCompra {
 
 	public void esvaziar() {
 		//TODO deve remover todos os itens
+		this.itens.clear();
 	}
 
 	@Override
