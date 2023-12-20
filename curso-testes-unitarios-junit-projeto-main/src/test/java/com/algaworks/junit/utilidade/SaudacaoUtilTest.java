@@ -3,6 +3,8 @@ package com.algaworks.junit.utilidade;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
 import org.junit.jupiter.api.function.Executable;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -16,7 +18,9 @@ class SaudacaoUtilTest {
 
 
     @Nested
+    @DisplayName("Testes de Bom Dia")
     class BomDia {
+
         // Princípio First
         @Test
         @DisplayName("Deve saudar com Bom Dia")
@@ -41,10 +45,20 @@ class SaudacaoUtilTest {
             var saudacao = SaudacaoUtil.saudar(horaLimiteSuperior);
             Assertions.assertEquals(SAUDACAO_BOM_DIA, saudacao, SAUDACAO_INCORRETA);
         }
+
+        @DisplayName("Teste Parametrizado")
+        @ParameterizedTest
+        @ValueSource(ints = {5, 6, 7, 8, 9, 10, 11})
+        void dadoHorarioMatinal_QuandoSaudarParametrizado_EntaoRetornarBomDia(int hora) {
+            var saudacao = SaudacaoUtil.saudar(hora);
+            Assertions.assertEquals("Bom dia", saudacao);
+        }
     }
 
     @Nested
+    @DisplayName("Testes de Boa Tarde")
     class BoaTarde {
+
         @Test
         @DisplayName("Limite Mínimo de Boa Tarde!")
         void dadoUmHorarioLimiteMinimo_QuandoSaudar_EntaoRetornarBoaTarde() {
@@ -63,6 +77,7 @@ class SaudacaoUtilTest {
     }
 
     @Nested
+    @DisplayName("Testes de Boa Noite")
     class BoaNoite {
         @Test
         @DisplayName("Limite Mínimo de Boa Noite!")
