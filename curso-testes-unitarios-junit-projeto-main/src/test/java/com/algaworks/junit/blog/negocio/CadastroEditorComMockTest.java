@@ -28,7 +28,7 @@ class CadastroEditorComMockTest {
     private CadastroEditor cadastroEditor;
 
     @Spy
-    private Editor editor = EditorTestData.umEditorNovo().build();
+    private Editor editor = EditorTestDataObjectMotherComBuilder.umEditorNovo().build();
 
     @BeforeEach
     void init() {
@@ -102,7 +102,7 @@ class CadastroEditorComMockTest {
                     .thenReturn(Optional.empty())
                     .thenReturn(Optional.of(editor));
 
-            var editorComEmailExistente = EditorTestData.umEditorExistente().build();
+            var editorComEmailExistente = EditorTestDataObjectMotherComBuilder.umEditorExistente().build();
             cadastroEditor.criar(editor);
             Executable acao = () -> cadastroEditor.criar(editorComEmailExistente);
             Assertions.assertThrows(RegraNegocioException.class, acao);

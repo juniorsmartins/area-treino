@@ -4,19 +4,8 @@ import com.algaworks.junit.blog.modelo.Editor;
 
 import java.math.BigDecimal;
 
-public class EditorTestData {
+public class EditorTestDataObjectMotherComBuilder {
 
-    // Padrão Object Mother
-//    public static Editor umEditorNovo() {
-//        return new Editor(null, "Kent Beck", "beck@email.com", BigDecimal.TEN, true);
-//    }
-
-    // Padrão Object Mother
-//    public static Editor umEditorExistente() {
-//        return new Editor(1L, "Kent Beck", "beck@email.com", BigDecimal.TEN, true);
-//    }
-
-    // Padrões Object Mother com Builder
     public static Editor.Builder umEditorNovo() {
         return Editor.builder()
                 .comNome("Kent Beck")
