@@ -1,9 +1,18 @@
 package com.algaworks.junit.blog.modelo;
 
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.Objects;
 
+@Getter
+@Setter
+@ToString
+@EqualsAndHashCode(of = {"id"})
 public class Editor {
     private Long id;
     private String nome;
@@ -12,9 +21,7 @@ public class Editor {
     private boolean premium;
     private OffsetDateTime dataCriacao = OffsetDateTime.now();
 
-    public Editor() {
-
-    }
+    public Editor() { }
 
     public Editor(String nome, String email, BigDecimal valorPagoPorPalavra, boolean premium) {
         this(null, nome, email, valorPagoPorPalavra, premium);
@@ -31,10 +38,6 @@ public class Editor {
         this.premium = premium;
     }
 
-    /**
-     * Atualiza apenas com dados permitidos
-     * @param editor
-     */
     public void atualizarComDados(Editor editor) {
         Objects.requireNonNull(editor);
         this.nome = editor.nome;
@@ -43,65 +46,47 @@ public class Editor {
         this.premium = editor.premium;
     }
 
-    public Long getId() {
-        return id;
+    public static Builder builder() {
+        return new Builder();
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public final static class Builder {
 
-    public String getNome() {
-        return nome;
-    }
+        private Long id;
+        private String nome;
+        private String email;
+        private BigDecimal valorPagoPorPalavra;
+        private boolean premium;
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
+        private Builder() { }
 
-    public String getEmail() {
-        return email;
-    }
+        public Builder comId(Long id) {
+            this.id = id;
+            return this;
+        }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+        public Builder comNome(String nome) {
+            this.nome = nome;
+            return this;
+        }
 
-    public BigDecimal getValorPagoPorPalavra() {
-        return valorPagoPorPalavra;
-    }
+        public Builder comEmail(String email) {
+            this.email = email;
+            return this;
+        }
 
-    public void setValorPagoPorPalavra(BigDecimal valorPagoPorPalavra) {
-        this.valorPagoPorPalavra = valorPagoPorPalavra;
-    }
+        public Builder comValorPagoPorPalavra(BigDecimal valorPagoPorPalavra) {
+            this.valorPagoPorPalavra = valorPagoPorPalavra;
+            return this;
+        }
 
-    public boolean isPremium() {
-        return premium;
-    }
+        public Builder comPremium(boolean premium) {
+            this.premium = premium;
+            return this;
+        }
 
-    public void setPremium(boolean premium) {
-        this.premium = premium;
+        public Editor build() {
+            return new Editor(this.id, this.nome, this.email, this.valorPagoPorPalavra, this.premium);
+        }
     }
-
-    public OffsetDateTime getDataCriacao() {
-        return dataCriacao;
-    }
-
-    public void setDataCriacao(OffsetDateTime dataCriacao) {
-        this.dataCriacao = dataCriacao;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Editor editor = (Editor) o;
-        return Objects.equals(id, editor.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
-    }
-
 }
