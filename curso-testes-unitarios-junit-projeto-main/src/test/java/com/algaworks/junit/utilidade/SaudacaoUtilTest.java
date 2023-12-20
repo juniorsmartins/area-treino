@@ -27,7 +27,14 @@ class SaudacaoUtilTest {
         void dadoUmHorario_QuandoSaudar_EntaoRetornarBomDia() { // Nomenclatura BDD
             var horaBomDia = 9; // Padrão Triple A
             String saudacao = SaudacaoUtil.saudar(horaBomDia);
-            Assertions.assertEquals(SAUDACAO_BOM_DIA, saudacao, SAUDACAO_INCORRETA);
+
+            // Ambas as asserções abaixo fazem o mesmo
+
+            Assertions.assertEquals(SAUDACAO_BOM_DIA, saudacao, SAUDACAO_INCORRETA); // Assertions do JUnit
+
+            org.assertj.core.api.Assertions.assertThat(saudacao)
+                    .withFailMessage(SAUDACAO_INCORRETA)
+                    .isEqualTo(SAUDACAO_BOM_DIA); // Assertions do AssertJ
         }
 
         @Test
