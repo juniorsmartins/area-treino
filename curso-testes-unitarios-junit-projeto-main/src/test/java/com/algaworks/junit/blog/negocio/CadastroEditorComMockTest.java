@@ -9,7 +9,6 @@ import org.junit.jupiter.api.function.Executable;
 import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.math.BigDecimal;
 import java.util.Optional;
 
 @DisplayName("Cadastro Editor com Mock")
@@ -29,7 +28,7 @@ class CadastroEditorComMockTest {
     private CadastroEditor cadastroEditor;
 
     @Spy
-    private Editor editor = new Editor(null, "Kent Beck", "beck@email.com", BigDecimal.TEN, true);
+    private Editor editor = EditorTestData.umEditorNovo().build();
 
     @BeforeEach
     void init() {
@@ -103,7 +102,7 @@ class CadastroEditorComMockTest {
                     .thenReturn(Optional.empty())
                     .thenReturn(Optional.of(editor));
 
-            var editorComEmailExistente = new Editor(null, "Kent Beck", "beck@email.com", BigDecimal.TEN, true);
+            var editorComEmailExistente = EditorTestData.umEditorExistente().build();
             cadastroEditor.criar(editor);
             Executable acao = () -> cadastroEditor.criar(editorComEmailExistente);
             Assertions.assertThrows(RegraNegocioException.class, acao);
