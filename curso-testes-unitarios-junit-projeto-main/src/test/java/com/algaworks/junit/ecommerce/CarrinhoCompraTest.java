@@ -9,6 +9,8 @@ import java.util.List;
 @DisplayName("Carrinho de Compras")
 class CarrinhoCompraTest {
 
+    private Produto produto1;
+
     private Produto produto2;
 
     private ItemCarrinhoCompra item2;

@@ -3,8 +3,8 @@ package com.algaworks.junit.utilidade;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
 import org.junit.jupiter.api.function.Executable;
-
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 @DisplayName("Testes de Saudações")
 class SaudacaoUtilTest {
@@ -14,16 +14,27 @@ class SaudacaoUtilTest {
     public static final String SAUDACAO_BOA_NOITE = "Boa noite";
     public static final String SAUDACAO_INCORRETA = "Saudação Incorreta!";
 
+    public static final String SAUDACAO_ERRADA = "Erro: saudação incorreta! O resultado foi: %s";
+
 
     @Nested
+    @DisplayName("Testes de Bom Dia")
     class BomDia {
+
         // Princípio First
         @Test
         @DisplayName("Deve saudar com Bom Dia")
         void dadoUmHorario_QuandoSaudar_EntaoRetornarBomDia() { // Nomenclatura BDD
             var horaBomDia = 9; // Padrão Triple A
             String saudacao = SaudacaoUtil.saudar(horaBomDia);
-            Assertions.assertEquals(SAUDACAO_BOM_DIA, saudacao, SAUDACAO_INCORRETA);
+
+            // Ambas as asserções abaixo fazem o mesmo
+//            Assertions.assertEquals(SAUDACAO_BOM_DIA, saudacao, SAUDACAO_INCORRETA); // Assertions do JUnit
+
+            org.assertj.core.api.Assertions.assertThat(saudacao)
+                    .as("Validando se a saudação é: %s", SAUDACAO_BOM_DIA)
+                    .withFailMessage(SAUDACAO_ERRADA, saudacao)
+                    .isEqualTo(SAUDACAO_BOM_DIA); // Assertions do AssertJ
         }
 
         @Test
@@ -41,10 +52,20 @@ class SaudacaoUtilTest {
             var saudacao = SaudacaoUtil.saudar(horaLimiteSuperior);
             Assertions.assertEquals(SAUDACAO_BOM_DIA, saudacao, SAUDACAO_INCORRETA);
         }
+
+        @DisplayName("Teste Parametrizado")
+        @ParameterizedTest
+        @ValueSource(ints = {5, 6, 7, 8, 9, 10, 11})
+        void dadoHorarioMatinal_QuandoSaudarParametrizado_EntaoRetornarBomDia(int hora) {
+            var saudacao = SaudacaoUtil.saudar(hora);
+            Assertions.assertEquals("Bom dia", saudacao);
+        }
     }
 
     @Nested
+    @DisplayName("Testes de Boa Tarde")
     class BoaTarde {
+
         @Test
         @DisplayName("Limite Mínimo de Boa Tarde!")
         void dadoUmHorarioLimiteMinimo_QuandoSaudar_EntaoRetornarBoaTarde() {
@@ -63,6 +84,7 @@ class SaudacaoUtilTest {
     }
 
     @Nested
+    @DisplayName("Testes de Boa Noite")
     class BoaNoite {
         @Test
         @DisplayName("Limite Mínimo de Boa Noite!")
@@ -85,11 +107,13 @@ class SaudacaoUtilTest {
     @DisplayName("Exceção por Horário Negativo")
     void dadoUmHorarioNegativo_QuandoSaudar_EntaoLancarIllegalArgumentException() {
         var horaNegativaInvalida = -10;
+//        Executable executavel = () -> SaudacaoUtil.saudar(horaNegativaInvalida);
+//        var excecao = assertThrows(IllegalArgumentException.class, executavel);
+//        Assertions.assertEquals("Hora inválida", excecao.getMessage());
 
-        Executable executavel = () -> SaudacaoUtil.saudar(horaNegativaInvalida);
-
-        IllegalArgumentException excecao = assertThrows(IllegalArgumentException.class, executavel);
-        Assertions.assertEquals("Hora inválida", excecao.getMessage());
+        org.assertj.core.api.Assertions.assertThatThrownBy(() -> SaudacaoUtil.saudar(horaNegativaInvalida))
+            .isInstanceOf(IllegalArgumentException.class)
+            .hasMessage("Hora inválida");
     }
 
     @Test
