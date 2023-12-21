@@ -6,8 +6,6 @@ import org.junit.jupiter.api.function.Executable;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
 @DisplayName("Testes de Saudações")
 class SaudacaoUtilTest {
 
@@ -15,6 +13,8 @@ class SaudacaoUtilTest {
     public static final String SAUDACAO_BOA_TARDE = "Boa tarde";
     public static final String SAUDACAO_BOA_NOITE = "Boa noite";
     public static final String SAUDACAO_INCORRETA = "Saudação Incorreta!";
+
+    public static final String SAUDACAO_ERRADA = "Erro: saudação incorreta! O resultado foi: %s";
 
 
     @Nested
@@ -29,11 +29,11 @@ class SaudacaoUtilTest {
             String saudacao = SaudacaoUtil.saudar(horaBomDia);
 
             // Ambas as asserções abaixo fazem o mesmo
-
-            Assertions.assertEquals(SAUDACAO_BOM_DIA, saudacao, SAUDACAO_INCORRETA); // Assertions do JUnit
+//            Assertions.assertEquals(SAUDACAO_BOM_DIA, saudacao, SAUDACAO_INCORRETA); // Assertions do JUnit
 
             org.assertj.core.api.Assertions.assertThat(saudacao)
-                    .withFailMessage(SAUDACAO_INCORRETA)
+                    .as("Validando se a saudação é: %s", SAUDACAO_BOM_DIA)
+                    .withFailMessage(SAUDACAO_ERRADA, saudacao)
                     .isEqualTo(SAUDACAO_BOM_DIA); // Assertions do AssertJ
         }
 
@@ -107,11 +107,13 @@ class SaudacaoUtilTest {
     @DisplayName("Exceção por Horário Negativo")
     void dadoUmHorarioNegativo_QuandoSaudar_EntaoLancarIllegalArgumentException() {
         var horaNegativaInvalida = -10;
+//        Executable executavel = () -> SaudacaoUtil.saudar(horaNegativaInvalida);
+//        var excecao = assertThrows(IllegalArgumentException.class, executavel);
+//        Assertions.assertEquals("Hora inválida", excecao.getMessage());
 
-        Executable executavel = () -> SaudacaoUtil.saudar(horaNegativaInvalida);
-
-        IllegalArgumentException excecao = assertThrows(IllegalArgumentException.class, executavel);
-        Assertions.assertEquals("Hora inválida", excecao.getMessage());
+        org.assertj.core.api.Assertions.assertThatThrownBy(() -> SaudacaoUtil.saudar(horaNegativaInvalida))
+            .isInstanceOf(IllegalArgumentException.class)
+            .hasMessage("Hora inválida");
     }
 
     @Test
