@@ -45,7 +45,7 @@ public final class Produto extends EntidadeBaseInteger implements Serializable {
     @Column(precision = 19, scale = 2)
     private BigDecimal preco;
 
-    @ManyToMany
+    @ManyToMany(cascade = {CascadeType.PERSIST})
     @JoinTable(name = "produto_categoria",
         joinColumns = @JoinColumn(name = "produto_id", nullable = false, referencedColumnName = "id",
                 foreignKey = @ForeignKey(name = "fk_produto_categoria_produto")),
