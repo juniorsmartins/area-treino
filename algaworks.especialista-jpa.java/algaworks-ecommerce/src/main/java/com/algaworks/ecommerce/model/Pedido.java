@@ -46,7 +46,7 @@ public final class Pedido extends EntidadeBaseInteger implements Serializable {
     @Embedded
     private EnderecoEntregaPedido enderecoEntrega;
 
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, cascade = {CascadeType.PERSIST})
     @JoinColumn(name = "cliente_id", nullable = false, foreignKey = @ForeignKey(name = "fk_pedido_cliente"))
     private Cliente cliente;
 
