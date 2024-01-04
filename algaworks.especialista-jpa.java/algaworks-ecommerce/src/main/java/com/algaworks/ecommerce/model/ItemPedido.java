@@ -28,7 +28,7 @@ public final class ItemPedido implements Serializable {
     @MapsId("pedidoId") // Nome que está no ItemPedidoId
     @ManyToOne(optional = false)
     @JoinColumn(name = "pedido_id", nullable = false, foreignKey = @ForeignKey(name = "fk_item_pedido_pedido"))
-    private Pedido pedido;
+    private Pedido pedido; // Como pedido faz parte da chave-primária-composta, então ele já funciona como um CascadeType.PERSIST. Então se salvar um itemPedido, mesmo sem Pedido salvo, vai salvar o Pedido e depois o ItemPedido automaticamente. Se Pedido não fizesse parte da chave, então precisaria colocar CascadeType.PERSIST para ter o mesmo efeito.
 
     @MapsId("produtoId") // Nome que está no ItemPedidoId
     @ManyToOne(optional = false)

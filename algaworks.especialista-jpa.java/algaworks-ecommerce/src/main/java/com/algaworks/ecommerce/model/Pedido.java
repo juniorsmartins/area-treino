@@ -46,12 +46,12 @@ public final class Pedido extends EntidadeBaseInteger implements Serializable {
     @Embedded
     private EnderecoEntregaPedido enderecoEntrega;
 
-    @ManyToOne(optional = false, cascade = {CascadeType.PERSIST})
+    @ManyToOne(optional = false)
     @JoinColumn(name = "cliente_id", nullable = false, foreignKey = @ForeignKey(name = "fk_pedido_cliente"))
     private Cliente cliente;
 
     // Pedido é mandante - Ao usar CascadeType.PERSIST, quando Pedido for salvo, também salvará automático os ItensPedido.
-    @OneToMany(mappedBy = "pedido", cascade = {CascadeType.PERSIST}) // Padrão JPA é Lazy para listas/plural. E Eager para valor singular.
+    @OneToMany(mappedBy = "pedido") // Padrão JPA é Lazy para listas/plural. E Eager para valor singular.
     private List<ItemPedido> itensPedido;
 
     @OneToOne(mappedBy = "pedido")

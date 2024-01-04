@@ -1,9 +1,6 @@
 package com.algaworks.junit.operacoesemcascata;
 
-import com.algaworks.ecommerce.model.Cliente;
-import com.algaworks.ecommerce.model.ItemPedido;
-import com.algaworks.ecommerce.model.Pedido;
-import com.algaworks.ecommerce.model.Produto;
+import com.algaworks.ecommerce.model.*;
 import com.algaworks.ecommerce.model.chave_composta.ItemPedidoId;
 import com.algaworks.ecommerce.model.enums.SexoClienteEnum;
 import com.algaworks.ecommerce.model.enums.StatusPedidoEnum;
@@ -18,7 +15,7 @@ import java.util.List;
 
 class CascadeTypePersistTest extends EntityManagerTest {
 
-    @Test
+//    @Test
     void persistirPedidoComItens() {
 
         Cliente cliente = super.entityManager.find(Cliente.class, 3);
@@ -37,7 +34,7 @@ class CascadeTypePersistTest extends EntityManagerTest {
         itemPedido.setQuantidade(1);
         itemPedido.setPrecoProduto(produto.getPreco());
 
-        pedido.setItensPedido(List.of(itemPedido));
+        pedido.setItensPedido(List.of(itemPedido)); // Funciona se adicionar CascadeType.PERSIST no owner da relação
 
         super.entityManager.getTransaction().begin();
         super.entityManager.persist(pedido);
@@ -87,7 +84,7 @@ class CascadeTypePersistTest extends EntityManagerTest {
                 pedidoVerificacao.getItensPedido().get(0).getPedido().getId());
     }
 
-    @Test
+//    @Test
     void persistirPedidoComCliente() {
 
         Cliente cliente = new Cliente();
@@ -103,7 +100,7 @@ class CascadeTypePersistTest extends EntityManagerTest {
         pedido.setStatus(StatusPedidoEnum.AGUARDANDO);
 
         super.entityManager.getTransaction().begin();
-        super.entityManager.persist(pedido);
+        super.entityManager.persist(pedido); // Funciona se adicionar CascadeType.PERSIST no owner da relação com Cliente
         super.entityManager.getTransaction().commit();
 
         super.entityManager.clear();
@@ -114,6 +111,32 @@ class CascadeTypePersistTest extends EntityManagerTest {
         Assertions.assertNotNull(clienteVerificacao);
         Assertions.assertEquals(pedidoVerificacao.getCliente().getId(),
                 clienteVerificacao.getPedidos().get(0).getCliente().getId());
+    }
+
+    @Test
+    void persistirProdutoComCategoria() {
+
+        Categoria categoria = new Categoria();
+        categoria.setNome("Saúde");
+
+        Produto produto = new Produto();
+        produto.setDataCriacao(LocalDateTime.now());
+        produto.setNome("Morango");
+        produto.setDescricao("Fruta vermelha");
+        produto.setPreco(BigDecimal.TEN);
+        produto.setTags(List.of("fruta", "vermelha"));
+        produto.setCategorias(List.of(categoria));
+
+        super.entityManager.getTransaction().begin();
+        super.entityManager.persist(produto);
+        super.entityManager.getTransaction().commit();
+
+        super.entityManager.clear();
+
+        var produtoVerificacao = super.entityManager.find(Produto.class, produto.getId());
+        var categoriaVerificacao = super.entityManager.find(Categoria.class, categoria.getId());
+        Assertions.assertNotNull(produtoVerificacao);
+        Assertions.assertNotNull(categoriaVerificacao);
     }
 }
 
