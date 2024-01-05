@@ -81,8 +81,10 @@ public final class Pedido extends EntidadeBaseInteger implements Serializable {
     public void calcularTotal() {
         if (itensPedido != null) {
             this.total = itensPedido.stream()
-                .map(ItemPedido::getPrecoProduto)
+                .map(item -> new BigDecimal(item.getQuantidade()).multiply(item.getPrecoProduto()))
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
+        } else {
+            total = BigDecimal.ZERO;
         }
     }
 }
