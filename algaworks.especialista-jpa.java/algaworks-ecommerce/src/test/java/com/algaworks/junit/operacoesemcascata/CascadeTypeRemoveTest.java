@@ -1,12 +1,8 @@
 package com.algaworks.junit.operacoesemcascata;
 
-import com.algaworks.ecommerce.model.ItemPedido;
 import com.algaworks.ecommerce.model.Pedido;
-import com.algaworks.ecommerce.model.Produto;
-import com.algaworks.ecommerce.model.chave_composta.ItemPedidoId;
 import com.algaworks.junit.EntityManagerTest;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
 
 class CascadeTypeRemoveTest extends EntityManagerTest {
 
