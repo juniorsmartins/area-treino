@@ -23,6 +23,9 @@ insert into itens_pedido(pedido_id, produto_id, preco_produto, quantidade) value
 insert into pedidos(id, cliente_id, data_criacao, data_conclusao, total, status) values(3, 4, date_sub(sysdate(), interval 2 day), NOW(), 499.0, 'AGUARDANDO');
 insert into itens_pedido(pedido_id, produto_id, preco_produto, quantidade) values(3, 1, 500, 1);
 
+insert into pedidos(id, cliente_id, data_criacao, data_conclusao, total, status) values(4, 4, date_sub(sysdate(), interval 2 day), NOW(), 499.0, 'AGUARDANDO');
+insert into itens_pedido(pedido_id, produto_id, preco_produto, quantidade) values(4, 3, 500, 1);
+
 insert into pagamentos(pedido_id, status, numero_cartao, tipo_pagamento) values(1, 'PROCESSANDO', '99999999', 'cartao');
 insert into pagamentos(pedido_id, status, codigo_barras, tipo_pagamento) values(2, 'PROCESSANDO', '12345678', 'boleto');
 

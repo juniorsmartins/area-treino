@@ -105,3 +105,5 @@ b
 Psrc/test/java/com/algaworks/junit/operacoesemcascata/CascadeTypePersistTest.java,8/5/8555e481e679ee9e91080d5191c06c9f37490a8a
 ~
 Nsrc/test/java/com/algaworks/junit/operacoesemcascata/CascadeTypeMergeTest.java,5/6/5697d44f334e725937173adcaa8b2032c96646e9
+
+Osrc/test/java/com/algaworks/junit/operacoesemcascata/CascadeTypeRemoveTest.java,7/1/714639ac02786b783048ee85ca7a99459e45bbbf
