@@ -51,7 +51,7 @@ public final class Pedido extends EntidadeBaseInteger implements Serializable {
     private Cliente cliente;
 
     // Pedido é mandante - Ao usar CascadeType.PERSIST, quando Pedido for salvo, também salvará automático os ItensPedido.
-    @OneToMany(mappedBy = "pedido") // Padrão JPA é Lazy para listas/plural. E Eager para valor singular.
+    @OneToMany(mappedBy = "pedido", cascade = {CascadeType.MERGE}) // Padrão JPA é Lazy para listas/plural. E Eager para valor singular.
     private List<ItemPedido> itensPedido;
 
     @OneToOne(mappedBy = "pedido")
@@ -81,8 +81,10 @@ public final class Pedido extends EntidadeBaseInteger implements Serializable {
     public void calcularTotal() {
         if (itensPedido != null) {
             this.total = itensPedido.stream()
-                .map(ItemPedido::getPrecoProduto)
+                .map(item -> new BigDecimal(item.getQuantidade()).multiply(item.getPrecoProduto()))
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
+        } else {
+            total = BigDecimal.ZERO;
         }
     }
 }

@@ -103,3 +103,5 @@ b
 2src/test/java/com/algaworks/junit/ddl/DDLTest.java,2/2/22fecbd86fd30ab5c89ea2d070925a8452b662fd
 €
 Psrc/test/java/com/algaworks/junit/operacoesemcascata/CascadeTypePersistTest.java,8/5/8555e481e679ee9e91080d5191c06c9f37490a8a
+~
+Nsrc/test/java/com/algaworks/junit/operacoesemcascata/CascadeTypeMergeTest.java,5/6/5697d44f334e725937173adcaa8b2032c96646e9
