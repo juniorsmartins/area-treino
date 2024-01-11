@@ -7,6 +7,8 @@ import jakarta.persistence.TypedQuery;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 class BasicoJPQLTest extends EntityManagerTest {
 
     @Test
@@ -30,6 +32,9 @@ class BasicoJPQLTest extends EntityManagerTest {
         Query query = super.entityManager.createQuery(jpql); // Jpa varsão mais antiga
         Pedido pedido2 = (Pedido) query.getSingleResult(); // A diferença entre as duas é basicamente a necessidade de conversão
         Assertions.assertNotNull(pedido2);
+        // Ou - pra eliminar a conversão explícita - porém, acende warnning
+        List<Pedido> lista = query.getResultList();
+        Assertions.assertFalse(lista.isEmpty());
     }
 }
 
