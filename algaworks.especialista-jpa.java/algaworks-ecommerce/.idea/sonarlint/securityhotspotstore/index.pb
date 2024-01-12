@@ -109,3 +109,7 @@ Nsrc/test/java/com/algaworks/junit/operacoesemcascata/CascadeTypeMergeTest.java
 Osrc/test/java/com/algaworks/junit/operacoesemcascata/CascadeTypeRemoveTest.java,7/1/714639ac02786b783048ee85ca7a99459e45bbbf
 j
 :src/test/java/com/algaworks/junit/jpql/BasicoJPQLTest.java,d/a/da1ef0cdb5152bf1e73af208f61672367934ef36
+i
+9src/main/java/com/algaworks/ecommerce/dto/ProdutoDto.java,f/9/f98a371702ea32b5c62156bca7b998dc2c9b1d15
+h
+8src/test/java/com/algaworks/junit/jpql/JoinJpqlTest.java,8/6/8664b2b94cc52ecb8faadf819ff1361ec7f9da1d
