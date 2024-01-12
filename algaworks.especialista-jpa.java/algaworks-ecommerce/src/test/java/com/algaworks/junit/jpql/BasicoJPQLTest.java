@@ -1,5 +1,6 @@
 package com.algaworks.junit.jpql;
 
+import com.algaworks.ecommerce.dto.ProdutoDto;
 import com.algaworks.ecommerce.model.Cliente;
 import com.algaworks.ecommerce.model.Pedido;
 import com.algaworks.junit.EntityManagerTest;
@@ -11,6 +12,29 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 class BasicoJPQLTest extends EntityManagerTest {
+
+    @Test
+    void projetarResultadoNoDto() {
+        String jpql = "select new com.algaworks.ecommerce.dto.ProdutoDto(id, nome) from Produto";
+
+        TypedQuery<ProdutoDto> typedQuery = super.entityManager.createQuery(jpql, ProdutoDto.class);
+        List<ProdutoDto> lista = typedQuery.getResultList();
+
+        lista.forEach(System.out::println);
+
+        Assertions.assertEquals(3, lista.size());
+    }
+
+    @Test
+    void projetarResultado() {
+        String jpql = "select id, nome from Produto";
+
+        TypedQuery<Object[]> typedQuery = super.entityManager.createQuery(jpql, Object[].class);
+        List<Object[]> lista = typedQuery.getResultList();
+
+        Assertions.assertEquals(2, lista.get(0).length);
+        Assertions.assertEquals(3, lista.size());
+    }
 
     @Test
     void selecionarUmAtributoParaRetorno() {
