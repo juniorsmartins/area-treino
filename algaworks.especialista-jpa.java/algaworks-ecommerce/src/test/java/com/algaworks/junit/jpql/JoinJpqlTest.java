@@ -11,6 +11,28 @@ import java.util.List;
 class JoinJpqlTest extends EntityManagerTest {
 
     @Test
+    void fazerInnerJoinEmJPQLComProjecao4() {
+        String jpql = "select p from Pedido p inner join p.itensPedido i inner join i.produto pro where pro.id = 1";
+
+        TypedQuery<Object[]> typedQuery = super.entityManager.createQuery(jpql, Object[].class);
+        List<Object[]> lista = typedQuery.getResultList();
+
+        Assertions.assertEquals(1, lista.get(0).length);
+        Assertions.assertEquals(3, lista.size());
+    }
+
+    @Test
+    void fazerInnerJoinEmJPQLComProjecao3() {
+        String jpql = "select p, i, pro from Pedido p inner join p.itensPedido i inner join i.produto pro";
+
+        TypedQuery<Object[]> typedQuery = super.entityManager.createQuery(jpql, Object[].class);
+        List<Object[]> lista = typedQuery.getResultList();
+
+        Assertions.assertEquals(3, lista.get(0).length);
+        Assertions.assertEquals(4, lista.size());
+    }
+
+    @Test
     void fazerInnerJoinComJPQL4() {
         String jpql = "select p from Pedido p inner join p.itensPedido i where i.precoProduto > 499";
 
@@ -21,22 +43,24 @@ class JoinJpqlTest extends EntityManagerTest {
     }
 
     @Test
-    void fazerInnerJoinComJPQL3() {
+    void fazerInnerJoinComJPQLComProjecao2() {
         String jpql = "select p, pag from Pedido p inner join p.pagamento pag where pag.status = 'PROCESSANDO'";
 
         TypedQuery<Object[]> typedQuery = super.entityManager.createQuery(jpql, Object[].class);
         List<Object[]> lista = typedQuery.getResultList();
 
+        Assertions.assertEquals(2, lista.get(0).length);
         Assertions.assertEquals(2, lista.size());
     }
 
     @Test
-    void fazerInnerJoinComJPQL2() {
+    void fazerInnerJoinComJPQLComProjecao1() {
         String jpql = "select p, pag from Pedido p inner join p.pagamento pag";
 
         TypedQuery<Object[]> typedQuery = super.entityManager.createQuery(jpql, Object[].class);
         List<Object[]> lista = typedQuery.getResultList();
 
+        Assertions.assertEquals(2, lista.get(0).length);
         Assertions.assertEquals(2, lista.size());
     }
 
