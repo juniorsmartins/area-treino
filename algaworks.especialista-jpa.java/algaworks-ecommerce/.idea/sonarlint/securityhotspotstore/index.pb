@@ -119,3 +119,7 @@ m
 =src/test/java/com/algaworks/junit/jpql/LeftOuterJoinTest.java,d/3/d34ce9307fe436d21e1bbedb8479e96c4082019a
 m
 =src/test/java/com/algaworks/junit/jpql/InnerJoinJpqlTest.java,d/5/d52cedf436382b8a46555da658b249530dd05334
+m
+=src/test/java/com/algaworks/junit/jpql/JoinWithFetchTest.java,0/0/00149008ea21c71bf58208adced366c43325910f
+n
+>src/test/java/com/algaworks/junit/jpql/PathExpressionTest.java,7/1/7137312ea254328eb9243f283d4b320d560e51ba
