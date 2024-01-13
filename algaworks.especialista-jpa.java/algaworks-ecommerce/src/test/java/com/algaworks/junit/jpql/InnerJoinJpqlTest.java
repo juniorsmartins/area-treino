@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-class JoinJpqlTest extends EntityManagerTest {
+class InnerJoinJpqlTest extends EntityManagerTest {
 
     @Test
     void fazerInnerJoinEmJPQLComProjecao4() {
