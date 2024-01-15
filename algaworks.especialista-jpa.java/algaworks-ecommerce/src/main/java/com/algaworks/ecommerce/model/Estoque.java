@@ -2,6 +2,8 @@ package com.algaworks.ecommerce.model;
 
 import com.algaworks.ecommerce.listener.GenericoListener;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PositiveOrZero;
 import lombok.*;
 
 import java.io.Serial;
@@ -26,11 +28,13 @@ public final class Estoque extends EntidadeBaseInteger implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @NotNull
     @OneToOne(optional = false)
     @JoinColumn(name = "produto_id", nullable = false, foreignKey = @ForeignKey(name = "fk_estoque_produto"))
     private Produto produto;
 
-    @Column(name = "quantidade")
+    @PositiveOrZero
+    @Column(name = "quantidade", nullable = false)
     private Integer quantidade;
 }
 

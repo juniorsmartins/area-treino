@@ -111,10 +111,6 @@ j
 :src/test/java/com/algaworks/junit/jpql/BasicoJPQLTest.java,d/a/da1ef0cdb5152bf1e73af208f61672367934ef36
 i
 9src/main/java/com/algaworks/ecommerce/dto/ProdutoDto.java,f/9/f98a371702ea32b5c62156bca7b998dc2c9b1d15
-h
-8src/test/java/com/algaworks/junit/jpql/JoinJpqlTest.java,8/6/8664b2b94cc52ecb8faadf819ff1361ec7f9da1d
-h
-8src/test/java/com/algaworks/junit/jpql/LeftJoinTest.java,6/2/62c8e52a0053d3e0136a4d5c094b44576c9e9ddd
 m
 =src/test/java/com/algaworks/junit/jpql/LeftOuterJoinTest.java,d/3/d34ce9307fe436d21e1bbedb8479e96c4082019a
 m

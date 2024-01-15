@@ -3,7 +3,10 @@ package com.algaworks.ecommerce.model;
 import com.algaworks.ecommerce.listener.GenericoListener;
 import com.algaworks.ecommerce.model.enums.SexoClienteEnum;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
+import org.hibernate.validator.constraints.br.CPF;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -33,9 +36,12 @@ public final class Cliente extends EntidadeBaseInteger implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
+    @NotBlank
     @Column(name = "nome", length = 100, nullable = false)
     private String nome;
 
+    @NotNull
+    @CPF
     @Column(name = "cpf", length = 14, nullable = false)
     private String cpf;
 
