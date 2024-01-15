@@ -4,6 +4,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
 
 import java.io.Serial;
@@ -24,6 +25,7 @@ public final class PagamentoCartao extends Pagamento implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
+    @NotEmpty
     @Column(name = "numero_cartao", length = 50)
     private String numeroCartao;
 }

@@ -2,6 +2,7 @@ package com.algaworks.ecommerce.model;
 
 import com.algaworks.ecommerce.model.enums.StatusPagamentoEnum;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -23,11 +24,13 @@ public abstract non-sealed class Pagamento extends EntidadeBaseInteger implement
     @Serial
     private static final long serialVersionUID = 1L;
 
+    @NotNull
     @MapsId
     @OneToOne(optional = false)
     @JoinColumn(name = "pedido_id", nullable = false, foreignKey = @ForeignKey(name = "fk_pagamento_pedido"))
     private Pedido pedido;
 
+    @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "status", length = 30, nullable = false)
     private StatusPagamentoEnum status;

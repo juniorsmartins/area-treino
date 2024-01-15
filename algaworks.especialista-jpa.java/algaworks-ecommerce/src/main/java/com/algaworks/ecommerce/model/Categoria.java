@@ -1,6 +1,7 @@
 package com.algaworks.ecommerce.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 import java.io.Serial;
@@ -24,6 +25,7 @@ public final class Categoria extends EntidadeBaseInteger implements Serializable
     @Serial
     private static final long serialVersionUID = 1L;
 
+    @NotBlank
     @Column(name = "nome", length = 100, nullable = false)
     private String nome;
 

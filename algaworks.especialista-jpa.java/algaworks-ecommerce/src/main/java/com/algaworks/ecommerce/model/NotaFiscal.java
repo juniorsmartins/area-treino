@@ -2,6 +2,9 @@ package com.algaworks.ecommerce.model;
 
 import com.algaworks.ecommerce.listener.GenericoListener;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PastOrPresent;
 import lombok.*;
 import org.hibernate.Length;
 
@@ -29,6 +32,7 @@ public final class NotaFiscal implements Serializable {
     @Column(name = "pedido_id")
     private Integer id;
 
+    @NotNull
     @MapsId
     @OneToOne(optional = false)
     @JoinColumn(name = "pedido_id", nullable = false, foreignKey = @ForeignKey(name = "fk_nota_fiscal_pedido"))
@@ -38,10 +42,14 @@ public final class NotaFiscal implements Serializable {
 //    )
     private Pedido pedido;
 
+    @NotEmpty
     @Lob
     @Column(name = "xml", nullable = false)
     private byte[] xml;
 
+    @NotNull
+    @PastOrPresent
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "data_emissao", nullable = false)
     private Date dataEmissao;
 }

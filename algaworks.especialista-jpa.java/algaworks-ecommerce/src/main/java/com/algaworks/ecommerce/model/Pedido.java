@@ -4,6 +4,10 @@ import com.algaworks.ecommerce.listener.GenericoListener;
 import com.algaworks.ecommerce.listener.GerarNotaFiscalListener;
 import com.algaworks.ecommerce.model.enums.StatusPedidoEnum;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PastOrPresent;
+import jakarta.validation.constraints.Positive;
 import lombok.*;
 
 import java.io.Serial;
@@ -27,18 +31,25 @@ public final class Pedido extends EntidadeBaseInteger implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
+    @NotNull
+    @PastOrPresent
     @Column(name = "data_criacao", nullable = false, updatable = false)
     private LocalDateTime dataCriacao;
 
+    @PastOrPresent
     @Column(name = "data_ultima_atualizacao", insertable = false)
     private LocalDateTime dataUltimaAtualizacao;
 
+    @PastOrPresent
     @Column(name = "data_conclusao")
     private LocalDateTime dataConclusao;
 
+    @NotNull
+    @Positive
     @Column(precision = 19, scale = 2, nullable = false)
     private BigDecimal total;
 
+    @NotNull
     @Column(name = "status", length = 30, nullable = false)
     @Enumerated(EnumType.STRING)
     private StatusPedidoEnum status;
@@ -46,11 +57,13 @@ public final class Pedido extends EntidadeBaseInteger implements Serializable {
     @Embedded
     private EnderecoEntregaPedido enderecoEntrega;
 
+    @NotNull
     @ManyToOne(optional = false)
     @JoinColumn(name = "cliente_id", nullable = false, foreignKey = @ForeignKey(name = "fk_pedido_cliente"))
     private Cliente cliente;
 
     // Pedido é mandante - Ao usar CascadeType.PERSIST, quando Pedido for salvo, também salvará automático os ItensPedido.
+    @NotEmpty
     @OneToMany(mappedBy = "pedido") // Padrão JPA é Lazy para listas/plural. E Eager para valor singular.
     private List<ItemPedido> itensPedido;
 

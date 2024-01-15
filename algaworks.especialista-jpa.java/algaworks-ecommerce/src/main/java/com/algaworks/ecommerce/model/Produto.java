@@ -2,6 +2,10 @@ package com.algaworks.ecommerce.model;
 
 import com.algaworks.ecommerce.listener.GenericoListener;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PastOrPresent;
+import jakarta.validation.constraints.Positive;
 import lombok.*;
 import org.hibernate.Length;
 
@@ -29,12 +33,16 @@ public final class Produto extends EntidadeBaseInteger implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
+    @NotNull
+    @PastOrPresent
     @Column(name = "data_criacao", nullable = false, updatable = false)
     private LocalDateTime dataCriacao;
 
+    @PastOrPresent
     @Column(name = "data_ultima_atualizacao", insertable = false)
     private LocalDateTime dataUltimaAtualizacao;
 
+    @NotBlank
     @Column(name = "nome", length = 100, nullable = false)
     private String nome;
 
@@ -42,6 +50,7 @@ public final class Produto extends EntidadeBaseInteger implements Serializable {
     @Column(name = "descricao")
     private String descricao;
 
+    @Positive
     @Column(precision = 19, scale = 2)
     private BigDecimal preco;
 
