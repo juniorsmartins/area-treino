@@ -119,3 +119,7 @@ m
 =src/test/java/com/algaworks/junit/jpql/JoinWithFetchTest.java,0/0/00149008ea21c71bf58208adced366c43325910f
 n
 >src/test/java/com/algaworks/junit/jpql/PathExpressionTest.java,7/1/7137312ea254328eb9243f283d4b320d560e51ba
+x
+Hsrc/test/java/com/algaworks/junit/detalhesimportantes/ConversorTest.java,9/0/90dc7257a75d3622cebf16ab59f0789c900de299
+ƒ
+Ssrc/main/java/com/algaworks/ecommerce/model/converter/BooleanToSimNaoConverter.java,3/9/3961839b36ee2d9424d1e2ef086609d9185aeae9
