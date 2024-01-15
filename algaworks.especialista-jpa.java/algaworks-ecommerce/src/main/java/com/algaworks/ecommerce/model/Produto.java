@@ -1,6 +1,7 @@
 package com.algaworks.ecommerce.model;
 
 import com.algaworks.ecommerce.listener.GenericoListener;
+import com.algaworks.ecommerce.model.converter.BooleanToSimNaoConverter;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -81,5 +82,10 @@ public final class Produto extends EntidadeBaseInteger implements Serializable {
     @Lob
     @Column(length = Length.LOB_DEFAULT)
     private byte[] foto;
+
+    @Convert(converter = BooleanToSimNaoConverter.class)
+    @NotNull
+    @Column(name = "ativo", nullable = false, length = 3)
+    private Boolean ativo = Boolean.FALSE;
 }
 
