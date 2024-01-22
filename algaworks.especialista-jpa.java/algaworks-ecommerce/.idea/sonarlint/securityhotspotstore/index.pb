@@ -125,3 +125,5 @@ Hsrc/test/java/com/algaworks/junit/detalhesimportantes/ConversorTest.java,9/0/9
 Ssrc/main/java/com/algaworks/ecommerce/model/converter/BooleanToSimNaoConverter.java,3/9/3961839b36ee2d9424d1e2ef086609d9185aeae9
 p
 @src/test/java/com/algaworks/junit/problema/OneToOneLazyTest.java,7/a/7ad086f2f371544c8e8105433372946ca34be03b
+t
+Dsrc/test/java/com/algaworks/junit/concorrencia/LockOtimistaTest.java,b/9/b9d664fe2f904efb9813ebd629df9cd5b087ffb5
