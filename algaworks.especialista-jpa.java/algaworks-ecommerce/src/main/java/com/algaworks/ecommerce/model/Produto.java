@@ -34,6 +34,9 @@ public final class Produto extends EntidadeBaseInteger implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
+    @Version
+    private Long version; // Guarda versão da entidade para concorrência LockOtimista (OptimisticLockException) - Pode ser do tipo Integer, Long, Date e LocalDateTime
+
     @NotNull
     @PastOrPresent
     @Column(name = "data_criacao", nullable = false, updatable = false)

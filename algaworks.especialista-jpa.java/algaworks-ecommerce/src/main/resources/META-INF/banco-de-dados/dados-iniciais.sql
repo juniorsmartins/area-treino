@@ -1,6 +1,6 @@
-insert into produtos(id, data_criacao, nome, descricao, preco, ativo) values(1, date_sub(sysdate(), interval 7 day), 'Kindle', 'Ovo de chocolate com brinde dentro.', 499, 'SIM');
-insert into produtos(id, data_criacao, nome, descricao, preco, ativo) values(3, date_sub(sysdate(), interval 3 day), 'Criando Microsserviços', 'Livro de Sam Newman sobre arquitetura de software', 225.8, 'SIM');
-insert into produtos(id, data_criacao, nome, descricao, preco, ativo) values(4, date_sub(sysdate(), interval 1 day), 'Spring Data Jpa', 'Curso de especialista', 552.15, 'NAO');
+insert into produtos(id, version, data_criacao, nome, descricao, preco, ativo) values(1, 0, date_sub(sysdate(), interval 7 day), 'Kindle', 'Ovo de chocolate com brinde dentro.', 499, 'SIM');
+insert into produtos(id, version, data_criacao, nome, descricao, preco, ativo) values(3, 0, date_sub(sysdate(), interval 3 day), 'Criando Microsserviços', 'Livro de Sam Newman sobre arquitetura de software', 225.8, 'SIM');
+insert into produtos(id, version, data_criacao, nome, descricao, preco, ativo) values(4, 0, date_sub(sysdate(), interval 1 day), 'Spring Data Jpa', 'Curso de especialista', 552.15, 'NAO');
 
 insert into clientes(id, nome, cpf) values(3, 'Eric Evans - Blue Book', '99988877799');
 insert into clientes(id, nome, cpf) values(4, 'Jeff Sutherland - Scrum', '77788877799');
